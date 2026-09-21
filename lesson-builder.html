@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interactive lesson builder | Bryan Mims</title>
+<meta name="description" content="Fifteen interactive HTML lessons and games for classroom TVs, Grades 2, 3, 4, and 6, designed by Bryan Mims with cognitive-load and Rosenshine-aligned principles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Young+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="wrap site-head">
+  <a class="brand" href="index.html">Bryan Mims</a>
+  <nav aria-label="Main">
+    <a href="index.html#work" aria-current="page">Work</a>
+    <a href="index.html#teaching">Teaching</a>
+    <a href="index.html#background">Background</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="main" class="wrap">
+  <p class="back"><a href="index.html#work">Back to all work</a></p>
+  <article class="prose" style="max-width:none">
+    <div style="max-width:42rem">
+      <h1>Fifteen interactive lessons for the classroom TV</h1>
+      <p class="lede">I have built 15 interactive lessons and games for Grades 2, 3, 4, and 6, and they were used in real class periods, not just prepared. They sit on top of four coursebook series: Oxford Beehive, Voices 2, Oxford Discover, and Wonderful World.</p>
+
+      <div class="callout">
+        <p><strong>Who did what.</strong> I wrote the design rules and the technical specification. Claude wrote and ran the code under my direction.</p>
+      </div>
+
+      <h2>Design rules I specified</h2>
+      <ul class="plain">
+        <li>A fixed 1280 by 720 canvas, because the audience is a classroom TV and not a laptop.</li>
+        <li>Plain HTML, CSS, and JavaScript with no frameworks, so each lesson is a self-contained file.</li>
+        <li>Practice ratios modeled on Rosenshine's principles of instruction, and content chunked to respect cognitive load.</li>
+        <li>A control bar on every lesson: timer, team score tracker, translation toggle, and a random student picker.</li>
+      </ul>
+
+      <h2>How a lesson gets made</h2>
+      <p>I start from the coursebook and build my own pacing schedule and unit arc to fit the real school calendar, with TOEIC Bridge and vocabulary test milestones written into the arc. A separate planning project handles the calendar: I give it a scope such as "Units 1 to 5," and it accounts for holidays, school events, and the actual number of class days. Once the arc is set, I direct Claude to turn it into an interactive lesson.</p>
+    </div>
+
+    <h2>Try the control bar</h2>
+    <div style="max-width:42rem"><p class="caption">This sample slide was made for this page, using the same interface pattern. It is not one of the classroom lessons, which use publisher material and student data that stay private.</p></div>
+
+    <div class="stage" id="demo">
+      <div class="chrome">
+        <div class="teams" id="teams" role="group" aria-label="Team scores"></div>
+        <div class="tools">
+          <span class="clock" id="clock" aria-label="Timer">1:00</span>
+          <button class="chalkbtn" id="timerBtn" type="button">Start timer</button>
+          <button class="chalkbtn" id="timerReset" type="button">Reset</button>
+          <button class="chalkbtn" id="pickBtn" type="button">Pick a student</button>
+          <span class="picked" id="picked" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="word" id="word">borrow</div>
+        <div class="ko" id="ko" lang="ko"></div>
+        <div class="sentence" id="sentence">May I borrow your pencil?</div>
+        <div class="tools" style="justify-content:center;margin-top:.75rem">
+          <button class="chalkbtn" id="nextBtn" type="button">Next word</button>
+          <button class="chalkbtn" id="koBtn" type="button" aria-pressed="false">Korean: off</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="max-width:42rem">
+      <h2>The control bar became its own tool</h2>
+      <p>The in-lesson control bar grew into Ribbon Overlay, a separate Windows desktop application (.exe) and not a web page. It tracks team scores over long stretches, runs a timer and a randomizer, and floats over an ebook or slide deck during instruction. An attendance feature is in development.</p>
+      <p>The scoring idea behind it is explained on the <a href="classroom-management.html">classroom management page</a>.</p>
+    </div>
+  </article>
+</main>
+
+<footer class="wrap site-foot">
+  <p>Bryan Mims, Busan, South Korea</p>
+</footer>
+
+<script>
+(function () {
+  var words = [
+    { w: "borrow",  k: "빌리다",   s: "May I borrow your pencil?" },
+    { w: "explain", k: "설명하다", s: "Can you explain the rule again?" },
+    { w: "notice",  k: "알아차리다", s: "Did you notice the mistake?" },
+    { w: "invite",  k: "초대하다", s: "We invite the whole class." }
+  ];
+  var teams = [
+    { n: "Red", c: "t1", v: 0 }, { n: "Blue", c: "t2", v: 0 },
+    { n: "Green", c: "t3", v: 0 }, { n: "Yellow", c: "t4", v: 0 }
+  ];
+  var i = 0, koOn = false, secs = 60, timer = null;
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function renderTeams() {
+    var box = $("teams");
+    box.innerHTML = "";
+    teams.forEach(function (t, idx) {
+      var el = document.createElement("div");
+      el.className = "team";
+      el.innerHTML = '<span class="dot ' + t.c + '"></span>' +
+        '<button class="mini" type="button" aria-label="Remove a point from ' + t.n + ' team">-</button>' +
+        '<span class="score" aria-label="' + t.n + ' team score">' + t.v + '</span>' +
+        '<button class="mini" type="button" aria-label="Add a point for ' + t.n + ' team">+</button>';
+      var b = el.querySelectorAll("button");
+      b[0].onclick = function () { if (t.v > 0) { t.v--; renderTeams(); } };
+      b[1].onclick = function () { t.v++; renderTeams(); };
+      box.appendChild(el);
+    });
+  }
+
+  function renderWord() {
+    $("word").textContent = words[i].w;
+    $("sentence").textContent = words[i].s;
+    $("ko").textContent = koOn ? words[i].k : "";
+  }
+
+  function renderClock() {
+    var m = Math.floor(secs / 60), s = secs % 60;
+    $("clock").textContent = m + ":" + (s < 10 ? "0" : "") + s;
+  }
+
+  function stopTimer() {
+    clearInterval(timer); timer = null;
+    $("timerBtn").textContent = "Start timer";
+  }
+
+  $("timerBtn").onclick = function () {
+    if (timer) { stopTimer(); return; }
+    if (secs === 0) secs = 60;
+    $("timerBtn").textContent = "Pause";
+    timer = setInterval(function () {
+      secs--; renderClock();
+      if (secs <= 0) { stopTimer(); $("clock").textContent = "Time"; }
+    }, 1000);
+  };
+  $("timerReset").onclick = function () { stopTimer(); secs = 60; renderClock(); };
+
+  $("pickBtn").onclick = function () {
+    $("picked").textContent = "Student " + (Math.floor(Math.random() * 20) + 1);
+  };
+  $("nextBtn").onclick = function () { i = (i + 1) % words.length; renderWord(); };
+  $("koBtn").onclick = function () {
+    koOn = !koOn;
+    this.setAttribute("aria-pressed", String(koOn));
+    this.textContent = "Korean: " + (koOn ? "on" : "off");
+    renderWord();
+  };
+
+  renderTeams(); renderWord(); renderClock();
+})();
+</script>
+</body>
+</html>

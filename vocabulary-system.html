@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vocabulary system: 24 lists for one school | Bryan Mims</title>
+<meta name="description" content="How Bryan Mims designed a 24-list vocabulary curriculum (6 grades, 4 levels) with retrieval practice and spaced repetition built into test sequencing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Young+Serif&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="wrap site-head">
+  <a class="brand" href="index.html">Bryan Mims</a>
+  <nav aria-label="Main">
+    <a href="index.html#work" aria-current="page">Work</a>
+    <a href="index.html#teaching">Teaching</a>
+    <a href="index.html#background">Background</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="main" class="wrap">
+  <p class="back"><a href="index.html#work">Back to all work</a></p>
+  <article class="prose">
+    <h1>One vocabulary curriculum for a whole school</h1>
+    <p class="lede">In my first semester at Dongsung Elementary I built a master word list meant to last: six grades, four proficiency levels per grade, 24 lists in all. Second semester and every term after it reuse the list instead of starting over.</p>
+
+    <div class="biggrid" role="img" aria-label="Grid of 24 lists, six grades across and four levels down, darker rows for higher levels">
+      <span class="l1"></span><span class="l1"></span><span class="l1"></span><span class="l1"></span><span class="l1"></span><span class="l1"></span>
+      <span class="l2"></span><span class="l2"></span><span class="l2"></span><span class="l2"></span><span class="l2"></span><span class="l2"></span>
+      <span class="l3"></span><span class="l3"></span><span class="l3"></span><span class="l3"></span><span class="l3"></span><span class="l3"></span>
+      <span class="l4"></span><span class="l4"></span><span class="l4"></span><span class="l4"></span><span class="l4"></span><span class="l4"></span>
+    </div>
+    <div class="legend"><span>Six grades across</span><span>Four levels down, easiest at the top</span></div>
+
+    <div class="callout">
+      <p><strong>Who did what.</strong> I designed the curriculum, the difficulty progression, and the test sequencing. The code is Claude's: I directed it to build the Python and lxml pipeline that produces print-ready tests and answer keys from a single source, and to track down a recurring formatting defect in the test template.</p>
+    </div>
+
+    <h2>What I designed</h2>
+    <ul class="plain">
+      <li>A difficulty progression aligned to CEFR levels, across the four levels.</li>
+      <li>Test sequencing built on retrieval practice and spaced repetition. Word order is re-randomized on every test, and each test deliberately overlaps with the ones before it so words return after a gap.</li>
+      <li>Uniqueness constraints across the proficiency groups, so lists do not quietly repeat each other.</li>
+      <li>An audit of the full set for duplicates across grades and for translation ambiguity, the kind of word whose translation can mislead a student.</li>
+    </ul>
+
+    <h2>Why one source matters</h2>
+    <p>Every test and answer key is generated from the same master list. Fix a word once and every printed document changes with it. The list was built to survive past the first semester, and reuse was a design requirement from day one.</p>
+
+    <h2>How the scores get used</h2>
+    <p>I level students with TOEIC Bridge scores. Vocabulary test results then regroup them into three differentiation tiers, which I call mild, medium, and spicy, inside cooperative groups of four based on Kagan structures.</p>
+    <p>For the classroom side of this, see the <a href="classroom-management.html">team points system</a>.</p>
+  </article>
+</main>
+
+<footer class="wrap site-foot">
+  <p>Bryan Mims, Busan, South Korea</p>
+</footer>
+</body>
+</html>
