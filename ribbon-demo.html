@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ribbon Demo</title>
+<style>
+  :root{
+    --dark:#123642; --yellow:#FFC94D; --red:#E85C5C; --blue:#4C9BE8;
+    --green:#4CAF7D; --purple:#9B7ED8; --primary:#FF7A5C; --teal:#2BB5AC;
+    --t-yellow:#F2C300; --t-orange:#F2872E; --t-pink:#F25C9C; --t-brown:#8B5E3C;
+  }
+  html,body{margin:0;padding:0;background:#F4F1EA;overflow:hidden;height:100vh;width:100vw;font-family:sans-serif;}
+  *{box-sizing:border-box;}
+
+  /* ---- TAB ---- */
+  /* TAB_WIDTH must match the Python constant TAB_WIDTH in main.py (40). */
+  #tab{
+    position:fixed; top:25%; transform:translateY(-50%);
+    width:40px; height:40px;
+    background:var(--dark); z-index:1001; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:2px 0 6px rgba(0,0,0,.35);
+    font-size:16px; color:#fff; user-select:none;
+  }
+  #tab:active{transform:translateY(-50%) scale(.92);}
+  body.side-left #tab{ left:0; border-radius:0 8px 8px 0; }
+  body.side-right #tab{ right:0; border-radius:8px 0 0 8px; }
+
+  /* ---- RIBBON ---- */
+  #ribbon{
+    position:fixed; top:25%; z-index:1000; display:flex; gap:5px; align-items:center;
+    background:rgba(255,255,255,.95);
+    padding:1px 8px 1px 5px; box-shadow:2px 3px 10px rgba(0,0,0,.3);
+    transition:transform .18s ease-out;
+  }
+  body.side-left #ribbon{ left:40px; transform:translate(-100%,-50%); border-radius:0 12px 12px 0; }
+  body.side-left #ribbon.open{ transform:translate(0,-50%); }
+  body.side-right #ribbon{ right:40px; transform:translate(100%,-50%); border-radius:12px 0 0 12px; }
+  body.side-right #ribbon.open{ transform:translate(0,-50%); }
+
+  /* The ribbon/tab are position:fixed relative to the app's single
+     window, so when that window is temporarily resized+repositioned
+     for a celebration or Settings, the ribbon would otherwise reposition
+     ITSELF inside that smaller viewport instead of disappearing — this
+     is what caused the ribbon content to visibly bleed into celebration
+     windows. Hide both outright while celebrating. */
+  body.celebrating #tab, body.celebrating #ribbon{ display:none !important; }
+
+  .sq-btn{border:none;border-radius:8px;width:38px;height:50px;font-weight:900;
+    font-size:30px;line-height:0.82;cursor:pointer;background:var(--dark);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .sq-btn:active{transform:translateY(2px);}
+  .sq-btn.mini{width:26px;height:50px;font-size:20px;}
+  .sq-btn.confirm{background:var(--red);}
+  .sq-btn#class-indicator{width:auto;padding:0 12px;font-size:20px;}
+
+  #timer-group{display:flex;align-items:center;gap:2px;height:50px;}
+  #timer-disp{font-size:58px;font-weight:800;line-height:0.82;color:var(--dark);min-width:96px;
+    height:50px;text-align:center;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+
+  #call-btn{border:none;border-radius:8px;width:44px;height:50px;background:var(--yellow);color:var(--dark);
+    font-weight:800;font-size:44px;line-height:0.82;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  #call-btn:active{transform:translateY(2px);}
+
+  /* shuffle order strip, sits under the settings/power/class-indicator
+     group (item 5) */
+  .end-group{display:flex;flex-direction:column;align-items:stretch;gap:3px;flex-shrink:0;}
+  .end-buttons{display:flex;gap:5px;}
+  #shuffle-strip{display:flex;gap:3px;cursor:pointer;}
+  .shuffle-block{flex:1;height:12px;border-radius:3px;min-width:6px;}
+
+  /* Squared team-point pill: number dominant on the left, +/- stacked
+     vertically together on the right (+ on top). */
+  .team-pill{display:flex;align-items:center;gap:4px;border-radius:6px;padding:0 6px;flex-shrink:0;height:50px;}
+  .pill-num{font-size:54px;font-weight:800;line-height:0.82;color:#fff;min-width:42px;text-align:center;}
+  .pill-btns{display:flex;flex-direction:column;gap:2px;}
+  .pill-btn{border:none;background:rgba(255,255,255,.35);color:#fff;width:16px;height:16px;border-radius:4px;
+    font-weight:900;cursor:pointer;font-size:10px;line-height:1;padding:0;display:flex;align-items:center;justify-content:center;}
+
+  /* team name label under each pill (item 1) */
+  .team-group{display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0;}
+  .pill-label{font-size:12px;font-weight:700;color:var(--dark);line-height:1;text-align:center;
+    max-width:64px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;user-select:none;}
+
+  /* ---- FLASH / POPUP ---- */
+  #flash-overlay{position:fixed;inset:0;z-index:1500;background:rgba(0,0,0,.4);display:none;
+    align-items:center;justify-content:center;pointer-events:none;}
+  #flash-overlay.show{display:flex;}
+  #flash-text{font-size:380px;line-height:0.85;font-weight:800;color:#fff;text-shadow:0 4px 14px rgba(0,0,0,.5);text-align:center;}
+  #flash-text img{object-fit:contain;display:block;}
+
+  #msg-popup{position:fixed;inset:0;z-index:1600;display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;transition:opacity .25s ease;}
+  #msg-popup.show{opacity:1;}
+  #msg-card{background:#fff;border-radius:18px;padding:20px 30px;
+    box-shadow:0 10px 40px rgba(0,0,0,.4);text-align:center;max-width:60vw;}
+  #msg-en{font-size:100px;line-height:0.95;color:var(--primary);font-weight:800;}
+  #msg-img{max-width:50vw;max-height:40vh;border-radius:10px;display:block;margin:0 auto 8px;}
+
+  /* ---- SETTINGS ---- */
+  #settings-overlay{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.45);display:none;
+    align-items:center;justify-content:center;}
+  #settings-overlay.show{display:flex;}
+  #settings-panel{background:#fff;border-radius:16px;width:100%;height:100%;max-height:none;overflow-y:auto;
+    box-shadow:0 12px 50px rgba(0,0,0,.4);padding:28px 34px;}
+  #settings-panel h2{margin:0 0 16px;font-size:28px;color:var(--dark);}
+  .set-tabs{display:flex;gap:8px;margin-bottom:20px;}
+  .set-tab{flex:1;padding:12px;border:none;border-radius:10px;background:#eee;color:var(--dark);
+    font-weight:700;cursor:pointer;font-size:18px;}
+  .set-tab.active{background:var(--dark);color:#fff;}
+  .set-section{display:none;}
+  .set-section.active{display:block;}
+  .set-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;font-size:20px;border-bottom:1px solid #eee;}
+  .set-row label{display:flex;align-items:center;gap:10px;}
+  .set-row input[type=checkbox]{width:20px;height:20px;}
+  .set-close{position:absolute;top:18px;right:22px;border:none;background:none;font-size:26px;cursor:pointer;color:#888;}
+  select,input[type=text],input[type=number]{font-size:18px;padding:8px 10px;border:1px solid #ccc;border-radius:8px;}
+  #settings-panel{position:relative;}
+  .set-note{font-size:15px;color:#888;margin-top:8px;}
+
+  .size-btn{flex:1;padding:14px 8px;border:none;border-radius:10px;background:#eee;color:var(--dark);
+    font-weight:700;cursor:pointer;font-size:18px;}
+  .size-btn.active{background:var(--dark);color:#fff;}
+
+  .totals-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #eee;}
+  .totals-swatch{width:20px;height:20px;border-radius:50%;flex-shrink:0;}
+  .totals-name{flex:1;min-width:0;font-size:18px;padding:7px 9px;border:1px solid #ccc;border-radius:7px;}
+  .totals-btn{border:none;background:#eee;color:var(--dark);width:32px;height:32px;border-radius:7px;
+    font-weight:900;cursor:pointer;font-size:18px;flex-shrink:0;}
+  .totals-num{min-width:38px;text-align:center;font-weight:800;font-size:20px;flex-shrink:0;}
+  .totals-clear{border:none;background:#ddd;color:var(--dark);font-size:14px;padding:7px 12px;
+    border-radius:7px;cursor:pointer;flex-shrink:0;}
+
+  #emoji-picker{display:flex;flex-wrap:wrap;gap:6px;max-height:220px;overflow-y:auto;
+    padding:9px;border:1px solid #eee;border-radius:10px;margin-top:8px;}
+  .emoji-pick-btn{border:none;background:#f5f5f5;border-radius:8px;width:42px;height:42px;
+    font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}
+  .emoji-pick-btn.selected{background:var(--yellow);}
+
+  /* .sq-btn is also reused for text-label action buttons inside Settings
+     (Save / Add to Total / Reset). Those need normal button proportions,
+     not the big 30px/50px-tall spec meant for the compact ribbon icons. */
+  #settings-panel .sq-btn{
+    font-size:20px; line-height:1.3; height:auto; width:auto;
+  }
+  /* ================= ATTENDANCE & BEHAVIOR (merged mode) ================= */
+  #attendance-content{display:flex;flex-direction:column;max-height:600px;}
+  #att-topbar{display:flex;align-items:center;gap:6px;padding:2px 0;flex-shrink:0;}
+  #att-topbar select{font-size:13px;padding:4px 6px;border:1px solid #ccc;border-radius:6px;max-width:110px;}
+  .att-btn{border:none;border-radius:6px;padding:5px 9px;font-weight:700;font-size:12px;cursor:pointer;background:#eee;color:var(--dark);flex-shrink:0;}
+  .att-btn.primary{background:var(--teal);color:#fff;}
+  #att-tally{font-size:11px;color:#666;white-space:nowrap;padding:3px 0;}
+  #att-saved-flash{font-size:11px;color:var(--green);font-weight:700;opacity:0;transition:opacity .3s;white-space:nowrap;}
+  #att-saved-flash.show{opacity:1;}
+  #att-roster-row{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #eee;flex-shrink:0;font-size:11px;color:#666;}
+  #att-roster-row input[type=file]{font-size:11px;max-width:150px;}
+  #att-roster-editor{padding:6px 0;border-bottom:1px solid #eee;}
+  .roster-edit-row{display:flex;align-items:center;gap:4px;padding:3px 0;}
+  .roster-edit-row input{font-size:12px;padding:3px 5px;border:1px solid #ccc;border-radius:5px;}
+  .roster-edit-row input.re-en{width:90px;}
+  .roster-edit-row input.re-kr{width:70px;}
+  .roster-edit-row input.re-num{width:55px;}
+  .roster-edit-row .re-remove{border:none;background:var(--red);color:#fff;border-radius:5px;width:20px;height:20px;font-weight:900;cursor:pointer;font-size:12px;flex-shrink:0;}
+  .roster-edit-actions{display:flex;gap:6px;margin-top:6px;}
+  #att-daily{overflow-y:auto;max-height:420px;}
+  #att-empty-note{padding:20px;text-align:center;color:#999;font-size:13px;}
+  #att-history{display:none;overflow:auto;max-width:900px;max-height:460px;}
+  #att-history.show{display:block;}
+  #att-daily.hidden{display:none;}
+  .hist-section-label{font-size:11px;font-weight:800;color:var(--dark);padding:6px 4px 2px;background:#f7f7f7;position:sticky;left:0;}
+  /* Shared compact-table look — used by BOTH the today-only daily view
+     and the expanded multi-date history, so they visually match. A
+     table naturally keeps every row's cells aligned to the same column
+     regardless of name length, which is what fixed the misalignment. */
+  table.hist-table{border-collapse:collapse;font-size:10px;}
+  table.hist-table th, table.hist-table td{border:1px solid #eee;padding:2px 5px;text-align:center;white-space:nowrap;}
+  table.hist-table th.hist-name-col, table.hist-table td.hist-name-col{
+    position:sticky;left:0;background:#fff;text-align:left;min-width:90px;z-index:2;font-weight:700;
+  }
+  table.hist-table th{background:#f7f7f7;font-weight:700;}
+  .hist-cell{cursor:pointer;min-width:26px;font-weight:800;}
+  .hist-cell.status-O{background:var(--green);color:#fff;}
+  .hist-cell.status-\/{background:var(--red);color:#fff;}
+  .hist-cell.status-L{background:var(--t-orange);color:#fff;}
+  .hist-cell.strikes-hi{background:var(--red);color:#fff;}
+  .hist-cell.strikes-mid{background:var(--t-orange);color:#fff;}
+  /* Notes, tied to strikes — a small icon next to the strike count.
+     Hovering the cell shows the note (native title tooltip); clicking
+     the icon opens a prompt to add or edit it. */
+  .strikes-cell{cursor:default;}
+  .strikes-cell .strike-num{cursor:pointer;display:inline-block;min-width:14px;}
+  .note-btn{border:none;background:none;cursor:pointer;font-size:9px;padding:0;line-height:1;opacity:.55;margin-left:3px;vertical-align:middle;}
+  .note-btn:hover{opacity:1;}
+  /* points-content needs the SAME flex-row layout #ribbon itself uses —
+     without this, it defaults to block (stacked vertically) on first
+     paint, before any JS runs. This was the actual cause of the startup
+     glitch, not a timing/zoom issue. */
+  #points-content{display:flex;gap:5px;align-items:center;}
+  /* Attendance mode: always the same spot (right side, nearly full
+     screen height) no matter where the tab/ribbon is docked. Setting
+     both top AND bottom (with no transform) makes the browser compute
+     the height automatically to fill that span — this is what lets it
+     go "close to the bottom, close to the top" without a fixed guess. */
+  #ribbon.att-fixed-pos{
+    top:3vh !important; bottom:3vh !important;
+    right:20px !important; left:auto !important;
+    transform:none !important;
+  }
+  #ribbon.att-fixed-pos #attendance-content{
+    max-height:none !important; height:100%;
+  }
+  #ribbon.att-fixed-pos #att-daily{
+    flex:1; min-height:0; max-height:none !important;
+  }
+  /* ================= RIBBON DEMO — landing page, badge, guided tour ================= */
+  #demo-badge{position:fixed;top:10px;left:10px;background:var(--dark);color:#fff;padding:6px 14px;
+    border-radius:20px;font-size:13px;font-weight:800;z-index:10000;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+  #landing-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    pointer-events:none;z-index:100;padding:40px;text-align:center;}
+  #landing-bg-text{font-size:clamp(28px,6vw,68px);font-weight:900;color:#00000038;letter-spacing:1px;line-height:1.2;}
+
+  #tour-layer{position:fixed;inset:0;pointer-events:none;z-index:9998;}
+  #tour-svg{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:9997;}
+  #att-info-box{position:fixed;top:50%;left:10vw;transform:translateY(-50%);z-index:9998;
+    background:#fff;border:2px solid var(--dark);border-radius:12px;padding:16px 20px;
+    max-width:260px;font-size:13px;line-height:1.5;color:var(--dark);box-shadow:0 6px 20px rgba(0,0,0,.25);}
+  #att-info-box b{color:var(--primary);}
+  #att-info-box .divider{border-top:1px solid #eee;margin:10px 0;}
+  .tour-bubble.far{background:#fff;color:var(--dark);border:2px solid var(--primary);}
+  .tour-bubble.far::after{display:none;}
+  .tour-bubble{position:absolute;background:var(--dark);color:#fff;padding:7px 11px;border-radius:8px;
+    font-size:12px;font-weight:700;max-width:170px;text-align:center;box-shadow:0 3px 12px rgba(0,0,0,.3);
+    line-height:1.35;}
+  .tour-bubble.prompt{background:var(--primary);font-size:13px;}
+  .tour-bubble::after{content:'';position:absolute;left:50%;transform:translateX(-50%);
+    border:7px solid transparent;}
+  .tour-bubble.point-up::after{top:-14px;border-bottom-color:var(--dark);}
+  .tour-bubble.point-down::after{bottom:-14px;border-top-color:var(--dark);}
+  .tour-bubble.prompt.point-up::after{border-bottom-color:var(--primary);}
+  .tour-bubble.prompt.point-down::after{border-top-color:var(--primary);}
+  .tour-highlight{position:absolute;border:3px solid var(--primary);border-radius:8px;
+    box-shadow:0 0 0 4px rgba(255,122,92,.22);animation:tourPulse 1.6s ease-in-out infinite;}
+  @keyframes tourPulse{0%,100%{opacity:.6;}50%{opacity:1;}}
+</style>
+</head>
+<body class="side-right">
+
+<div id="demo-badge">🎀 Ribbon Demo</div>
+
+<div id="landing-overlay">
+  <div id="landing-bg-text">eBook&nbsp;/&nbsp;PPT&nbsp;/&nbsp;Website</div>
+</div>
+
+<div id="tour-layer"></div>
+<div id="att-info-box" style="display:none;">
+  <b>💾 How this saves:</b> every change auto-saves a moment after you make it. A weekly snapshot is kept automatically. "Update" forces an immediate save, and Settings → Classes has a one-click export of everything.
+  <div class="divider"></div>
+  <b>⚠️ What's a strike?</b> Strikes are an individual behavior warning. They are separate from team points. Team points reward the whole team for positive behavior; strikes track one student's negative behavior. Strikes reset every class. This is my clean slate policy. Hitting 3 in one class refers it into the school-wide discipline system.
+</div>
+<svg id="tour-svg"><defs>
+  <marker id="tourArrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#FF7A5C"/>
+  </marker>
+</defs></svg>
+
+<div id="tab" class="pywebview-drag-region" onclick="toggleRibbon()">◀</div>
+
+<div id="ribbon">
+<div id="points-content">
+  <div id="timer-group">
+    <button class="sq-btn mini" onclick="timerAdj(-30)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" style="pointer-events:none;"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+    <span id="timer-disp" onclick="toggleTimer()">1:00</span>
+    <button class="sq-btn mini" onclick="timerAdj(30)">+</button>
+  </div>
+  <button class="sq-btn" onclick="thumbsUp()">👍</button>
+  <div class="team-group"><span class="team-pill" style="background:var(--red);"><span class="pill-num" id="pt-red">0</span><span class="pill-btns"><button class="pill-btn" onclick="ptAdj('red',1)">+</button><button class="pill-btn" onclick="ptAdj('red',-1)">-</button></span></span><span class="pill-label" id="lbl-red">Red</span></div>
+  <div class="team-group"><span class="team-pill" style="background:var(--blue);"><span class="pill-num" id="pt-blue">0</span><span class="pill-btns"><button class="pill-btn" onclick="ptAdj('blue',1)">+</button><button class="pill-btn" onclick="ptAdj('blue',-1)">-</button></span></span><span class="pill-label" id="lbl-blue">Blue</span></div>
+  <div class="team-group"><span class="team-pill" style="background:var(--green);"><span class="pill-num" id="pt-green">0</span><span class="pill-btns"><button class="pill-btn" onclick="ptAdj('green',1)">+</button><button class="pill-btn" onclick="ptAdj('green',-1)">-</button></span></span><span class="pill-label" id="lbl-green">Green</span></div>
+  <div class="team-group"><span class="team-pill" style="background:var(--purple);"><span class="pill-num" id="pt-purple">0</span><span class="pill-btns"><button class="pill-btn" onclick="ptAdj('purple',1)">+</button><button class="pill-btn" onclick="ptAdj('purple',-1)">-</button></span></span><span class="pill-label" id="lbl-purple">Purple</span></div>
+  <div class="team-group" style="display:none;"><span class="team-pill" id="pill-yellow" style="background:var(--t-yellow);"><span class="pill-num" id="pt-yellow">0</span><span class="pill-btns"><button class="pill-btn" onclick="ptAdj('yellow',1)">+</button><button class="pill-btn" onclick="ptAdj('yellow',-1)">-</button></span></span><span class="pill-label" id="lbl-yellow">Yellow</span></div>
+  <div class="team-group" style="display:none;"><span class="team-pill" id="pill-orange" style="background:var(--t-orange);"><span class="pill-num" id="pt-orange">0</span><span class="pill-btns"><button class="pill-btn" onclick="ptAdj('orange',1)">+</button><button class="pill-btn" onclick="ptAdj('orange',-1)">-</button></span></span><span class="pill-label" id="lbl-orange">Orange</span></div>
+  <div class="team-group" style="display:none;"><span class="team-pill" id="pill-pink" style="background:var(--t-pink);"><span class="pill-num" id="pt-pink">0</span><span class="pill-btns"><button class="pill-btn" onclick="ptAdj('pink',1)">+</button><button class="pill-btn" onclick="ptAdj('pink',-1)">-</button></span></span><span class="pill-label" id="lbl-pink">Pink</span></div>
+  <div class="team-group" style="display:none;"><span class="team-pill" id="pill-brown" style="background:var(--t-brown);"><span class="pill-num" id="pt-brown">0</span><span class="pill-btns"><button class="pill-btn" onclick="ptAdj('brown',1)">+</button><button class="pill-btn" onclick="ptAdj('brown',-1)">-</button></span></span><span class="pill-label" id="lbl-brown">Brown</span></div>
+  <button id="call-btn" onclick="pickCall()">–</button>
+  <div class="end-group">
+    <div class="end-buttons">
+      <button class="sq-btn mini" onclick="openSettings('teams')">⚙</button>
+      <button class="sq-btn mini" id="power-btn" onclick="powerOff()" title="Power off"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none;"><path d="M12 2v8"/><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/></svg></button>
+      <button class="sq-btn mini" onclick="switchMode('attendance')" title="Attendance & behavior">📋</button>
+      <button class="sq-btn" id="class-indicator" onclick="openSettings('classes')" title="Current class — click to manage">New</button>
+    </div>
+    <div id="shuffle-strip" onclick="shuffleOrder()" title="Click to reshuffle team order"></div>
+  </div>
+</div>
+
+<div id="attendance-content" style="display:none;">
+  <div id="att-topbar">
+    <button class="att-btn" onclick="switchMode('points')" title="Back to points">← Points</button>
+    <select id="att-class-select" onchange="onAttClassSwitch()"></select>
+    <button class="att-btn" onclick="cycleCheckAll()" title="Cycles: all Present, all Absent, all Late, clear all">All</button>
+    <button class="att-btn" id="att-expand-btn" onclick="toggleExpanded()">Expand ⇤</button>
+    <button class="att-btn primary" onclick="manualUpdate()">Update</button>
+    <span id="att-saved-flash">✓ Saved</span>
+  </div>
+
+  <div id="att-roster-row">
+    Import roster (CSV): <input type="file" id="att-roster-file" accept=".csv" onchange="onRosterFilePicked(event)">
+    <button class="att-btn" onclick="toggleRosterEdit()" id="att-roster-edit-btn">✏️ Edit Roster</button>
+    <span id="att-roster-status"></span>
+  </div>
+  <div id="att-roster-editor" style="display:none;"></div>
+  <div id="att-tally"></div>
+
+  <div id="att-daily"></div>
+  <div id="att-history"></div>
+</div>
+</div>
+
+<div id="flash-overlay"><div id="flash-text"></div></div>
+<div id="msg-popup"><div id="msg-card"><img id="msg-img" style="display:none;"><div id="msg-en"></div></div></div>
+
+<!-- ============ SETTINGS PANEL ============ -->
+<div id="settings-overlay">
+  <div id="settings-panel">
+    <button class="set-close" onclick="closeSettings()">✕</button>
+    <h2>Ribbon Settings</h2>
+    <div class="set-tabs">
+      <button class="set-tab" data-tab="teams" onclick="switchSetTab('teams')">Teams</button>
+      <button class="set-tab" data-tab="thumbs" onclick="switchSetTab('thumbs')">Thumbs-Up</button>
+      <button class="set-tab" data-tab="classes" onclick="switchSetTab('classes')">Classes</button>
+      <button class="set-tab" data-tab="general" onclick="switchSetTab('general')">General</button>
+      <button class="set-tab" data-tab="help" onclick="switchSetTab('help')">Help</button>
+    </div>
+
+    <!-- TEAMS -->
+    <div class="set-section" id="sec-teams">
+      <div class="set-row"><label><input type="checkbox" id="chk-yellow" onchange="onTeamToggle()"> Yellow team</label></div>
+      <div class="set-row"><label><input type="checkbox" id="chk-orange" onchange="onTeamToggle()"> Orange team</label></div>
+      <div class="set-row"><label><input type="checkbox" id="chk-pink" onchange="onTeamToggle()"> Pink team</label></div>
+      <div class="set-row"><label><input type="checkbox" id="chk-brown" onchange="onTeamToggle()"> Brown team</label></div>
+      <div class="set-note">Enabled teams appear in a smaller row under the main ribbon.</div>
+    </div>
+
+    <!-- THUMBS UP -->
+    <div class="set-section" id="sec-thumbs">
+      <div class="set-row"><label>Action</label>
+        <select id="thumbs-mode" onchange="onThumbsModeChange()">
+          <option value="bigthumb">Big Thumbs Up</option>
+          <option value="emoji">Custom Emoji</option>
+          <option value="message">Random Positive Message</option>
+          <option value="image">Image Only</option>
+          <option value="textimage">Image + Text</option>
+        </select>
+      </div>
+      <div class="set-row" id="row-emoji" style="display:none;flex-direction:column;align-items:stretch;">
+        <div style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+          <label>Emoji (pick up to 3)</label>
+          <input type="text" id="thumbs-emoji" maxlength="12" style="width:80px;" placeholder="🎉" oninput="onThumbsEmojiTyped()">
+        </div>
+        <div id="emoji-picker"></div>
+      </div>
+      <div class="set-row" id="row-image" style="display:none;"><label>Image</label><input type="file" id="thumbs-image" accept="image/*" onchange="onThumbsImagePick(event)"></div>
+      <div class="set-row" id="row-text" style="display:none;"><label>Text</label><input type="text" id="thumbs-text" style="width:220px;" placeholder="Great job!"></div>
+      <button class="sq-btn" style="width:auto;padding:14px 24px;margin-top:14px;" onclick="saveThumbsSettings()">Save</button>
+    </div>
+
+    <!-- CLASSES -->
+    <div class="set-section" id="sec-classes">
+      <div class="set-row"><label>Active class</label>
+        <select id="class-select" onchange="onClassSwitch()"></select>
+      </div>
+      <div class="set-row"><label>Class name</label><input type="text" id="class-name" style="width:180px;" onchange="saveClassName()" placeholder="e.g. G3 Discover"></div>
+
+      <div style="display:flex;gap:6px;margin-top:10px;">
+        <input type="text" id="new-class-name" style="flex:1;min-width:0;" placeholder="New class name">
+        <button class="sq-btn" style="width:auto;padding:14px 24px;background:var(--dark);" onclick="addNewClass()">+ Add</button>
+      </div>
+
+      <div id="totals-table" style="margin-top:10px;"></div>
+
+      <div style="display:flex;gap:6px;margin-top:10px;">
+        <button class="sq-btn" style="flex:1;padding:16px 8px;background:var(--teal);" onclick="addCurrentRibbonScores()">Add Current Ribbon Scores</button>
+        <button class="sq-btn" style="flex:1;padding:16px 8px;background:var(--red);" onclick="clearAllTotals()">Clear All (this class)</button>
+      </div>
+
+      <button class="sq-btn" style="width:auto;padding:14px 24px;margin-top:14px;background:var(--red);" onclick="resetClassPoints()">Reset Live Ribbon Points</button>
+      <button class="sq-btn" id="delete-class-btn" style="width:auto;padding:14px 24px;margin-top:14px;background:#999;" onclick="deleteCurrentClass()">Delete This Class</button>
+      <div class="set-note">"Add Current Ribbon Scores" folds the live ribbon into the totals above, then clears the ribbon. "Clear All" resets the totals above for this class only — it doesn't touch the live ribbon. Totals are also backed up automatically to a plain-text file next to your data (see chat for the exact location).</div>
+
+      <button class="sq-btn" style="width:auto;padding:14px 24px;margin-top:20px;background:var(--dark);" onclick="exportFullHistory()">Export Full History (.md)</button>
+      <div id="export-status" class="set-note" style="color:var(--teal);font-weight:700;"></div>
+      <div class="set-note">Writes every class's point totals plus the full attendance and strikes history, every date, to one file — <code>full_export.md</code> next to your data. Overwrites the previous export each time. This is separate from the automatic weekly backup, and is the one meant for you to move somewhere and keep.</div>
+    </div>
+
+    <!-- GENERAL -->
+    <div class="set-section" id="sec-general">
+      <div class="set-row"><label><input type="checkbox" id="chk-mute" onchange="saveGeneral()"> Mute all sounds</label></div>
+      <div class="set-row"><label>Default timer (sec)</label><input type="number" id="timer-default" min="10" max="600" style="width:70px;" onchange="saveGeneral()"></div>
+      <div class="set-row"><label>Ribbon side</label>
+        <select id="side-select" onchange="onSideChange()">
+          <option value="right">Expand left (tab on right)</option>
+          <option value="left">Expand right (tab on left)</option>
+        </select>
+      </div>
+      <div class="set-row" style="flex-direction:column;align-items:stretch;">
+        <label style="margin-bottom:6px;">Ribbon size</label>
+        <div style="display:flex;gap:4px;">
+          <button type="button" class="size-btn" data-size="small" onclick="setZoomPreset('small')">Small</button>
+          <button type="button" class="size-btn" data-size="medium" onclick="setZoomPreset('medium')">Medium</button>
+          <button type="button" class="size-btn" data-size="big" onclick="setZoomPreset('big')">Big</button>
+          <button type="button" class="size-btn" data-size="biggest" onclick="setZoomPreset('biggest')">Biggest</button>
+        </div>
+      </div>
+      <div class="set-note">Changing side or size takes effect immediately.</div>
+    </div>
+
+    <!-- HELP -->
+    <div class="set-section" id="sec-help" style="font-size:15px;line-height:1.5;">
+      <div class="set-row" style="flex-direction:column;align-items:stretch;border:none;">
+        <label style="margin-bottom:4px;">Where your data lives on THIS computer</label>
+        <div id="help-folder-path" style="font-family:monospace;background:#f5f5f5;padding:8px 10px;border-radius:6px;word-break:break-all;font-size:13px;">Loading…</div>
+        <button class="sq-btn" style="width:auto;padding:10px 18px;margin-top:8px;background:var(--teal);" onclick="openDataFolder()">📂 Open Data Folder</button>
+        <div class="set-note">This path is read live from wherever the app is actually running right now — it's correct whether you're testing with <code>python main.py</code> or running the finished .exe on another computer.</div>
+      </div>
+
+      <div class="set-row" style="flex-direction:column;align-items:stretch;border:none;margin-top:16px;">
+        <label style="margin-bottom:4px;">Points side</label>
+        <div class="set-note" style="font-size:14px;">
+          Click the small tab to open/close the ribbon. Click a team's number to change it. 👍 triggers a celebration (configured in Thumbs-Up). ⚙ opens Settings. The colored strip is "shuffle" — randomizes turn order for active teams. The class-name button opens Settings on the Classes tab.
+        </div>
+      </div>
+
+      <div class="set-row" style="flex-direction:column;align-items:stretch;border:none;margin-top:16px;">
+        <label style="margin-bottom:4px;">Attendance side</label>
+        <div class="set-note" style="font-size:14px;">
+          Click 📋 to switch into Attendance, "← Points" to switch back.<br><br>
+          <b>New class:</b> use "Import roster (CSV)" — needs columns Student Number, English Name, Korean Name, and optionally Status (rows marked LEFT are skipped).<br><br>
+          <b>Daily marking:</b> click a cell to cycle blank → O (Present) → / (Absent) → L (Late). Click the strike number to cycle 0–6. The small 📄/📝 icon next to strikes is for notes — click to add or edit one, hover the cell to read it. "All" cycles the whole class through Present → Absent → Late → clear. "Update" forces an immediate save.<br><br>
+          <b>Expand ⇤</b> shows full history — every date, two scrollable tables. Click any past cell to correct it; corrections are logged quietly, separate from today's normal entry.
+        </div>
+      </div>
+
+      <div class="set-row" style="flex-direction:column;align-items:stretch;border:none;margin-top:16px;">
+        <label style="margin-bottom:4px;">Backups — what's automatic, what's manual</label>
+        <div class="set-note" style="font-size:14px;">
+          <b>saved_scores.md</b> — current point totals, regenerated every save, always overwritten.<br>
+          <b>Weekly backup</b> — a dated points snapshot once a week, keeps the last 8 weeks. Automatic, points only.<br>
+          <b>Full export</b> (Settings → Classes → "Export Full History") — everything: every class's points plus complete attendance and strikes history, every date. Manual — click it, then move that file somewhere safe yourself. Nothing is ever auto-deleted from your attendance records.
+        </div>
+      </div>
+
+      <div class="set-row" style="flex-direction:column;align-items:stretch;border:none;margin-top:16px;">
+        <label style="margin-bottom:4px;">If something looks broken</label>
+        <div class="set-note" style="font-size:14px;">
+          <b>Window doesn't appear at all:</b> close every terminal/process for this app (Task Manager → End Task on anything named python or Classroom Ribbon), then try again from one fresh terminal.<br><br>
+          <b>A class or roster seems to have vanished:</b> check the Data Folder above for <code>data.json</code> — if it's really gone, the weekly backup or your last full export is the way back.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* ---- SOUND ---- */
+let actx;
+let muted=false;
+function ensureAudio(){ if(!actx) actx = new (window.AudioContext||window.webkitAudioContext)(); }
+function playClick(){
+  if(muted) return;
+  ensureAudio();
+  const o=actx.createOscillator(), g=actx.createGain();
+  o.type='sine';
+  o.frequency.setValueAtTime(880, actx.currentTime);
+  o.frequency.exponentialRampToValueAtTime(440, actx.currentTime+0.1);
+  g.gain.setValueAtTime(0.0001, actx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.25, actx.currentTime+0.012);
+  g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime+0.15);
+  o.connect(g); g.connect(actx.destination);
+  o.start(); o.stop(actx.currentTime+0.16);
+}
+function playCheer(){
+  if(muted) return;
+  ensureAudio();
+  const notes=[523.25,659.25,783.99,1046.5];
+  notes.forEach((freq,i)=>{
+    const o=actx.createOscillator(), g=actx.createGain();
+    o.type='triangle'; o.frequency.value=freq;
+    const start=actx.currentTime + i*0.08;
+    g.gain.setValueAtTime(0.0001,start);
+    g.gain.exponentialRampToValueAtTime(0.28,start+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001,start+0.35);
+    o.connect(g); g.connect(actx.destination);
+    o.start(start); o.stop(start+0.4);
+  });
+  const bufferSize=actx.sampleRate*0.4;
+  const buffer=actx.createBuffer(1,bufferSize,actx.sampleRate);
+  const data=buffer.getChannelData(0);
+  for(let i=0;i<bufferSize;i++){ data[i]=(Math.random()*2-1)*Math.exp(-i/bufferSize*4)*0.3; }
+  const src=actx.createBufferSource(); src.buffer=buffer;
+  const filt=actx.createBiquadFilter(); filt.type='highpass'; filt.frequency.value=4000;
+  const g2=actx.createGain(); g2.gain.value=0.25;
+  src.connect(filt); filt.connect(g2); g2.connect(actx.destination);
+  src.start(actx.currentTime+0.25);
+}
+
+/* ---- PERSISTENT STATE (bridges to main.py via pywebview.api) ---- */
+const DEMO_CLASS_ID = 'demo-class';
+// Fixed distribution, generated once (10.1% absent, 17.3% late, 72.6%
+// present across 24 students x 7 days) — not regenerated randomly on
+// each visit, so the demo looks the same and the percentages you asked
+// for are always exact, not "close on average."
+const DEMO_HISTORY_GRID = [["L","O","O","O","O","L","O","O","O","O","L","/","L","O","/","/","O","O","L","L","O","L","O","/"],["L","O","O","O","L","L","O","O","O","O","O","O","/","O","O","L","O","/","O","O","O","O","O","O"],["O","O","O","O","O","O","/","O","O","O","O","O","L","O","O","O","O","L","O","O","O","O","/","O"],["O","L","O","O","O","O","O","O","L","O","L","O","O","/","O","O","L","O","O","L","O","L","O","O"],["O","O","O","/","O","O","O","O","L","O","O","O","O","O","O","O","O","O","O","O","L","O","/","O"],["O","/","O","O","O","/","O","O","O","O","L","O","O","O","O","O","L","O","O","O","L","/","O","O"],["O","O","O","O","O","O","O","O","O","L","/","/","O","O","L","O","L","L","O","O","O","/","L","O"]];
+function buildDemoRoster(){
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWX'.split('');
+  return letters.map((letter,i)=>({ num: String(1111+i), en: 'Student '+letter, kr: '홍길동' }));
+}
+function buildDemoRecords(){
+  // Dates computed relative to whenever this page is actually viewed —
+  // not hardcoded strings that would go stale on a portfolio site.
+  const records = {};
+  for(let dayAgo=1; dayAgo<=7; dayAgo++){
+    const d = new Date();
+    d.setDate(d.getDate()-dayAgo);
+    const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');
+    const dateStr = `${y}-${m}-${day}`;
+    const row = DEMO_HISTORY_GRID[dayAgo-1];
+    const dayRecord = {};
+    row.forEach((status,i)=>{
+      const num = String(1111+i);
+      dayRecord[num] = { status: status==='O'?'O':status, strikes:0, note:'' };
+    });
+    records[dateStr] = dayRecord;
+  }
+  return records;
+}
+let state = {
+  extraTeams: [],
+  thumbsSettings: { mode:'bigthumb', emoji:'🎉', text:'', image:null },
+  muted:false,
+  timerDefault:60,
+  classes: [{
+    id: DEMO_CLASS_ID, name: 'Demo Class',
+    points:{red:0,blue:0,green:0,purple:0,yellow:0,orange:0,pink:0,brown:0},
+    totals:{red:0,blue:0,green:0,purple:0,yellow:0,orange:0,pink:0,brown:0}
+  }],
+  selectedClassId: DEMO_CLASS_ID,
+  teamNames: null,
+  zoom:1.18,
+  zoomPreset:'medium',
+  attendance: { byClass: { [DEMO_CLASS_ID]: {
+    roster: buildDemoRoster(),
+    records: buildDemoRecords(),
+    editLog: []
+  } } }
+};
+let saveTimeout=null;
+function queueSave(){
+  clearTimeout(saveTimeout);
+  saveTimeout=setTimeout(()=>{
+    try{ localStorage.setItem('ribbonDemoState', JSON.stringify(state)); }catch(e){ console.error('localStorage save failed', e); }
+  },400);
+}
+
+/* ================= ATTENDANCE & BEHAVIOR (merged mode) ================= */
+/* Lives inside the SAME window as the points ribbon — a mode toggle, not
+   a separate window. Two on-top frameless windows both being visible at
+   once turned out fine architecturally (the earlier failure was an
+   unrelated right-edge rendering bug on the dev machine), but this mode-
+   toggle approach is already built, tested, and simpler, so keeping it. */
+let currentMode = 'points';
+let attExpandedView = false;
+
+function todayStr(){
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+const ATT_TODAY = todayStr();
+
+function switchMode(mode){
+  currentMode = mode;
+  document.getElementById('points-content').style.display = (mode==='points') ? 'flex' : 'none';
+  document.getElementById('attendance-content').style.display = (mode==='attendance') ? 'flex' : 'none';
+  // Attendance always appears in the same fixed spot (vertically centered,
+  // right side) regardless of where the tab/ribbon is docked — a tall
+  // panel anchored to the ribbon's own position (which can sit anywhere,
+  // including high on the screen) was pushing its top edge off-screen.
+  document.getElementById('ribbon').classList.toggle('att-fixed-pos', mode==='attendance');
+  if(mode==='attendance'){
+    attRenderAll();
+  }
+  playClick();
+  sendNormalSize();
+  setTimeout(sendNormalSize, 220);
+  renderTourForState();
+  setTimeout(renderTourForState, 230);
+}
+
+function ensureClassAttendance(classId){
+  if(!state.attendance) state.attendance = { byClass: {} };
+  if(!state.attendance.byClass[classId]){
+    state.attendance.byClass[classId] = { roster: [], records: {}, editLog: [] };
+  }
+  return state.attendance.byClass[classId];
+}
+function getTodayAttRecord(classId, num){
+  const cls = ensureClassAttendance(classId);
+  if(!cls.records[ATT_TODAY]) cls.records[ATT_TODAY] = {};
+  if(!cls.records[ATT_TODAY][num]) cls.records[ATT_TODAY][num] = { status:'', strikes:0, note:'' };
+  return cls.records[ATT_TODAY][num];
+}
+function attEscapeAttr(s){
+  return (s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+}
+const ATT_STATUS_CYCLE = ['', 'O', '/', 'L'];
+function attNextStatus(s){
+  const i = ATT_STATUS_CYCLE.indexOf(s);
+  return ATT_STATUS_CYCLE[(i+1) % ATT_STATUS_CYCLE.length];
+}
+function attNextStrikes(n){
+  return (n+1) % 7;
+}
+function attLogEdit(classId, date, num, field, oldVal, newVal){
+  const cls = ensureClassAttendance(classId);
+  cls.editLog.push({ ts: new Date().toISOString(), date, num, field, old: oldVal, new: newVal });
+  if(cls.editLog.length > 500) cls.editLog = cls.editLog.slice(-500);
+}
+function attEditNote(num, date){
+  const classId = state.selectedClassId;
+  const cls = ensureClassAttendance(classId);
+  if(!cls.records[date]) cls.records[date] = {};
+  if(!cls.records[date][num]) cls.records[date][num] = {status:'', strikes:0, note:''};
+  const rec = cls.records[date][num];
+  const input = prompt('Note for this student on '+date+':', rec.note||'');
+  if(input===null) return;
+  rec.note = input;
+  if(date===ATT_TODAY) attRenderDaily(); else attRenderHistory();
+  queueSave();
+}
+
+function attPopulateClassSelect(){
+  const sel = document.getElementById('att-class-select');
+  sel.innerHTML = '';
+  if(!state.classes || !state.classes.length){
+    const opt = document.createElement('option');
+    opt.innerText = 'No classes yet';
+    sel.appendChild(opt);
+    return;
+  }
+  state.classes.forEach((c,i)=>{
+    const opt = document.createElement('option');
+    opt.value = c.id;
+    opt.innerText = (c.name && c.name.trim()) ? c.name : ('Unnamed Class ' + (i+1));
+    sel.appendChild(opt);
+  });
+  if(!state.selectedClassId || !state.classes.some(c=>c.id===state.selectedClassId)){
+    state.selectedClassId = state.classes[0].id;
+  }
+  sel.value = state.selectedClassId;
+}
+function onAttClassSwitch(){
+  saveRibbonIntoSelectedClass();
+  state.selectedClassId = document.getElementById('att-class-select').value;
+  loadSelectedClassIntoRibbon();
+  updateClassIndicator();
+  queueSave();
+  attRenderAll();
+}
+
+/* Daily ("today only") view — a compact table, same look as the
+   expanded history below, per explicit preference: a fixed name
+   column keeps every row's attendance/strikes cell aligned regardless
+   of name length, instead of the old per-row layout that didn't. */
+function attRenderDaily(){
+  const container = document.getElementById('att-daily');
+  container.innerHTML = '';
+  const classId = state.selectedClassId;
+  if(!classId){
+    container.innerHTML = '<div id="att-empty-note">No class selected.</div>';
+    return;
+  }
+  const cls = ensureClassAttendance(classId);
+  if(!cls.roster.length){
+    container.innerHTML = '<div id="att-empty-note">No roster imported for this class yet — use the CSV import above.</div>';
+    attUpdateTally();
+    return;
+  }
+  const table = document.createElement('table');
+  table.className = 'hist-table';
+  const thead = document.createElement('tr');
+  thead.innerHTML = '<th class="hist-name-col">Student</th><th>Att.</th><th>Strikes</th>';
+  table.appendChild(thead);
+  cls.roster.forEach(student=>{
+    const rec = getTodayAttRecord(classId, student.num);
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="hist-name-col">'+student.en+' '+(student.kr||'')+' #'+student.num+'</td>'+
+      '<td class="hist-cell status-'+(rec.status||'')+'" onclick="attCycleStatus(\''+student.num+'\')">'+(rec.status||'')+'</td>'+
+      '<td class="hist-cell strikes-cell '+attStrikeClass(rec.strikes)+'" title="'+attEscapeAttr(rec.note)+'">'+
+        '<span class="strike-num" onclick="attCycleStrikes(\''+student.num+'\')">'+rec.strikes+'</span>'+
+        '<button class="note-btn" onclick="attEditNote(\''+student.num+'\',\''+ATT_TODAY+'\')" title="Add/edit note">'+(rec.note?'📝':'📄')+'</button>'+
+      '</td>';
+    table.appendChild(tr);
+  });
+  container.appendChild(table);
+  attUpdateTally();
+}
+function attStrikeClass(n){
+  if(n>=6) return 'strikes-hi';
+  if(n>=3) return 'strikes-mid';
+  return '';
+}
+function attCycleStatus(num){
+  const rec = getTodayAttRecord(state.selectedClassId, num);
+  rec.status = attNextStatus(rec.status);
+  attRenderDaily();
+  queueSave();
+}
+function attCycleStrikes(num){
+  const rec = getTodayAttRecord(state.selectedClassId, num);
+  rec.strikes = attNextStrikes(rec.strikes);
+  attRenderDaily();
+  queueSave();
+}
+/* "All" cycles through every status plus clear, rather than only
+   setting everyone Present — relabeled from the old checkAllPresent. */
+let attAllCycleIndex = 0;
+const ATT_ALL_CYCLE = ['O', '/', 'L', ''];
+function cycleCheckAll(){
+  const classId = state.selectedClassId;
+  if(!classId) return;
+  const cls = ensureClassAttendance(classId);
+  const status = ATT_ALL_CYCLE[attAllCycleIndex % ATT_ALL_CYCLE.length];
+  attAllCycleIndex++;
+  cls.roster.forEach(student=>{
+    const rec = getTodayAttRecord(classId, student.num);
+    rec.status = status;
+  });
+  attRenderDaily();
+  queueSave();
+  playClick();
+}
+function attUpdateTally(){
+  const el = document.getElementById('att-tally');
+  const classId = state.selectedClassId;
+  if(!classId){ el.innerText=''; return; }
+  const cls = ensureClassAttendance(classId);
+  const todayRecs = cls.records[ATT_TODAY] || {};
+  let o=0, a=0, l=0;
+  Object.values(todayRecs).forEach(r=>{
+    if(r.status==='O') o++;
+    else if(r.status==='/') a++;
+    else if(r.status==='L') l++;
+  });
+  el.innerText = `${o} O · ${a} / · ${l} L`;
+}
+function manualUpdate(){
+  clearTimeout(saveTimeout);
+  try{ localStorage.setItem('ribbonDemoState', JSON.stringify(state)); }catch(e){ console.error('localStorage save failed', e); }
+  const flash = document.getElementById('att-saved-flash');
+  flash.classList.add('show');
+  setTimeout(()=>flash.classList.remove('show'), 1400);
+}
+
+function toggleExpanded(){
+  attExpandedView = !attExpandedView;
+  document.getElementById('att-expand-btn').innerText = attExpandedView ? 'Today only ⇥' : 'Expand ⇤';
+  document.getElementById('att-daily').classList.toggle('hidden', attExpandedView);
+  document.getElementById('att-history').classList.toggle('show', attExpandedView);
+  const historyEl = document.getElementById('att-history');
+  if(attExpandedView){
+    // Width only, 2.3x the original 900px cap. Height stays fixed —
+    // expanding it made the topbar/back button unreachable.
+    historyEl.style.maxWidth = '2070px';
+    attRenderHistory();
+  } else {
+    historyEl.style.maxWidth = '900px';
+  }
+  sendNormalSize();
+  setTimeout(sendNormalSize, 220);
+  renderTourForState();
+  setTimeout(renderTourForState, 230);
+}
+function attAllDates(cls){
+  const dates = Object.keys(cls.records);
+  if(!dates.includes(ATT_TODAY)) dates.push(ATT_TODAY);
+  dates.sort();
+  return dates;
+}
+function attRenderHistory(){
+  const container = document.getElementById('att-history');
+  container.innerHTML = '';
+  const classId = state.selectedClassId;
+  if(!classId) return;
+  const cls = ensureClassAttendance(classId);
+  if(!cls.roster.length){
+    container.innerHTML = '<div id="att-empty-note">No roster imported for this class yet.</div>';
+    return;
+  }
+  const dates = attAllDates(cls);
+  container.appendChild(attBuildHistTable(cls, dates, 'Attendance History', 'status'));
+  container.appendChild(attBuildHistTable(cls, dates, 'Strikes History', 'strikes'));
+}
+function attBuildHistTable(cls, dates, label, field){
+  const wrap = document.createElement('div');
+  const heading = document.createElement('div');
+  heading.className = 'hist-section-label';
+  heading.innerText = label;
+  wrap.appendChild(heading);
+
+  const table = document.createElement('table');
+  table.className = 'hist-table';
+  const thead = document.createElement('tr');
+  thead.innerHTML = '<th class="hist-name-col">Student</th>' + dates.map(d=>`<th>${d.slice(5)}</th>`).join('');
+  table.appendChild(thead);
+
+  cls.roster.forEach(student=>{
+    const tr = document.createElement('tr');
+    let rowHtml = `<td class="hist-name-col">${student.en} #${student.num}</td>`;
+    dates.forEach(date=>{
+      const rec = (cls.records[date] && cls.records[date][student.num]) || {status:'', strikes:0, note:''};
+      if(field==='status'){
+        const val = rec.status||'';
+        rowHtml += `<td class="hist-cell status-${val}" onclick="attEditHistCell('${student.num}','${date}','status')">${val}</td>`;
+      } else {
+        let cls2 = 'hist-cell strikes-cell';
+        if(rec.strikes>=6) cls2 += ' strikes-hi';
+        else if(rec.strikes>=3) cls2 += ' strikes-mid';
+        rowHtml += `<td class="${cls2}" title="${attEscapeAttr(rec.note)}">`+
+          `<span class="strike-num" onclick="attEditHistCell('${student.num}','${date}','strikes')">${rec.strikes}</span>`+
+          `<button class="note-btn" onclick="attEditNote('${student.num}','${date}')">${rec.note?'📝':'📄'}</button>`+
+        `</td>`;
+      }
+    });
+    tr.innerHTML = rowHtml;
+    table.appendChild(tr);
+  });
+  wrap.appendChild(table);
+  return wrap;
+}
+function attEditHistCell(num, date, field){
+  const classId = state.selectedClassId;
+  const cls = ensureClassAttendance(classId);
+  if(!cls.records[date]) cls.records[date] = {};
+  if(!cls.records[date][num]) cls.records[date][num] = {status:'', strikes:0, note:''};
+  const rec = cls.records[date][num];
+  const oldVal = field==='status' ? rec.status : rec.strikes;
+  if(field==='status'){ rec.status = attNextStatus(rec.status); }
+  else { rec.strikes = attNextStrikes(rec.strikes); }
+  const newVal = field==='status' ? rec.status : rec.strikes;
+
+  if(date !== ATT_TODAY){
+    attLogEdit(classId, date, num, field, oldVal, newVal);
+  }
+  attRenderHistory();
+  if(date === ATT_TODAY) attRenderDaily();
+  queueSave();
+}
+
+/* ---- ROSTER IMPORT (CSV) ---- */
+function attParseCSV(text){
+  const lines = text.split(/\r?\n/).filter(l=>l.trim().length>0);
+  return lines.map(l=>l.split(',').map(c=>c.trim()));
+}
+function onRosterFilePicked(ev){
+  const file = ev.target.files[0];
+  const classId = state.selectedClassId;
+  if(!file || !classId) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    try{
+      const rows = attParseCSV(reader.result);
+      const header = rows[0].map(h=>h.toLowerCase());
+      const numIdx = header.findIndex(h=>h.includes('student number') || h.includes('number'));
+      const enIdx = header.findIndex(h=>h.includes('english name') || h==='name');
+      const krIdx = header.findIndex(h=>h.includes('korean name'));
+      const statusIdx = header.findIndex(h=>h.includes('status'));
+      if(numIdx===-1 || enIdx===-1){
+        document.getElementById('att-roster-status').innerText = 'Could not find Student Number / English Name columns.';
+        return;
+      }
+      const roster = [];
+      for(let i=1;i<rows.length;i++){
+        const row = rows[i];
+        if(!row[numIdx]) continue;
+        const status = statusIdx>=0 ? (row[statusIdx]||'').toUpperCase() : 'ACTIVE';
+        if(status === 'LEFT') continue;
+        roster.push({
+          num: row[numIdx].trim(),
+          en: row[enIdx].trim(),
+          kr: krIdx>=0 ? (row[krIdx]||'').trim() : ''
+        });
+      }
+      roster.sort((a,b)=> (parseInt(a.num,10)||0) - (parseInt(b.num,10)||0));
+      const cls = ensureClassAttendance(classId);
+      cls.roster = roster;
+      document.getElementById('att-roster-status').innerText = `Imported ${roster.length} students.`;
+      attRenderAll();
+      queueSave();
+    }catch(e){
+      console.error('CSV import failed', e);
+      document.getElementById('att-roster-status').innerText = 'Import failed — check the file format.';
+    }
+  };
+  reader.readAsText(file);
+}
+
+function attRenderAll(){
+  attPopulateClassSelect();
+  attRenderDaily();
+  if(attExpandedView) attRenderHistory();
+  if(rosterEditMode) renderRosterEditor();
+}
+
+/* ---- MANUAL ROSTER EDITING (names, add/remove students) ---- */
+let rosterEditMode = false;
+function toggleRosterEdit(){
+  rosterEditMode = !rosterEditMode;
+  document.getElementById('att-roster-editor').style.display = rosterEditMode ? 'block' : 'none';
+  document.getElementById('att-daily').style.display = rosterEditMode ? 'none' : '';
+  document.getElementById('att-roster-edit-btn').innerText = rosterEditMode ? 'Done Editing' : '✏️ Edit Roster';
+  if(rosterEditMode) renderRosterEditor();
+  sendNormalSize();
+  setTimeout(sendNormalSize, 220);
+}
+function renderRosterEditor(){
+  const classId = state.selectedClassId;
+  const container = document.getElementById('att-roster-editor');
+  container.innerHTML = '';
+  if(!classId){ container.innerHTML = '<div id="att-empty-note">No class selected.</div>'; return; }
+  const cls = ensureClassAttendance(classId);
+  cls.roster.forEach((student, i)=>{
+    const row = document.createElement('div');
+    row.className = 'roster-edit-row';
+    row.innerHTML =
+      '<input class="re-num" value="'+attEscapeAttr(student.num)+'" placeholder="#" onchange="editRosterField('+i+',\'num\',this.value)">'+
+      '<input class="re-en" value="'+attEscapeAttr(student.en)+'" placeholder="English name" onchange="editRosterField('+i+',\'en\',this.value)">'+
+      '<input class="re-kr" value="'+attEscapeAttr(student.kr)+'" placeholder="Korean name" onchange="editRosterField('+i+',\'kr\',this.value)">'+
+      '<button class="re-remove" onclick="removeRosterStudent('+i+')" title="Remove student">✕</button>';
+    container.appendChild(row);
+  });
+  const actions = document.createElement('div');
+  actions.className = 'roster-edit-actions';
+  actions.innerHTML = '<button class="att-btn primary" onclick="addRosterStudent()">+ Add Student</button>';
+  container.appendChild(actions);
+}
+function editRosterField(index, field, value){
+  const cls = ensureClassAttendance(state.selectedClassId);
+  if(!cls.roster[index]) return;
+  cls.roster[index][field] = value.trim();
+  queueSave();
+}
+function removeRosterStudent(index){
+  // Only removes them from the roster going forward — their past
+  // attendance/strike records stay in the data (still in the full
+  // export) exactly like a CSV row marked LEFT does. Nothing retroactive.
+  const cls = ensureClassAttendance(state.selectedClassId);
+  cls.roster.splice(index, 1);
+  renderRosterEditor();
+  attRenderDaily();
+  queueSave();
+}
+function addRosterStudent(){
+  const cls = ensureClassAttendance(state.selectedClassId);
+  cls.roster.push({ num:'', en:'', kr:'' });
+  renderRosterEditor();
+  queueSave();
+  // Focus the new row's number field so you can start typing immediately.
+  const rows = document.querySelectorAll('#att-roster-editor .roster-edit-row');
+  const lastRow = rows[rows.length-1];
+  if(lastRow) lastRow.querySelector('.re-num').focus();
+}
+
+/* ---- FULL MULTI-CLASS, ALL-TIME EXPORT (item 7) ---- */
+/* Manual only, never automatic — separate from the weekly points backup
+   and the always-current saved_scores.md. Covers every class's point
+   totals plus every date of attendance and strikes for every class that
+   has a roster imported, in one plain-text file. */
+function buildFullExportText(){
+  const lines = [];
+  lines.push('# RibbonOverlay — Full Export');
+  lines.push('');
+  lines.push('Generated: ' + new Date().toLocaleString());
+  lines.push('');
+  const names = state.teamNames || defaultTeamNames();
+  (state.classes||[]).forEach(cls=>{
+    const label = (cls.name && cls.name.trim()) ? cls.name : 'Unnamed Class';
+    lines.push('## Class: ' + label);
+    lines.push('');
+    lines.push('### Points totals');
+    ALL_TEAM_COLORS.forEach(color=>{
+      const t = (cls.totals && cls.totals[color]) || 0;
+      lines.push('- ' + (names[color]||color) + ': ' + t);
+    });
+    lines.push('');
+
+    const att = state.attendance && state.attendance.byClass[cls.id];
+    if(att && att.roster && att.roster.length){
+      lines.push('### Attendance & Strikes History');
+      const dates = Object.keys(att.records).sort();
+      if(dates.length===0){
+        lines.push('(no attendance recorded yet)');
+        lines.push('');
+      }
+      dates.forEach(date=>{
+        lines.push('#### ' + date);
+        att.roster.forEach(student=>{
+          const rec = (att.records[date] && att.records[date][student.num]) || {status:'', strikes:0};
+          const statusLabel = rec.status || '(not marked)';
+          lines.push('- ' + student.en + ' #' + student.num + ': ' + statusLabel + ', ' + rec.strikes + ' strikes');
+        });
+        lines.push('');
+      });
+      if(att.editLog && att.editLog.length){
+        lines.push('### Edit Log (corrections to past dates)');
+        att.editLog.forEach(e=>{
+          lines.push('- ' + e.ts + ' — #' + e.num + ' ' + e.field + ' for ' + e.date + ': "' + e.old + '" → "' + e.new + '"');
+        });
+        lines.push('');
+      }
+    } else {
+      lines.push('(no roster imported for this class)');
+      lines.push('');
+    }
+    lines.push('---');
+    lines.push('');
+  });
+  return lines.join('\n');
+}
+function exportFullHistory(){
+  const text = buildFullExportText();
+  const statusEl = document.getElementById('export-status');
+  try{
+    const blob = new Blob([text], {type:'text/markdown'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'full_export.md';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    statusEl.innerText = 'Downloaded full_export.md — check your browser\'s downloads.';
+  }catch(e){
+    console.error('Export failed', e);
+    statusEl.innerText = 'Export failed — see console.';
+  }
+  playClick();
+}
+
+/* ---- SIDE (docking edge / expand direction) ---- */
+/* Python is the source of truth for 'side' since it also needs it before
+   any JS has run (to position the window at startup). JS mirrors it here
+   for layout direction. */
+let currentSide='right';
+function applySide(){
+  document.body.classList.toggle('side-left', currentSide==='left');
+  document.body.classList.toggle('side-right', currentSide!=='left');
+  const sel=document.getElementById('side-select');
+  if(sel) sel.value = currentSide==='left' ? 'left' : 'right';
+  updateTabArrow();
+}
+function onSideChange(){
+  currentSide=document.getElementById('side-select').value;
+  applySide();
+  state.side = currentSide;
+  queueSave();
+  playClick();
+  // No sendNormalSize() here — this control only lives inside the
+  // Settings panel, and calling it snapped the window back down to
+  // ribbon size while Settings was still visually open. closeSettings()
+  // handles the resize correctly once you actually leave the panel.
+}
+
+/* ---- TAB / RIBBON TOGGLE ---- */
+let ribbonOpen=false;
+function updateTabArrow(){
+  const tab=document.getElementById('tab');
+  if(currentSide==='left'){
+    tab.innerText = ribbonOpen ? '◀' : '▶';
+  } else {
+    tab.innerText = ribbonOpen ? '▶' : '◀';
+  }
+}
+function toggleRibbon(){
+  ribbonOpen=!ribbonOpen;
+  document.getElementById('ribbon').classList.toggle('open',ribbonOpen);
+  updateTabArrow();
+  playClick();
+  sendNormalSize();
+  setTimeout(sendNormalSize, 220); // settle pass — see closeSettings() for why
+  renderTourForState();
+  setTimeout(renderTourForState, 230);
+}
+
+/* ---- WINDOW SIZE BRIDGE (talks to main.py) ---- */
+function isSettingsOpen(){
+  const ov=document.getElementById('settings-overlay');
+  return !!(ov && ov.classList.contains('show'));
+}
+function isCelebrating(){
+  return document.body.classList.contains('celebrating');
+}
+function sendNormalSize(){
+  // No-op in the browser demo: there's no native window to resize —
+  // the ribbon/tab are position:fixed within the page, which already
+  // works correctly at whatever size the browser window is.
+}
+
+/* Watches the ribbon and tab for ANY actual rendered size change — font
+   load, dynamic text, zoom, content change — and re-syncs the window.
+   Guarded against firing while Settings is open OR while celebrating:
+   several settings controls change #ribbon's underlying size even while
+   hidden behind the overlay (would snap the window back to ribbon size
+   mid-settings), and hiding #ribbon/#tab for a celebration (see CSS)
+   itself counts as a size change to 0x0 that would otherwise fight with
+   the celebration's own explicit sizing calls. */
+let ribbonSizeObserver=null;
+function setupSizeObserver(){
+  if(ribbonSizeObserver || typeof ResizeObserver==='undefined') return;
+  ribbonSizeObserver=new ResizeObserver(()=>{
+    if(isSettingsOpen() || isCelebrating()) return;
+    sendNormalSize();
+  });
+  ribbonSizeObserver.observe(document.getElementById('ribbon'));
+  ribbonSizeObserver.observe(document.getElementById('tab'));
+}
+
+/* ---- RIBBON SIZE (discrete presets, set from Settings > General) ---- */
+let zoom=1.18;
+const ZOOM_PRESETS = { small:0.85, medium:1.18, big:1.5, biggest:1.85 };
+function applyZoom(){
+  document.getElementById('ribbon').style.zoom=zoom;
+}
+function setZoomPreset(name){
+  if(!(name in ZOOM_PRESETS)) return;
+  zoom = ZOOM_PRESETS[name];
+  state.zoom = zoom;
+  state.zoomPreset = name;
+  applyZoom();
+  updateSizeButtons();
+  queueSave();
+  playClick();
+}
+function updateSizeButtons(){
+  document.querySelectorAll('.size-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.size === (state.zoomPreset || 'medium'));
+  });
+}
+
+/* ---- CELEBRATION SIZING (form-fits the window to the actual content) ---- */
+let celebActive=false;
+let celebShapeKey=null;
+let celebSettleTimeout=null;
+let flashTimeout=null;
+
+function sendCelebSize(elId, padding){
+  // No-op in the browser demo: #flash-overlay/#msg-popup already cover
+  // the full page via position:fixed;inset:0, no window resize needed.
+}
+
+/* duration: how long this flash stays up. shapeKey: content "shape" —
+   when consecutive calls share a shapeKey (e.g. countdown digits 9,8,7…)
+   we skip re-measuring/resizing, which is what was causing the window to
+   jump/expand on every tick. A genuinely new shape (e.g. "10" -> "9",
+   or switching to a different celebration type) still resizes. */
+function flashFullscreen(html, duration, shapeKey){
+  duration=duration||1200;
+  const ov=document.getElementById('flash-overlay');
+  document.getElementById('flash-text').innerHTML=html;
+  ov.classList.add('show');
+  document.body.classList.add('celebrating');
+
+  const isNewShape = !celebActive || shapeKey!==celebShapeKey;
+  celebActive=true;
+  celebShapeKey=shapeKey;
+
+  if(isNewShape){
+    sendCelebSize('flash-text', 45);
+    clearTimeout(celebSettleTimeout);
+    celebSettleTimeout=setTimeout(()=>sendCelebSize('flash-text', 45), 200);
+  }
+
+  clearTimeout(flashTimeout);
+  flashTimeout=setTimeout(()=>{
+    ov.classList.remove('show');
+    celebActive=false; celebShapeKey=null;
+    document.body.classList.remove('celebrating');
+    sendNormalSize();
+  }, duration);
+}
+
+/* ---- TIMER ---- */
+let TIMER_DEFAULT=60;
+let timerVal=TIMER_DEFAULT, timerInt=null, timerRunning=false;
+function formatTime(v){ const m=Math.floor(v/60), s=v%60; return m+':'+String(s).padStart(2,'0'); }
+function updTimerDisp(){ document.getElementById('timer-disp').innerText=formatTime(timerVal); }
+function timerAdj(n){ timerVal=Math.max(0,timerVal+n); updTimerDisp(); playClick(); }
+function toggleTimer(){
+  timerRunning=!timerRunning;
+  if(timerRunning){
+    flashFullscreen(formatTime(timerVal), 1200, 'clock');
+    timerInt=setInterval(()=>{
+      timerVal--; updTimerDisp();
+      if(timerVal===20){ flashFullscreen('20', 1200, 'twoDigit'); }
+      else if(timerVal===10){ flashFullscreen('10', 1200, 'twoDigit'); }
+      else if(timerVal>=0 && timerVal<=9){ flashFullscreen(String(timerVal), 1200, 'single'); }
+      if(timerVal<=0){ clearInterval(timerInt); timerRunning=false; timerVal=TIMER_DEFAULT; updTimerDisp(); }
+    },1000);
+  } else { clearInterval(timerInt); }
+  playClick();
+}
+
+/* ---- TEAMS ---- */
+const CORE_TEAMS=['red','blue','green','purple'];
+const EXTRA_TEAMS=[
+  {id:'yellow',label:'Yellow',color:'var(--t-yellow)'},
+  {id:'orange',label:'Orange',color:'var(--t-orange)'},
+  {id:'pink',label:'Pink',color:'var(--t-pink)'},
+  {id:'brown',label:'Brown',color:'var(--t-brown)'}
+];
+const ptScores={red:0,blue:0,green:0,purple:0,yellow:0,orange:0,pink:0,brown:0};
+let enabledExtras=[];
+
+function ptAdj(team,n){
+  ptScores[team]=Math.max(0,ptScores[team]+n);
+  const el=document.getElementById('pt-'+team);
+  if(el) el.innerText=ptScores[team];
+  saveRibbonIntoSelectedClass();
+}
+
+function renderExtraRow(){
+  // Extra team pills live inline in the ribbon's own HTML now (see
+  // markup) so the window-sizing code, which already measures #ribbon
+  // correctly, naturally covers them too — this just shows/hides them.
+  // Toggling the whole .team-group (not just the pill) so a disabled
+  // extra team's name label disappears along with its pill, instead of
+  // leaving an orphaned label with no pill above it.
+  EXTRA_TEAMS.forEach(t=>{
+    const pill=document.getElementById('pill-'+t.id);
+    const group=pill ? pill.closest('.team-group') : null;
+    if(group) group.style.display = enabledExtras.includes(t.id) ? 'flex' : 'none';
+    const numEl=document.getElementById('pt-'+t.id);
+    if(numEl) numEl.innerText = ptScores[t.id];
+  });
+  renderShuffleStrip();
+}
+function onTeamToggle(){
+  enabledExtras=EXTRA_TEAMS.filter(t=>document.getElementById('chk-'+t.id).checked).map(t=>t.id);
+  state.extraTeams=enabledExtras;
+  queueSave();
+  renderExtraRow();
+  playClick();
+  // No sendNormalSize() here — same reason as onSideChange above: these
+  // checkboxes only exist inside the Settings panel.
+}
+
+/* ---- SHUFFLE ORDER STRIP (item 5) ---- */
+/* Reflects whatever's actually active on the ribbon right now (core
+   teams always, extras only if enabled) — reads live off CORE_TEAMS
+   and enabledExtras rather than a separate saved list, so toggling a
+   team in Settings updates this automatically next render. */
+function currentActiveTeams(){
+  return CORE_TEAMS.concat(enabledExtras);
+}
+function renderShuffleStrip(){
+  const strip=document.getElementById('shuffle-strip');
+  if(!strip) return;
+  const teams=currentActiveTeams().slice();
+  for(let i=teams.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [teams[i],teams[j]]=[teams[j],teams[i]];
+  }
+  strip.innerHTML='';
+  teams.forEach(id=>{
+    const block=document.createElement('span');
+    block.className='shuffle-block';
+    block.style.background=TEAM_COLOR_CSS[id]||'#999';
+    strip.appendChild(block);
+  });
+}
+function shuffleOrder(){
+  renderShuffleStrip();
+  playClick();
+}
+
+/* ---- CALL BUTTON ---- */
+// Letters instead of numbers so "blue, B" doesn't get confused with a
+// team's numeric score when spoken aloud in class. Randomized order,
+// no repeats until all 4 have come up once, then idle dash, then a
+// fresh shuffle for the next round.
+const CALL_LETTERS=['A','B','C','D'];
+let callQueue=[];
+function shuffleCallQueue(){
+  callQueue=[...CALL_LETTERS];
+  for(let i=callQueue.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [callQueue[i],callQueue[j]]=[callQueue[j],callQueue[i]];
+  }
+}
+shuffleCallQueue();
+function pickCall(){
+  if(callQueue.length===0){
+    document.getElementById('call-btn').innerText='–';
+    flashFullscreen('–', 1200, 'call:dash');
+    shuffleCallQueue();
+    return;
+  }
+  const label=callQueue.pop();
+  document.getElementById('call-btn').innerText=label;
+  flashFullscreen(label, 1200, 'call:'+label);
+}
+
+/* ---- THUMBS UP ---- */
+const POS_PHRASES=["Awesome Work!","Great Job!","You Nailed It!","Nice Thinking!","Way To Go!","You're On Fire!","Superb!","Excellent Effort!","You Crushed It!","Brilliant!","Keep It Up!","You've Got This!","Fantastic Teamwork!","Smart Move!","You're A Star!","Well Done!","Impressive!","You Rock!","Outstanding!","Perfect!"];
+let thumbsSettings={mode:'bigthumb', emoji:'🎉', text:'', image:null};
+let msgTimeout=null;
+
+function showMsgPopup(text, imgSrc){
+  const en=document.getElementById('msg-en');
+  const img=document.getElementById('msg-img');
+  en.innerText=text||'';
+  const measure=()=>sendCelebSize('msg-card', 20);
+  if(imgSrc){
+    img.onload=measure;
+    img.src=imgSrc; img.style.display='block';
+  } else {
+    img.style.display='none';
+  }
+  const pop=document.getElementById('msg-popup');
+  pop.classList.add('show');
+  document.body.classList.add('celebrating');
+  celebActive=true; celebShapeKey=null; // message popups always re-measure, they aren't rapid-fire like the countdown
+  measure();
+  clearTimeout(celebSettleTimeout);
+  celebSettleTimeout=setTimeout(measure, 200);
+  clearTimeout(msgTimeout);
+  msgTimeout=setTimeout(()=>{
+    pop.classList.remove('show');
+    celebActive=false; celebShapeKey=null;
+    document.body.classList.remove('celebrating');
+    sendNormalSize();
+  },3400);
+}
+function thumbsUp(){
+  playCheer();
+  switch(thumbsSettings.mode){
+    case 'bigthumb': flashFullscreen('👍', 1200, 'thumb'); break;
+    case 'emoji': flashFullscreen(thumbsSettings.emoji||'🎉', 1200, 'emoji:'+(thumbsSettings.emoji||'')); break;
+    case 'message': showMsgPopup(POS_PHRASES[Math.floor(Math.random()*POS_PHRASES.length)]); break;
+    case 'image':
+      if(thumbsSettings.image){
+        flashFullscreen('<img src="'+thumbsSettings.image+'">', 2040, 'thumbimg');
+        const imgEl=document.querySelector('#flash-text img');
+        if(imgEl){
+          // vw/vh here would measure against the CURRENT (small,
+          // ribbon-sized) window, not the real screen — same trap as
+          // the earlier attendance-panel bug. screen.width/height are
+          // the true physical display size regardless of this
+          // window's current size, so use those directly in pixels.
+          imgEl.style.width = Math.round(screen.width*0.7)+'px';
+          imgEl.style.height = Math.round(screen.height*0.6)+'px';
+          imgEl.onload=()=>sendCelebSize('flash-text', 45);
+        }
+      } else {
+        flashFullscreen('👍', 1200, 'thumb');
+      }
+      break;
+    case 'textimage': showMsgPopup(thumbsSettings.text, thumbsSettings.image); break;
+    default: flashFullscreen('👍', 1200, 'thumb');
+  }
+}
+
+/* ---- POWER OFF (with confirm step) ---- */
+const POWER_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="pointer-events:none;"><path d="M12 2v8"/><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/></svg>';
+let quitConfirm=false;
+let quitConfirmTimeout=null;
+function powerOff(){
+  const btn=document.getElementById('power-btn');
+  if(!quitConfirm){
+    quitConfirm=true;
+    btn.classList.add('confirm');
+    btn.innerHTML='✓';
+    playClick();
+    quitConfirmTimeout=setTimeout(()=>{
+      quitConfirm=false;
+      btn.classList.remove('confirm');
+      btn.innerHTML=POWER_ICON;
+    },2500);
+  } else {
+    clearTimeout(quitConfirmTimeout);
+    quitConfirm=false;
+    btn.classList.remove('confirm');
+    btn.innerHTML=POWER_ICON;
+    showMsgPopup('In the real desktop app, this closes the program. This demo just stays open — keep exploring!');
+  }
+}
+
+/* ---- SETTINGS PANEL ---- */
+function openSettings(tab){
+  document.getElementById('settings-overlay').classList.add('show');
+  switchSetTab(tab||'teams');
+  loadHelpFolderPath();
+  renderTourForState();
+  setTimeout(renderTourForState, 100);
+}
+function loadHelpFolderPath(){
+  const el = document.getElementById('help-folder-path');
+  if(!el) return;
+  el.innerText = 'This is a browser demo — no real files here. In the real desktop app, this box shows the exact folder your data is saved in.';
+}
+function openDataFolder(){
+  showMsgPopup('In the real desktop app, this button opens your actual data folder in File Explorer. This demo saves your clicks in your browser only.');
+  playClick();
+}
+function closeSettings(){
+  document.getElementById('settings-overlay').classList.remove('show');
+  sendNormalSize();
+  setTimeout(sendNormalSize, 220);
+  renderTourForState();
+}
+function switchSetTab(name){
+  document.querySelectorAll('.set-tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
+  document.querySelectorAll('.set-section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
+}
+
+/* Curated emoji picker — ~90 classroom-friendly emoji, no download needed
+   since these are just standard Unicode characters. Pick up to 3 to
+   combine into a custom celebration (e.g. 🎉✨🏆). */
+const EMOJI_PICKER_SET=[
+  '🎉','🎊','✨','🌟','⭐','💫','🔥','👏','🙌','🥳','🎈','🎁','🏆','🥇','🎯','🚀',
+  '💥','❤️','🧡','💛','💚','💙','💜','🤍','💯','✅','👍','👌','🤙','🤟','✋','🖐️',
+  '🤗','😀','😃','😄','😁','😆','😊','😇','🙂','😉','😍','🤩','🥰','😎','🤠','🐶',
+  '🐱','🐭','🐹','🐰','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐸','🐵','🐔','🐧',
+  '🐦','🐤','🦄','🐝','🦋','🌈','☀️','🌸','🌺','🌻','🍀','🍎','🍕','🍦','🍭','🍩',
+  '🧁','🎨','🎵','🎶','⚡','💪','🎓','📚','✏️','🧠','🌙','🍿'
+];
+let selectedEmojis=[];
+function renderEmojiPicker(){
+  const el=document.getElementById('emoji-picker');
+  if(!el) return;
+  el.innerHTML='';
+  EMOJI_PICKER_SET.forEach(e=>{
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.className='emoji-pick-btn'+(selectedEmojis.includes(e)?' selected':'');
+    btn.innerText=e;
+    btn.onclick=()=>toggleEmojiPick(e);
+    el.appendChild(btn);
+  });
+}
+function toggleEmojiPick(e){
+  const idx=selectedEmojis.indexOf(e);
+  if(idx>=0){
+    selectedEmojis.splice(idx,1);
+  } else {
+    if(selectedEmojis.length>=3){ selectedEmojis.shift(); } // cap at 3, drop the oldest pick
+    selectedEmojis.push(e);
+  }
+  document.getElementById('thumbs-emoji').value=selectedEmojis.join('');
+  renderEmojiPicker();
+  playClick();
+}
+function onThumbsEmojiTyped(){
+  // Manual typing overrides the picker's selection state.
+  selectedEmojis=[];
+  renderEmojiPicker();
+}
+function seedSelectedEmojisFromText(text){
+  selectedEmojis=[];
+  if(!text) return;
+  Array.from(text).forEach(c=>{
+    if(EMOJI_PICKER_SET.includes(c) && selectedEmojis.length<3){ selectedEmojis.push(c); }
+  });
+}
+
+/* Thumbs settings UI */
+function onThumbsModeChange(){
+  const mode=document.getElementById('thumbs-mode').value;
+  document.getElementById('row-emoji').style.display = mode==='emoji' ? 'flex':'none';
+  document.getElementById('row-image').style.display = (mode==='image'||mode==='textimage') ? 'flex':'none';
+  document.getElementById('row-text').style.display = mode==='textimage' ? 'flex':'none';
+  if(mode==='emoji'){
+    seedSelectedEmojisFromText(document.getElementById('thumbs-emoji').value);
+    renderEmojiPicker();
+  }
+}
+function onThumbsImagePick(ev){
+  const file=ev.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=()=>{ thumbsSettings.image=reader.result; };
+  reader.readAsDataURL(file);
+}
+function saveThumbsSettings(){
+  thumbsSettings.mode=document.getElementById('thumbs-mode').value;
+  thumbsSettings.emoji=document.getElementById('thumbs-emoji').value||'🎉';
+  thumbsSettings.text=document.getElementById('thumbs-text').value||'';
+  state.thumbsSettings=thumbsSettings;
+  queueSave();
+  playClick();
+  closeSettings();
+}
+
+/* Classes — a dynamic list you create and name yourself, stored as
+   state.classes = [{id, name, points, totals}, ...] plus
+   state.selectedClassId. This mirrors the shape your real app already
+   saves data in, rather than the old fixed "Class 1-8" list. */
+const ALL_TEAM_COLORS=['red','blue','green','purple','yellow','orange','pink','brown'];
+const TEAM_COLOR_CSS={red:'var(--red)',blue:'var(--blue)',green:'var(--green)',purple:'var(--purple)',
+  yellow:'var(--t-yellow)',orange:'var(--t-orange)',pink:'var(--t-pink)',brown:'var(--t-brown)'};
+function defaultTeamNames(){
+  return {red:'Red',blue:'Blue',green:'Green',purple:'Purple',yellow:'Yellow',orange:'Orange',pink:'Pink',brown:'Brown'};
+}
+function blankPoints(){
+  return {red:0,blue:0,green:0,purple:0,yellow:0,orange:0,pink:0,brown:0};
+}
+function newClassId(){
+  return 'c' + Date.now() + Math.floor(Math.random()*1000);
+}
+function ensureAtLeastOneClass(){
+  if(!state.classes || state.classes.length===0){
+    state.classes=[{id:newClassId(), name:'', points:blankPoints(), totals:blankPoints()}];
+    state.selectedClassId=state.classes[0].id;
+  }
+  if(!state.classes.some(c=>c.id===state.selectedClassId)){
+    state.selectedClassId=state.classes[0].id;
+  }
+  if(!state.teamNames) state.teamNames=defaultTeamNames();
+}
+function getSelectedClass(){
+  return (state.classes||[]).find(c=>c.id===state.selectedClassId) || null;
+}
+function populateClassSelect(){
+  const sel=document.getElementById('class-select');
+  sel.innerHTML='';
+  (state.classes||[]).forEach((c,i)=>{
+    const opt=document.createElement('option');
+    opt.value=c.id;
+    opt.innerText = (c.name && c.name.trim()) ? c.name : ('Unnamed Class ' + (i+1));
+    sel.appendChild(opt);
+  });
+  sel.value=state.selectedClassId;
+}
+function loadSelectedClassIntoRibbon(){
+  const cls=getSelectedClass();
+  const pts=(cls && cls.points) || blankPoints();
+  Object.keys(ptScores).forEach(k=>{ ptScores[k]=pts[k]||0; const el=document.getElementById('pt-'+k); if(el) el.innerText=ptScores[k]; });
+}
+function saveRibbonIntoSelectedClass(){
+  const cls=getSelectedClass();
+  if(!cls) return;
+  cls.points=JSON.parse(JSON.stringify(ptScores));
+  queueSave();
+}
+function updateClassIndicator(){
+  const cls=getSelectedClass();
+  const name=(cls && cls.name) || '';
+  document.getElementById('class-name').value = name;
+  const indicator=document.getElementById('class-indicator');
+  if(indicator) indicator.innerText = name ? name.slice(0,10) : 'New';
+  populateClassSelect();
+  renderTotalsTable();
+}
+function onClassSwitch(){
+  saveRibbonIntoSelectedClass();
+  state.selectedClassId=document.getElementById('class-select').value;
+  loadSelectedClassIntoRibbon();
+  updateClassIndicator();
+  queueSave();
+  playClick();
+}
+function saveClassName(){
+  const cls=getSelectedClass();
+  if(!cls) return;
+  cls.name=document.getElementById('class-name').value;
+  queueSave();
+  updateClassIndicator();
+}
+function addNewClass(){
+  const input=document.getElementById('new-class-name');
+  const typedName=input ? input.value.trim() : '';
+  saveRibbonIntoSelectedClass();
+  const cls={id:newClassId(), name:typedName, points:blankPoints(), totals:blankPoints()};
+  if(!state.classes) state.classes=[];
+  state.classes.push(cls);
+  state.selectedClassId=cls.id;
+  if(input) input.value='';
+  loadSelectedClassIntoRibbon();
+  updateClassIndicator();
+  queueSave();
+  playClick();
+}
+let deleteConfirm=false;
+let deleteConfirmTimeout=null;
+function deleteCurrentClass(){
+  const btn=document.getElementById('delete-class-btn');
+  if((state.classes||[]).length<=1){
+    return;
+  }
+  if(!deleteConfirm){
+    deleteConfirm=true;
+    btn.innerText='Confirm Delete?';
+    playClick();
+    deleteConfirmTimeout=setTimeout(()=>{
+      deleteConfirm=false;
+      btn.innerText='Delete This Class';
+    },3000);
+    return;
+  }
+  clearTimeout(deleteConfirmTimeout);
+  deleteConfirm=false;
+  btn.innerText='Delete This Class';
+  const idx=state.classes.findIndex(c=>c.id===state.selectedClassId);
+  if(idx>=0) state.classes.splice(idx,1);
+  state.selectedClassId = state.classes.length ? state.classes[0].id : null;
+  ensureAtLeastOneClass();
+  loadSelectedClassIntoRibbon();
+  updateClassIndicator();
+  queueSave();
+  playClick();
+}
+function resetClassPoints(){
+  Object.keys(ptScores).forEach(k=>{ ptScores[k]=0; const el=document.getElementById('pt-'+k); if(el) el.innerText='0'; });
+  saveRibbonIntoSelectedClass();
+  playClick();
+}
+
+/* "Add Current Ribbon Scores": folds live ribbon points into this
+   class's running total, then clears the ribbon for the next class. */
+function addCurrentRibbonScores(){
+  const cls=getSelectedClass();
+  if(!cls) return;
+  if(!cls.totals) cls.totals=blankPoints();
+  Object.keys(ptScores).forEach(k=>{ cls.totals[k]=(cls.totals[k]||0)+ptScores[k]; });
+
+  Object.keys(ptScores).forEach(k=>{ ptScores[k]=0; const el=document.getElementById('pt-'+k); if(el) el.innerText='0'; });
+  saveRibbonIntoSelectedClass();
+  queueSave();
+  renderTotalsTable();
+  playClick();
+}
+
+/* Editable saved-totals table — one row per team color, always all 8
+   regardless of which are currently enabled on the live ribbon, since
+   you might still want to track/adjust a color's saved history. */
+function renderTotalsTable(){
+  const container=document.getElementById('totals-table');
+  if(!container) return;
+  const cls=getSelectedClass();
+  const totals=(cls && cls.totals) || {};
+  const names=state.teamNames || defaultTeamNames();
+  container.innerHTML='';
+  ALL_TEAM_COLORS.forEach(color=>{
+    const row=document.createElement('div');
+    row.className='totals-row';
+    row.innerHTML=
+      '<span class="totals-swatch" style="background:'+TEAM_COLOR_CSS[color]+';"></span>'+
+      '<input type="text" class="totals-name" value="'+(names[color]||color)+'" onchange="saveTeamName(\''+color+'\',this.value)">'+
+      '<button type="button" class="totals-btn" onclick="adjustTotal(\''+color+'\',-1)">-</button>'+
+      '<span class="totals-num" id="tot-'+color+'">'+(totals[color]||0)+'</span>'+
+      '<button type="button" class="totals-btn" onclick="adjustTotal(\''+color+'\',1)">+</button>'+
+      '<button type="button" class="totals-clear" onclick="clearTeamTotal(\''+color+'\')">Clear</button>';
+    container.appendChild(row);
+  });
+}
+function adjustTotal(color,delta){
+  const cls=getSelectedClass();
+  if(!cls) return;
+  if(!cls.totals) cls.totals=blankPoints();
+  cls.totals[color]=Math.max(0,(cls.totals[color]||0)+delta);
+  const numEl=document.getElementById('tot-'+color);
+  if(numEl) numEl.innerText=cls.totals[color];
+  queueSave();
+}
+function clearTeamTotal(color){
+  const cls=getSelectedClass();
+  if(!cls) return;
+  if(!cls.totals) cls.totals=blankPoints();
+  cls.totals[color]=0;
+  const numEl=document.getElementById('tot-'+color);
+  if(numEl) numEl.innerText='0';
+  queueSave();
+  playClick();
+}
+function clearAllTotals(){
+  const cls=getSelectedClass();
+  if(!cls) return;
+  cls.totals=blankPoints();
+  renderTotalsTable();
+  queueSave();
+  playClick();
+}
+function saveTeamName(color,newName){
+  if(!state.teamNames) state.teamNames=defaultTeamNames();
+  state.teamNames[color]=(newName||'').trim() || color.charAt(0).toUpperCase()+color.slice(1);
+  updatePillLabels();
+  queueSave();
+}
+
+/* Syncs each ribbon pill's name label (item 1) from state.teamNames,
+   which is the same data the Classes > totals table already edits —
+   no separate naming UI needed, just reflecting what's already there. */
+function updatePillLabels(){
+  const names=state.teamNames || defaultTeamNames();
+  ALL_TEAM_COLORS.forEach(color=>{
+    const lbl=document.getElementById('lbl-'+color);
+    if(lbl) lbl.innerText=names[color]||color.charAt(0).toUpperCase()+color.slice(1);
+  });
+}
+
+/* General */
+function saveGeneral(){
+  muted=document.getElementById('chk-mute').checked;
+  TIMER_DEFAULT=parseInt(document.getElementById('timer-default').value,10)||60;
+  state.muted=muted;
+  state.timerDefault=TIMER_DEFAULT;
+  queueSave();
+  if(!timerRunning){ timerVal=TIMER_DEFAULT; updTimerDisp(); }
+}
+
+/* ---- INIT ---- */
+/* ================= GUIDED TOUR (Ribbon Demo only) ================= */
+/* Always-on: re-renders every time the visible state changes (ribbon
+   open/close, mode switch, settings open/close, scroll, resize), rather
+   than a one-time dismissible walkthrough. Each callout is positioned
+   from the REAL target element's current on-screen position, so it
+   stays correct regardless of zoom, side (left/right), scroll, or
+   window size. */
+let tourPlacedRects = []; // reset every render — used to auto-stagger overlapping bubbles
+function clearTour(){
+  document.getElementById('tour-layer').innerHTML = '';
+  document.getElementById('tour-svg').innerHTML =
+    '<defs><marker id="tourArrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A5C"/></marker></defs>';
+  tourPlacedRects = [];
+}
+function rectsOverlap(a,b){
+  return !(a.right<b.left || a.left>b.right || a.bottom<b.top || a.top>b.bottom);
+}
+function drawTourLine(x1,y1,x2,y2){
+  const svg = document.getElementById('tour-svg');
+  const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+  line.setAttribute('x1',x1); line.setAttribute('y1',y1);
+  line.setAttribute('x2',x2); line.setAttribute('y2',y2);
+  line.setAttribute('stroke','#FF7A5C'); line.setAttribute('stroke-width','2');
+  line.setAttribute('marker-end','url(#tourArrowhead)');
+  svg.appendChild(line);
+}
+/* Near callout: bubble sits close to its target (below by default, or
+   above), automatically pushed further away (a longer connecting line)
+   if it would otherwise overlap a bubble already placed this render —
+   this is the "stagger" so explanations in a tight row don't collide. */
+function addTourBubble(targetEl, text, opts){
+  opts = opts || {};
+  if(!targetEl) return;
+  const layer = document.getElementById('tour-layer');
+  const r = targetEl.getBoundingClientRect();
+  if(r.width===0 && r.height===0) return;
+
+  if(opts.highlight!==false){
+    const hl = document.createElement('div');
+    hl.className = 'tour-highlight';
+    hl.style.left=(r.left-4)+'px'; hl.style.top=(r.top-4)+'px';
+    hl.style.width=(r.width+8)+'px'; hl.style.height=(r.height+8)+'px';
+    layer.appendChild(hl);
+  }
+
+  const side = opts.side || 'below';
+  const bubble = document.createElement('div');
+  bubble.className = 'tour-bubble ' + (opts.prompt?'prompt ':'') + (side==='below'?'point-up':'point-down');
+  bubble.innerText = text;
+  bubble.style.visibility='hidden';
+  layer.appendChild(bubble);
+  const bw = bubble.offsetWidth, bh = bubble.offsetHeight;
+
+  let gap = 14, top, left, candidate, tries=0;
+  do{
+    top = side==='below' ? (r.bottom+gap) : (r.top-bh-gap);
+    left = r.left + r.width/2 - bw/2 + (opts.dx||0);
+    left = Math.max(4, Math.min(left, window.innerWidth-bw-4));
+    candidate = {left, right:left+bw, top, bottom:top+bh};
+    const collides = tourPlacedRects.some(p=>rectsOverlap(candidate,p));
+    if(!collides) break;
+    gap += bh+12; // stagger further out — a visibly longer arrow
+    tries++;
+  } while(tries<6);
+  tourPlacedRects.push(candidate);
+
+  bubble.style.left=left+'px'; bubble.style.top=top+'px'; bubble.style.visibility='visible';
+
+  // A gap bigger than the default reads as a genuinely separate distance,
+  // so draw an explicit connecting line rather than relying only on the
+  // small CSS triangle (which only makes sense right next to the target).
+  if(gap>28){
+    const bx = left+bw/2, by = side==='below'?top:top+bh;
+    const tx = r.left+r.width/2, ty = side==='below'?r.bottom:r.top;
+    drawTourLine(bx,by,tx,ty);
+  }
+}
+/* Far callout: bubble placed OUTSIDE the app entirely (top or bottom
+   margin of the viewport), connected to its actual target by a long
+   drawn line — used for the attendance module per an explicit "keep
+   explainers outside the app window" request. */
+function addFarCallout(targetEl, text, zone, index, total){
+  if(!targetEl) return;
+  const layer = document.getElementById('tour-layer');
+  const r = targetEl.getBoundingClientRect();
+  if(r.width===0 && r.height===0) return;
+  const panelEl = document.getElementById('attendance-content');
+  const panel = panelEl.getBoundingClientRect();
+
+  const hl = document.createElement('div');
+  hl.className = 'tour-highlight';
+  hl.style.left=(r.left-4)+'px'; hl.style.top=(r.top-4)+'px';
+  hl.style.width=(r.width+8)+'px'; hl.style.height=(r.height+8)+'px';
+  layer.appendChild(hl);
+
+  const bubble = document.createElement('div');
+  bubble.className = 'tour-bubble far';
+  bubble.innerText = text;
+  bubble.style.visibility='hidden';
+  layer.appendChild(bubble);
+  const bw = bubble.offsetWidth, bh = bubble.offsetHeight;
+  const gap = 96; // ~1 CSS inch (96px), anchored to the PANEL's own edge, not the page edge
+
+  let bx, by, lineX, lineY, targetX, targetY;
+  if(zone==='left'){
+    bx = panel.left - gap - bw;
+    bx = Math.max(4, bx); // never go fully off-screen if the panel is near the left edge
+    const spacing = panel.height/(total+1);
+    by = panel.top + spacing*(index+1) - bh/2;
+    by = Math.max(4, Math.min(by, window.innerHeight-bh-4));
+    lineX = bx+bw; lineY = by+bh/2;
+    targetX = r.left; targetY = r.top+r.height/2;
+  } else { // 'bottom'
+    by = panel.bottom + gap;
+    by = Math.min(by, window.innerHeight-bh-4);
+    const spacing = panel.width/(total+1);
+    bx = panel.left + spacing*(index+1) - bw/2;
+    bx = Math.max(4, Math.min(bx, window.innerWidth-bw-4));
+    lineX = bx+bw/2; lineY = by;
+    targetX = r.left+r.width/2; targetY = r.bottom;
+  }
+  bubble.style.left=bx+'px'; bubble.style.top=by+'px'; bubble.style.visibility='visible';
+  drawTourLine(lineX,lineY,targetX,targetY);
+}
+function renderTourForState(){
+  clearTour();
+  const landing = document.getElementById('landing-overlay');
+  const infoBox = document.getElementById('att-info-box');
+  const settingsOpen = document.getElementById('settings-overlay').classList.contains('show');
+  if(settingsOpen){
+    landing.style.display='none';
+    infoBox.style.display='none';
+    renderSettingsTour();
+  } else if(ribbonOpen && currentMode==='attendance'){
+    landing.style.display='none';
+    infoBox.style.display='block';
+    renderAttendanceTour();
+  } else if(ribbonOpen && currentMode==='points'){
+    landing.style.display='none';
+    infoBox.style.display='none';
+    renderRibbonTour();
+  } else {
+    landing.style.display='flex';
+    infoBox.style.display='none';
+    addTourBubble(document.getElementById('tab'), 'Click here', {prompt:true, side:'below'});
+  }
+}
+function renderRibbonTour(){
+  addTourBubble(document.getElementById('timer-disp'), '⏱ Click to start the countdown', {side:'below'});
+  const timerBtns = document.querySelectorAll('#timer-group .sq-btn.mini');
+  if(timerBtns[0]) addTourBubble(timerBtns[0], '−30 sec', {side:'below'});
+  if(timerBtns[1]) addTourBubble(timerBtns[1], '+30 sec', {side:'below'});
+  addTourBubble(document.querySelector('#points-content > .sq-btn'), '👍 Fun celebration popup', {side:'below'});
+  // One explanation for team scoring, not one per color — points at
+  // whichever color's pill actually exists first.
+  const anyPill = document.getElementById('pt-red') || document.getElementById('pt-blue');
+  if(anyPill) addTourBubble(anyPill.closest('.team-group'), 'Team scores — click +/− on any color to award or deduct points', {side:'below'});
+  const callBtn = document.getElementById('call-btn');
+  if(callBtn) addTourBubble(callBtn, '🎯 Randomly calls a student (A/B/C/D)', {side:'below'});
+  // Everything in the settings/power/attendance/class-indicator cluster
+  // stays "below" — "above" landed right on top of that same tightly
+  // packed row, since there's very little vertical gap up there.
+  addTourBubble(document.getElementById('power-btn'), '⏻ Power off', {side:'below'});
+  const settingsBtn = document.querySelector('.end-buttons .sq-btn.mini[onclick*="openSettings"]');
+  if(settingsBtn) addTourBubble(settingsBtn, '⚙ Settings — click here to explore →', {prompt:true, side:'below'});
+  const attBtn = document.querySelector('.end-buttons .sq-btn.mini[onclick*="switchMode"]');
+  if(attBtn) addTourBubble(attBtn, '📋 Attendance — click here to explore →', {prompt:true, side:'below'});
+  const shuffleStrip = document.getElementById('shuffle-strip');
+  if(shuffleStrip) addTourBubble(shuffleStrip, '🎲 Click to randomize turn order', {side:'below'});
+}
+function renderSettingsTour(){
+  const teamsTab = document.querySelector('.set-tab[data-tab="teams"]');
+  if(teamsTab) addTourBubble(teamsTab, 'Add extra teams', {side:'below'});
+  const thumbsTab = document.querySelector('.set-tab[data-tab="thumbs"]');
+  if(thumbsTab) addTourBubble(thumbsTab, 'Changes the pop-up', {side:'below'});
+  const classesTab = document.querySelector('.set-tab[data-tab="classes"]');
+  if(classesTab) addTourBubble(classesTab, 'Add/subtract classes, change team names, view and adjust point totals', {side:'below'});
+  // No explanation for General or Help, per instruction.
+  const closeBtn = document.querySelector('.set-close');
+  if(closeBtn) addTourBubble(closeBtn, '✕ Click here to close', {prompt:true, side:'below'});
+}
+function renderAttendanceTour(){
+  const backBtn = document.querySelector('#att-topbar .att-btn');
+  const select = document.getElementById('att-class-select');
+  const allBtn = document.querySelector('#att-topbar .att-btn[onclick*="cycleCheckAll"]');
+  const expandBtn = document.getElementById('att-expand-btn');
+  const updateBtn = document.querySelector('#att-topbar .att-btn.primary');
+  const editBtn = document.getElementById('att-roster-edit-btn');
+  const leftCol = [
+    [backBtn, '← Back to points'],
+    [select, 'Switch between classes'],
+    [allBtn, 'Cycles: all Present → Absent → Late → clear'],
+    [expandBtn, 'See full history, every date'],
+    [updateBtn, 'Save immediately'],
+    [editBtn, 'Add, remove, or rename students']
+  ].filter(([el])=>el);
+  leftCol.forEach(([el,text],i)=> addFarCallout(el, text, 'left', i, leftCol.length));
+
+  const bottomRow = [];
+  if(attExpandedView){
+    // Daily table is hidden when expanded — target the visible expanded
+    // history tables instead, so these callouts move rather than vanish.
+    const histTables = document.querySelectorAll('#att-history table');
+    const attCell = histTables[0] ? histTables[0].querySelector('tr:nth-child(2) td.hist-cell') : null;
+    const strikeCell = histTables[1] ? histTables[1].querySelector('tr:nth-child(2) td.hist-cell') : null;
+    if(attCell) bottomRow.push([attCell, 'Click any date to correct attendance']);
+    if(strikeCell) bottomRow.push([strikeCell, 'Click a strike; 📄 icon adds a note']);
+  } else {
+    const firstDataRow = document.querySelector('#att-daily tr:nth-child(2)');
+    if(firstDataRow){
+      const cells = firstDataRow.querySelectorAll('td');
+      if(cells[1]) bottomRow.push([cells[1], 'Click to cycle: blank → Present → Absent → Late']);
+      if(cells[2]) bottomRow.push([cells[2], 'Click number for a strike; 📄 icon adds a note']);
+    }
+  }
+  bottomRow.forEach(([el,text],i)=> addFarCallout(el, text, 'bottom', i, bottomRow.length));
+}
+window.addEventListener('resize', ()=>{ renderTourForState(); });
+// Callouts are positioned from getBoundingClientRect(), which is
+// viewport-relative — if the page scrolls, targets move relative to
+// the viewport even though nothing else changed, so the tour needs to
+// re-render on scroll too, not just on resize. Throttled via rAF so
+// it doesn't re-render on every single scroll pixel.
+let tourScrollPending = false;
+window.addEventListener('scroll', ()=>{
+  if(tourScrollPending) return;
+  tourScrollPending = true;
+  requestAnimationFrame(()=>{ renderTourForState(); tourScrollPending=false; });
+}, {passive:true});
+
+// Bumped whenever the built-in demo data itself changes (roster size,
+// history, etc.) — a saved session from an OLDER version gets discarded
+// automatically instead of silently overriding the new defaults forever.
+const DEMO_DATA_VERSION = 2;
+
+async function init(){
+  let loaded={};
+  try{
+    const raw = localStorage.getItem('ribbonDemoState');
+    if(raw){
+      const parsed = JSON.parse(raw);
+      if(parsed.demoVersion === DEMO_DATA_VERSION){
+        loaded = parsed;
+      } else {
+        localStorage.removeItem('ribbonDemoState'); // stale — ignore it
+      }
+    }
+  }catch(e){ console.error('localStorage load failed, starting with defaults', e); }
+
+  state = Object.assign(state, loaded);
+  state.demoVersion = DEMO_DATA_VERSION;
+
+  enabledExtras = state.extraTeams || [];
+  EXTRA_TEAMS.forEach(t=>{ document.getElementById('chk-'+t.id).checked=enabledExtras.includes(t.id); });
+
+  thumbsSettings = state.thumbsSettings || thumbsSettings;
+  document.getElementById('thumbs-mode').value=thumbsSettings.mode;
+  document.getElementById('thumbs-emoji').value=thumbsSettings.emoji||'';
+  document.getElementById('thumbs-text').value=thumbsSettings.text||'';
+  onThumbsModeChange();
+
+  muted = !!state.muted;
+  document.getElementById('chk-mute').checked=muted;
+  TIMER_DEFAULT = state.timerDefault || 60;
+  document.getElementById('timer-default').value=TIMER_DEFAULT;
+  timerVal=TIMER_DEFAULT;
+
+  ensureAtLeastOneClass();
+  loadSelectedClassIntoRibbon();
+  updateClassIndicator();
+  updatePillLabels();
+
+  zoom = (typeof state.zoom==='number') ? state.zoom : 1.18;
+  applyZoom();
+  updateSizeButtons();
+
+  currentSide = state.side || 'right';
+  applySide();
+
+  renderExtraRow();
+  updTimerDisp();
+  setupSizeObserver();
+  sendNormalSize();
+  // Startup-specific settle pass: CSS zoom doesn't always finish applying
+  // in time for this first measurement, so the window can get sized
+  // against a pre-zoom layout and render squished/wrapped until
+  // something else (like switching modes) forces a re-measurement.
+  // Same fix already used after Settings closes and the ribbon toggles.
+  setTimeout(sendNormalSize, 220);
+  renderTourForState();
+  setTimeout(renderTourForState, 230);
+}
+
+init();
+
+</script>
+</body>
+</html>

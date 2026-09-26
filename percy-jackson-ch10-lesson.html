@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Percy Jackson Ch.10 Lesson Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Atkinson+Hyperlegible+Next:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme=light]{--bg:#f5ead4;--surface:#fffaf0;--surface2:#f2e5c8;--border:#ad9168;--text:#251b10;--muted:#655546;--accent:#1e6670;--accent2:#b6821e;--shadow:0 14px 30px rgba(55,41,20,.12);--radius:1.35rem;--big:clamp(1.14rem,1rem + .6vw,1.58rem);--xl:clamp(1.9rem,1.3rem + 1.8vw,3rem);--xxl:clamp(2.8rem,1.7rem + 3vw,4.6rem);--display:'Cinzel',serif;--body:'Atkinson Hyperlegible Next',Arial,sans-serif}
+[data-theme=dark]{--bg:#17130f;--surface:#241c16;--surface2:#34281f;--border:#7f6850;--text:#f8efdf;--muted:#ddcdb8;--accent:#77c7ce;--accent2:#e2bc58;--shadow:0 18px 36px rgba(0,0,0,.34)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);color:var(--text);background-image:url('ChatGPT-Image-Jun-8-2026-09_46_40-PM.jpg');background-size:cover;background-attachment:fixed;background-position:center;font-size:var(--big);line-height:1.55}
+body:before{content:'';position:fixed;inset:0;background:rgba(245,234,212,.28);backdrop-filter:blur(1px);pointer-events:none;z-index:-1}
+[data-theme=dark] body:before{background:rgba(23,19,15,.40)}
+button{font:inherit;color:inherit;cursor:pointer;border:none;background:none;pointer-events:auto;position:relative;z-index:4}
+.app{position:relative;max-width:1600px;margin:0 auto;padding:1rem}
+.topbar{display:flex;justify-content:flex-end;gap:.6rem;margin-bottom:1rem;position:sticky;top:0;z-index:20}
+.small{font-size:.82rem;padding:.45rem .75rem;border-radius:999px;background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow)}
+.page{display:none;position:relative;z-index:2}
+.page.active{display:block}
+.hero,.panel,.card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);position:relative;z-index:3}
+.hero{padding:1.8rem;margin-bottom:1rem}
+.eyebrow{font-size:var(--big);letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+h1,h2,h3{font-family:var(--display);line-height:1.05}
+h1{font-size:var(--xxl);margin:.4rem 0 .75rem}
+h2{font-size:var(--xl);margin-bottom:.55rem}
+h3{font-size:clamp(1.45rem,1.1rem + .9vw,2.15rem);margin-bottom:.7rem}
+.subtle{color:var(--muted)}
+.hub-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;position:relative;z-index:3}
+.hub-card{min-height:12rem;text-align:left;padding:1.2rem;border-radius:var(--radius);background:var(--surface);border:2px solid var(--border);box-shadow:var(--shadow);position:relative;z-index:3}
+.hub-icon{font-size:2.4rem}
+.hub-card strong{display:block;font-size:clamp(1.35rem,1.1rem + .7vw,2rem);margin:.35rem 0 .55rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.panel{padding:1rem}
+.flip-list,.bullet-list,.question-list{display:grid;gap:.7rem}
+.flip-card,.row,.char-card,.stat-card,.theme-card,.summary-card{background:var(--surface2);border:2px solid var(--border);border-radius:1rem;padding:1rem}
+.flip-btn,.toggle,.chapter-btn{width:100%;text-align:left;padding:1rem 1.05rem;min-height:4rem;border-radius:1rem;background:var(--surface);border:2px solid var(--border);font-weight:700;font-size:var(--big)}
+.answer,.reveal,.expand{display:none;margin-top:.7rem;padding:.95rem 1.05rem;border-radius:1rem;background:rgba(182,130,30,.12);border:2px dashed var(--border);font-size:var(--big)}
+.answer.show,.reveal.show,.expand.show{display:block}
+.row{display:grid;grid-template-columns:32% 68%;gap:1rem;align-items:start;margin-bottom:1rem}
+.story{min-height:4.4rem;padding:1rem 1.05rem;border-radius:1rem;background:var(--surface);border:2px solid var(--border)}
+.bullet-list li,.question-list li{margin-left:1.2rem;font-size:var(--big);line-height:1.7;padding:.2rem 0}
+.chapter-wrap{margin-bottom:.85rem}
+.char-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.char-card{box-shadow:var(--shadow)}
+.char-top{display:flex;gap:.9rem;align-items:center;margin-bottom:.8rem}
+.stick{width:4.7rem;height:4.7rem;border-radius:50%;background:linear-gradient(135deg,var(--accent2),var(--surface2));display:grid;place-items:center;font-size:2.35rem;flex:0 0 auto;border:2px solid var(--border)}
+.tag-row{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.7rem}
+.tag{font-size:var(--big);padding:.32rem .55rem;border-radius:999px;background:var(--surface2);border:1px solid var(--border)}
+.mini{font-size:var(--big);color:var(--muted)}
+.section-title{font-family:var(--display);font-size:clamp(1.4rem,1.1rem + 1vw,2.2rem);margin:.2rem 0 .7rem}
+.icon-guess{font-size:1.45rem;display:inline-block;margin-right:.45rem}
+.chapter-link{font-size:var(--big);padding:.55rem .8rem;border-radius:999px;background:var(--surface2);border:1px solid var(--border);margin-right:.35rem;margin-bottom:.35rem}
+.chapter-link.active{background:var(--accent);color:white}
+.stat-layout{display:grid;grid-template-columns:1fr 380px;gap:1rem;align-items:start}
+.desc-grid{display:grid;gap:1rem;font-size:var(--big)}
+.desc-label{display:inline-block;border-bottom:2px dotted var(--accent);cursor:pointer;font-weight:700;padding-right:.2rem;font-size:var(--big)}
+.desc-label:hover,.desc-label:focus{color:var(--accent2);outline:none}
+.sidebox{background:var(--surface2);border:2px solid var(--border);border-radius:1rem;padding:1.1rem;margin-top:.5rem;min-height:6rem}
+.sidebox-title{font-family:var(--display);font-size:var(--big);color:var(--accent2);margin-bottom:.45rem}
+.sidebox-kr{font-size:var(--big);font-weight:700;color:var(--text);margin-bottom:.35rem}
+.sidebox-def{font-size:var(--big);color:var(--muted);line-height:1.6}
+.char-detail{display:none;margin-top:.8rem;padding:1rem 1.2rem;border-radius:.85rem;background:rgba(30,102,112,.1);border:2px dashed var(--border);font-size:var(--big);line-height:1.75}
+.char-detail.open{display:block}
+.char-detail ul{margin-left:1.3rem;display:grid;gap:.6rem}
+.char-detail-head{font-family:var(--display);font-size:var(--big);color:var(--accent2);margin-bottom:.55rem}
+.theme-list{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:.7rem;margin-bottom:1rem}
+.theme-tag{padding:.55rem 1.1rem;border-radius:999px;background:var(--surface);border:2px solid var(--accent2);font-size:var(--big);font-weight:700;color:var(--accent2)}
+.mystery{background:rgba(30,102,112,.08);border:2px dashed var(--accent);border-radius:1rem;padding:1rem 1.2rem;margin-top:.75rem;font-size:var(--big);line-height:1.7}
+.mystery-label{font-family:var(--display);font-size:var(--big);color:var(--accent);margin-bottom:.45rem}
+.chardev{background:rgba(182,130,30,.10);border:2px solid var(--accent2);border-radius:1rem;padding:1rem 1.2rem;margin-top:.85rem}
+.chardev-head{font-family:var(--display);font-size:var(--big);color:var(--accent2);margin-bottom:.6rem}
+.chardev .question-list li{font-size:var(--big);line-height:1.7}
+.cq-btns{display:flex;gap:.55rem;margin:.65rem 0 .4rem;flex-wrap:wrap}
+.ans-pop{display:none;margin-top:.6rem;padding:1rem 1.2rem;border-radius:.85rem;background:rgba(30,102,112,.08);border:2px solid var(--accent);font-size:var(--big);line-height:1.75}
+.ans-pop.show{display:block}
+.ans-text{color:var(--text)}
+.group-header{font-family:var(--display);font-size:clamp(1.35rem,1.1rem + .65vw,1.85rem);color:var(--accent2);padding:.75rem .2rem .45rem;border-bottom:2px solid var(--border);margin-bottom:.95rem}
+.group-header:first-child{margin-top:0}
+.warmup-list{display:grid;gap:.7rem;padding:.4rem 0}
+.warmup-list li{margin-left:1.3rem;padding:.3rem 0;font-size:var(--big);line-height:1.7}
+.theme-bank-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;margin-bottom:1rem}
+.tb-btn{padding:.75rem .9rem;border-radius:.75rem;background:var(--surface2);border:2px solid var(--border);font-size:1.05rem;font-weight:700;text-align:center;transition:background .15s}
+.tb-btn:hover,.tb-btn.active{background:var(--accent);color:white;border-color:var(--accent)}
+.tb-box{background:rgba(30,102,112,.08);border:2px solid var(--accent);border-radius:1rem;padding:1rem 1.2rem;margin-top:.35rem}
+.tb-en{font-family:var(--display);font-size:var(--big);color:var(--accent2);margin-bottom:.35rem}
+.tb-kr{font-size:var(--big);font-weight:700;margin-bottom:.35rem}
+.tb-def{font-size:var(--big);color:var(--muted);line-height:1.6}
+.ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:.8rem}
+.ev-card{background:var(--surface2);border:2px solid var(--border);border-radius:1rem;padding:1.1rem}
+.ev-label{font-family:var(--display);font-size:var(--big);color:var(--accent);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.04em}
+.kr-pop{display:none;margin-top:.6rem;padding:.9rem 1.1rem;border-radius:.75rem;background:rgba(182,130,30,.12);border:2px dashed var(--border);font-size:var(--big);line-height:1.65}
+.kr-pop.show{display:block}
+.kr-pop .kr-word{font-size:var(--big);font-weight:700;margin-bottom:.25rem}
+.comp-card{background:var(--surface2);border:2px solid var(--border);border-radius:1rem;padding:1.15rem;margin-bottom:.85rem}
+.comp-q{font-weight:700;margin-bottom:.5rem;font-size:var(--big);line-height:1.65}
+@media(max-width:1100px){.hub-grid,.grid-2,.grid-3,.char-grid,.stat-layout,.ev-grid,.theme-bank-grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<div class="topbar"><button class="small" id="theme-toggle">Toggle theme</button></div>
+
+<!-- ═══════════════════════════════════════ HUB ═══ -->
+<section class="page active" id="hub-page">
+  <div class="hero">
+    <div class="eyebrow">Percy Jackson and the Lightning Thief</div>
+    <h1>Chapter 10 Lesson Hub</h1>
+    <p>"I Ruin a Perfectly Good Bus"</p>
+  </div>
+  <div class="hub-grid">
+    <button class="hub-card nav" data-page="vocab-page"><div class="hub-icon">📘</div><strong>Vocabulary</strong><div class="subtle">Key words from Ch.10, Korean first.</div></button>
+    <button class="hub-card nav" data-page="themes-page"><div class="hub-icon">🧭</div><strong>Themes</strong><div class="subtle">Overall themes so far + Ch.10 breakdown.</div></button>
+    <button class="hub-card nav" data-page="summary-page"><div class="hub-icon">🗺️</div><strong>Summary</strong><div class="subtle">Chapter summary, bullet by bullet.</div></button>
+    <button class="hub-card nav" data-page="characters-page"><div class="hub-icon">👤</div><strong>Characters</strong><div class="subtle">Ongoing development + new faces.</div></button>
+    <button class="hub-card nav" data-page="warmups-page"><div class="hub-icon">❓</div><strong>Warm-Ups</strong><div class="subtle">Ch.10 question set + comprehension.</div></button>
+    <button class="hub-card nav" data-page="discussion-page"><div class="hub-icon">💬</div><strong>Discussion</strong><div class="subtle">Personal, analytical, and character-dev questions.</div></button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ VOCABULARY ═══ -->
+<section class="page" id="vocab-page">
+  <div class="topbar"><button class="small back" data-back="hub-page">← Back</button></div>
+  <div class="hero">
+    <div class="eyebrow">Vocabulary — Chapter 10</div>
+    <h2>Key Vocabulary</h2>
+    <p>Click the Korean clue to reveal the English word. Each word appears in context from Ch.10.</p>
+  </div>
+  <div class="panel">
+    <div class="flip-list">
+      <div class="flip-card">
+        <button class="flip-btn" data-target="v1">선전, 거짓 선동<div class="mini" style="font-weight:400;margin-top:.2rem">Chiron says Kronos calling his reign the "Golden Age" was mere _______.</div></button>
+        <div class="answer" id="v1"><strong>propaganda</strong> (n) — misleading information spread to promote a cause or leader. Chiron reveals that the Titans' "Golden Age" was really a time of fear for mortals, not the peaceful myth Kronos wanted remembered.</div>
+      </div>
+      <div class="flip-card">
+        <button class="flip-btn" data-target="v2">드라크마, 신들의 화폐<div class="mini" style="font-weight:400;margin-top:.2rem">Percy is given mortal money and gold _______s for the quest.</div></button>
+        <div class="answer" id="v2"><strong>drachma</strong> (n) — the golden coin used by gods and demigods. Percy is outfitted with drachmas alongside ordinary mortal money before he leaves camp.</div>
+      </div>
+      <div class="flip-card">
+        <button class="flip-btn" data-target="v3">천상의, 하늘의<div class="mini" style="font-weight:400;margin-top:.2rem">Riptide is forged from _______ bronze.</div></button>
+        <div class="answer" id="v3"><strong>celestial</strong> (adj) — belonging to the heavens or the divine world. Riptide is made of celestial bronze, which is why it can wound monsters but never harm an ordinary mortal.</div>
+      </div>
+      <div class="flip-card">
+        <button class="flip-btn" data-target="v4">칼집에서 꺼내다<div class="mini" style="font-weight:400;margin-top:.2rem">Percy uncaps the pen and it seems to _______ itself.</div></button>
+        <div class="answer" id="v4"><strong>unsheathe</strong> (v) — to pull a blade out of its case. The instant Percy uncaps the ballpoint pen Chiron hands him, it unsheathes into a full bronze sword.</div>
+      </div>
+      <div class="flip-card">
+        <button class="flip-btn" data-target="v5">태워다 주다, 운전해 주다<div class="mini" style="font-weight:400;margin-top:.2rem">Argus, covered head to toe in eyes, will _______ the trio to Manhattan.</div></button>
+        <div class="answer" id="v5"><strong>chauffeur</strong> (v/n) — to drive someone as a job, or the driver who does it. Argus, the many-eyed head of camp security, chauffeurs Percy, Annabeth, and Grover to the bus depot.</div>
+      </div>
+      <div class="flip-card">
+        <button class="flip-btn" data-target="v6">붕해되다, 흩어져 사라지다<div class="mini" style="font-weight:400;margin-top:.2rem">Struck by Riptide, one of the sisters begins to _______.</div></button>
+        <div class="answer" id="v6"><strong>disintegrate</strong> (v) — to break apart into dust or nothing. When Percy's celestial bronze blade connects, the monster doesn't bleed — it disintegrates completely.</div>
+      </div>
+      <div class="flip-card">
+        <button class="flip-btn" data-target="v7">마지못해, 내키지 않게<div class="mini" style="font-weight:400;margin-top:.2rem">Percy _______ hands the winged shoes over to Grover.</div></button>
+        <div class="answer" id="v7"><strong>grudgingly</strong> (adv) — done reluctantly, without wanting to. Percy accepts that flying is too dangerous for a son of Poseidon and grudgingly gives up the gift Luke worked hard to get him.</div>
+      </div>
+      <div class="flip-card">
+        <button class="flip-btn" data-target="v8">울부짖다, 통곡하다<div class="mini" style="font-weight:400;margin-top:.2rem">As lightning hits the bus, the trio hears Mrs. Dodds _______ from inside.</div></button>
+        <div class="answer" id="v8"><strong>wail</strong> (v) — to cry out loudly in pain or grief. The chapter ends with the eerie sound of Mrs. Dodds wailing as the bus is struck.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ THEMES ═══ -->
+<section class="page" id="themes-page">
+  <div class="topbar"><button class="small back" data-back="hub-page">← Back</button></div>
+  <div class="hero">
+    <div class="eyebrow">Themes — Chapter 10</div>
+    <h2>Theme Hub</h2>
+    <p>Overall themes with new evidence from Ch.10, plus a chapter breakdown.</p>
+  </div>
+  <div class="hub-grid" style="grid-template-columns:1fr 1fr">
+    <button class="hub-card nav-sub" data-subpage="themes-overall"><div class="hub-icon">🪞</div><strong>Themes so far</strong><div class="subtle">Running overall themes, updated through Ch.10.</div></button>
+    <button class="hub-card nav-sub" data-subpage="themes-chapters"><div class="hub-icon">📚</div><strong>Chapter breakdown</strong><div class="subtle">Every theme found in Ch.10.</div></button>
+  </div>
+
+  <div class="subpage" id="themes-overall" style="display:none;margin-top:1rem">
+    <div class="topbar"><button class="small back-sub" data-back-sub="themes-page">← Back</button></div>
+    <div class="panel">
+      <h3>Strongest themes through Ch.10</h3>
+      <p class="subtle" style="margin-bottom:1rem">Each button hides the theme — reveal it, then read the three strongest evidence points including new ones from Ch.10.</p>
+      <div class="row">
+        <div>
+          <button class="toggle" data-target="ot1"><span class="icon-guess">🪞</span>Reveal theme #1</button>
+          <div class="reveal" id="ot1"><strong>Identity</strong> — Percy is becoming who he was always meant to be.</div>
+        </div>
+        <div class="story">
+          <ul class="bullet-list">
+            <li>❓ Percy started the book as "undetermined," unsure of his own power.</li>
+            <li>⚔️ In Ch.10, Chiron entrusts him with Riptide — a weapon literally forged for a son of Poseidon. His identity is no longer a question mark; it is armed and visible.</li>
+            <li>🛡️ Percy now carries physical proof of who he is everywhere he goes, whether or not anyone else can see it.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <button class="toggle" data-target="ot2"><span class="icon-guess">👨‍👩‍👦</span>Reveal theme #2</button>
+          <div class="reveal" id="ot2"><strong>Family and sacrifice</strong> — Love often looks like something else from the outside.</div>
+        </div>
+        <div class="story">
+          <ul class="bullet-list">
+            <li>😔 Percy has always resented his mother for staying with Smelly Gabe.</li>
+            <li>💡 Grover reveals that Sally married Gabe on purpose — his overpowering stench masks Percy's demigod scent from monsters. What looked like a bad choice was a sacrifice.</li>
+            <li>🎁 Luke's shoes and Chiron's sword are also gifts driven by care — from people who are not Percy's family by blood, but act like family anyway.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <button class="toggle" data-target="ot3"><span class="icon-guess">🔮</span>Reveal theme #3</button>
+          <div class="reveal" id="ot3"><strong>Fate and destiny</strong> — Something keeps testing Percy before he even chooses his path.</div>
+        </div>
+        <div class="story">
+          <ul class="bullet-list">
+            <li>🚌 The Furies attack almost the moment the quest begins — before Percy has even left New York.</li>
+            <li>⚡ Lightning strikes the bus the instant Percy raises his sword outdoors — as if some greater force is watching and reacting immediately.</li>
+            <li>🧵 The pattern echoes the three Fates from earlier in the story — old, watching women who seem to know more than they say.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <button class="toggle" data-target="ot4"><span class="icon-guess">⚡</span>Reveal theme #4</button>
+          <div class="reveal" id="ot4"><strong>Power with direction</strong> — Percy is moving from reacting to choosing.</div>
+        </div>
+        <div class="story">
+          <ul class="bullet-list">
+            <li>💥 Earlier, Percy's power activated on its own — the fountain, the bathroom pipes.</li>
+            <li>🗡️ In Ch.10, Percy consciously grabs the wheel, pulls the brake, and draws Riptide — all deliberate choices under pressure, not accidents.</li>
+            <li>🤝 He fights alongside Annabeth and Grover as a team, not alone — his power now works together with a plan.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="subpage" id="themes-chapters" style="display:none;margin-top:1rem">
+    <div class="topbar"><button class="small back-sub" data-back-sub="themes-page">← Back</button></div>
+
+    <div class="panel" style="margin-bottom:1rem">
+      <h3>📚 Theme Bank</h3>
+      <p class="subtle" style="margin-bottom:.9rem">These are themes that appear in most books and stories. Click any theme to see its Korean definition. Use this bank to help you identify themes in Ch.10 below.</p>
+      <div class="theme-bank-grid">
+        <button class="tb-btn" data-tk="tb1">Identity</button>
+        <button class="tb-btn" data-tk="tb2">Belonging</button>
+        <button class="tb-btn" data-tk="tb3">Friendship</button>
+        <button class="tb-btn" data-tk="tb4">Loyalty</button>
+        <button class="tb-btn" data-tk="tb5">Courage</button>
+        <button class="tb-btn" data-tk="tb6">Coming of age</button>
+        <button class="tb-btn" data-tk="tb7">Good vs. evil</button>
+        <button class="tb-btn" data-tk="tb8">Power &amp; control</button>
+        <button class="tb-btn" data-tk="tb9">Family</button>
+        <button class="tb-btn" data-tk="tb10">Betrayal</button>
+        <button class="tb-btn" data-tk="tb11">Sacrifice</button>
+        <button class="tb-btn" data-tk="tb12">Fate &amp; destiny</button>
+        <button class="tb-btn" data-tk="tb13">Secrecy &amp; truth</button>
+        <button class="tb-btn" data-tk="tb14">Grief &amp; loss</button>
+        <button class="tb-btn" data-tk="tb15">Justice &amp; fairness</button>
+        <button class="tb-btn" data-tk="tb16">Perseverance</button>
+        <button class="tb-btn" data-tk="tb17">Appearance vs. reality</button>
+        <button class="tb-btn" data-tk="tb18">Social hierarchy</button>
+        <button class="tb-btn" data-tk="tb19">Fear &amp; survival</button>
+        <button class="tb-btn" data-tk="tb20">Hope</button>
+      </div>
+      <div class="tb-box" id="tb-display" style="display:none">
+        <div class="tb-en" id="tb-en"></div>
+        <div class="tb-kr" id="tb-kr"></div>
+        <div class="tb-def" id="tb-def"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h3>Chapter 10 — "I Ruin a Perfectly Good Bus"</h3>
+      <p class="subtle" style="margin-bottom:.9rem">Read the evidence first. Make your guess using the Theme Bank above. Then click <em>Reveal theme</em> to check.</p>
+      <div class="ev-grid">
+
+        <div class="ev-card">
+          <div class="ev-label">📖 Evidence from the text</div>
+          <ul class="bullet-list">
+            <li>🎁 Luke gives Percy magic winged shoes as a going-away gift, even though the two boys could be seen as rivals.</li>
+            <li>⚔️ Chiron hands over Riptide — a sword that has clearly been kept safe and waiting for exactly this moment.</li>
+            <li>👟 Percy immediately regifts the shoes to Grover once he realizes flying is too dangerous for him.</li>
+          </ul>
+          <div class="chapter-wrap" style="margin-top:.7rem">
+            <button class="chapter-btn" data-target="c1t1">🔍 Reveal theme</button>
+            <div class="expand" id="c1t1"><strong>Gifts as trust and care</strong> — Every object Percy receives before the quest is really a relationship made physical. People show they care through what they give, not just what they say.</div>
+          </div>
+        </div>
+
+        <div class="ev-card">
+          <div class="ev-label">📖 Evidence from the text</div>
+          <ul class="bullet-list">
+            <li>🎒 For the first time, Percy is equipped and prepared instead of caught by surprise.</li>
+            <li>🗡️ He now carries a real weapon and knows, at least in theory, how to use it.</li>
+            <li>🚪 Leaving Thalia's hill behind means leaving the safety of camp completely — there is no adult supervision on this trip.</li>
+          </ul>
+          <div class="chapter-wrap" style="margin-top:.7rem">
+            <button class="chapter-btn" data-target="c1t2">🔍 Reveal theme</button>
+            <div class="expand" id="c1t2"><strong>Coming of age</strong> — Being handed real tools and real responsibility marks the moment Percy stops being protected and starts protecting others.</div>
+          </div>
+        </div>
+
+        <div class="ev-card">
+          <div class="ev-label">📖 Evidence from the text</div>
+          <ul class="bullet-list">
+            <li>⚡ Annabeth tells Percy that Athena and Poseidon don't get along.</li>
+            <li>😤 The comment causes real tension between Percy and Annabeth in the car, even though neither of them chose their parent.</li>
+            <li>🧬 Their argument mirrors old family conflicts neither of them started.</li>
+          </ul>
+          <div class="chapter-wrap" style="margin-top:.7rem">
+            <button class="chapter-btn" data-target="c1t3">🔍 Reveal theme</button>
+            <div class="expand" id="c1t3"><strong>Inherited conflict</strong> — Family rivalries can pass down to the next generation even when the children want nothing to do with them.</div>
+          </div>
+        </div>
+
+        <div class="ev-card">
+          <div class="ev-label">📖 Evidence from the text</div>
+          <ul class="bullet-list">
+            <li>😱 The bus lurches out of control the moment the Furies attack, and passengers panic.</li>
+            <li>🫥 Percy uses Annabeth's invisibility cap to buy time instead of fighting immediately.</li>
+            <li>🧠 He thinks fast under pressure — grabbing the wheel, then the brake — rather than freezing.</li>
+          </ul>
+          <div class="chapter-wrap" style="margin-top:.7rem">
+            <button class="chapter-btn" data-target="c1t4">🔍 Reveal theme</button>
+            <div class="expand" id="c1t4"><strong>Fear and survival</strong> — Real danger reveals what a person actually does under pressure, not just what they say they would do.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SUMMARY ═══ -->
+<section class="page" id="summary-page">
+  <div class="topbar"><button class="small back" data-back="hub-page">← Back</button></div>
+  <div class="hero">
+    <div class="eyebrow">Summary — Chapter 10</div>
+    <h2>Chapter Summary</h2>
+    <p>Click to expand the bullet-point summary.</p>
+  </div>
+  <div class="panel">
+    <div class="chapter-wrap">
+      <button class="chapter-btn" data-target="s1">Chapter 10 — Quest gifts, the Furies attack, and the bus is destroyed.</button>
+      <div class="expand" id="s1">
+        <ul class="bullet-list">
+          <li>📜 Percy asks Chiron what the world was like before the gods. Chiron explains the Titans' "Golden Age" was really propaganda — Kronos cared nothing for humans, and life only improved once Zeus and the Olympians took over.</li>
+          <li>😤 On the car ride to the bus, Percy and Annabeth argue after she reveals that Athena and Poseidon don't get along.</li>
+          <li>💡 Grover tells Percy the real reason his mother married Smelly Gabe: Gabe's overpowering smell masks Percy's demigod scent from monsters. It was protection disguised as a bad choice.</li>
+          <li>🎒 The camp outfits the trio for the road: mortal money and drachmas, ambrosia and nectar, Annabeth's invisibility cap and bronze knife, Grover's reed pipes and snacks.</li>
+          <li>👁️ At Thalia's hill, Argus — the many-eyed head of camp security — arrives to drive them to the bus depot in Manhattan.</li>
+          <li>👟 Luke gives Percy a pair of magic winged sneakers, a gift from Hermes. Touched, Percy passes them to Grover once Chiron confirms that flying puts him in Zeus's territory.</li>
+          <li>⚔️ Chiron gives Percy his own pen — Anaklusmos, or Riptide — which transforms into a celestial bronze sword. It can't hurt mortals, can't be lost, and will always return to Percy's pocket.</li>
+          <li>🚌 In the city, the three board a Greyhound bus. Mrs. Dodds boards too, along with two identical sisters — the Furies.</li>
+          <li>🫥 The Furies announce a restroom break to get to the back of the bus. Annabeth gives Percy her invisibility cap, and he sneaks toward the front — but the Furies attack Annabeth and Grover instead.</li>
+          <li>🚨 Still invisible, Percy grabs the steering wheel and then the emergency brake, sending the bus off the road and into the New Jersey woods.</li>
+          <li>⚔️ Percy uncaps Riptide and fights alongside his friends. They tie up Mrs. Dodds and destroy one of her sisters.</li>
+          <li>⚡ Lightning strikes the bus, and the trio hears Mrs. Dodds wailing from inside as they flee into the woods — losing all their luggage and supplies in the process.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ CHARACTERS ═══ -->
+<section class="page" id="characters-page">
+  <div class="topbar"><button class="small back" data-back="hub-page">← Back</button></div>
+  <div class="hero">
+    <div class="eyebrow">Characters — Chapter 10</div>
+    <h2>Character Navigation</h2>
+    <p>Ongoing development tracks how main characters are growing. New faces shows who we just met.</p>
+  </div>
+  <div class="hub-grid" style="grid-template-columns:1fr 1fr">
+    <button class="hub-card nav-sub" data-subpage="char-development"><div class="hub-icon">📈</div><strong>Ongoing development</strong><div class="subtle">How Percy, Grover, and Annabeth are changing in Ch.10.</div></button>
+    <button class="hub-card nav-sub" data-subpage="char-new"><div class="hub-icon">🆕</div><strong>New characters</strong><div class="subtle">Argus and the Furies — who they are.</div></button>
+  </div>
+
+  <div class="subpage" id="char-development" style="display:none;margin-top:1rem">
+    <div class="topbar"><button class="small back-sub" data-back-sub="characters-page">← Back</button></div>
+    <div class="panel">
+      <h3>Ongoing character development</h3>
+      <p class="subtle" style="margin-bottom:.8rem">Click a card to see what Ch.10 adds to their arc and character development discussion questions.</p>
+      <div class="char-grid">
+
+        <div class="char-card">
+          <button class="ch-detail-btn" data-detail="dev-percy" style="width:100%;text-align:left;padding:0;background:none;border:none">
+            <div class="char-top"><div class="stick">🧍</div><div><strong>Percy</strong><div class="mini">Development through Ch.10</div></div></div>
+            <div class="tag-row"><span class="tag">armed for the first time</span><span class="tag">chooses instead of reacts</span><span class="tag">tested immediately</span></div>
+          </button>
+          <div class="char-detail" id="dev-percy">
+            <div class="char-detail-head">What Ch.10 adds to Percy's arc</div>
+            <ul>
+              <li>⚔️ He receives Riptide — the first weapon truly his own, entrusted to him by Chiron personally.</li>
+              <li>🧠 On the bus, Percy makes fast, deliberate choices (the wheel, the brake, the sword) instead of reacting on instinct alone.</li>
+              <li>😔 Learning the truth about Gabe forces Percy to reconsider a resentment he has carried for years.</li>
+              <li>🤝 He fights as part of a team for the first time on the road, not alone.</li>
+            </ul>
+            <div class="chardev">
+              <div class="chardev-head">🧠 Character Development Questions</div>
+              <ul class="question-list">
+                <li>⚔️ How is Percy's fight on the bus different from his earlier moments of power (the fountain, the bathroom)? What does the difference show about his growth?</li>
+                <li>💡 Percy has resented his mother's choice to stay with Gabe for years. How might learning the real reason change how he sees his whole childhood?</li>
+                <li>🤝 Why might fighting alongside Annabeth and Grover — instead of alone — matter for Percy's development as a hero?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="char-card">
+          <button class="ch-detail-btn" data-detail="dev-annabeth" style="width:100%;text-align:left;padding:0;background:none;border:none">
+            <div class="char-top"><div class="stick">🧠</div><div><strong>Annabeth</strong><div class="mini">Development through Ch.10</div></div></div>
+            <div class="tag-row"><span class="tag">blunt about family tension</span><span class="tag">quick under pressure</span></div>
+          </button>
+          <div class="char-detail" id="dev-annabeth">
+            <div class="char-detail-head">What Ch.10 adds to Annabeth's arc</div>
+            <ul>
+              <li>⚡ She tells Percy directly that Athena and Poseidon don't get along — she doesn't soften it, even knowing it might cause tension.</li>
+              <li>🎒 She packs practically and strategically: a weapon, a magic item, and a book — she is always preparing.</li>
+              <li>🫥 She gives up her invisibility cap to protect Percy without hesitation when the Furies attack.</li>
+            </ul>
+            <div class="chardev">
+              <div class="chardev-head">🧠 Character Development Questions</div>
+              <ul class="question-list">
+                <li>⚡ Why might Annabeth choose to be blunt about the Athena–Poseidon rivalry instead of avoiding the topic?</li>
+                <li>🫥 Annabeth hands over her only magic item to protect Percy. What does that choice reveal about her priorities?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="char-card">
+          <button class="ch-detail-btn" data-detail="dev-grover" style="width:100%;text-align:left;padding:0;background:none;border:none">
+            <div class="char-top"><div class="stick">🐐</div><div><strong>Grover</strong><div class="mini">Development through Ch.10</div></div></div>
+            <div class="tag-row"><span class="tag">reads Percy's emotions</span><span class="tag">now has wings</span></div>
+          </button>
+          <div class="char-detail" id="dev-grover">
+            <div class="char-detail-head">What Ch.10 adds to Grover's arc</div>
+            <ul>
+              <li>💡 Grover is the one who finally tells Percy the truth about why his mother stayed with Gabe — showing he understands Percy better than Percy understands himself sometimes.</li>
+              <li>👟 He receives Percy's winged shoes and is thrilled, even though he immediately struggles to control them.</li>
+              <li>😨 He is caught in the direct attack from the Furies alongside Annabeth, showing he is now genuinely in danger, not just a nervous bystander.</li>
+            </ul>
+            <div class="chardev">
+              <div class="chardev-head">🧠 Character Development Questions</div>
+              <ul class="question-list">
+                <li>💡 Why do you think Grover — rather than Percy's mother herself — is the one who finally explains the truth about Gabe?</li>
+                <li>👟 What might it mean for Grover, specifically, to be the one who ends up with the winged shoes?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="subpage" id="char-new" style="display:none;margin-top:1rem">
+    <div class="topbar"><button class="small back-sub" data-back-sub="characters-page">← Back</button></div>
+    <div class="panel">
+      <h3>New characters in Ch.10</h3>
+      <p class="subtle" style="margin-bottom:.8rem">Click a card to expand what we learn — and what we should be watching for.</p>
+      <div class="char-grid">
+
+        <div class="char-card">
+          <button class="ch-detail-btn" data-detail="new-argus" style="width:100%;text-align:left;padding:0;background:none;border:none">
+            <div class="char-top"><div class="stick">👁️</div><div><strong>Argus</strong><div class="mini">Head of camp security</div></div></div>
+            <div class="tag-row"><span class="tag">covered in eyes</span><span class="tag">silent</span><span class="tag">trusted by Chiron</span></div>
+          </button>
+          <div class="char-detail" id="new-argus">
+            <div class="char-detail-head">What Ch.10 establishes about Argus</div>
+            <ul>
+              <li>👁️ Argus has eyes covering his entire body, allowing him to watch every direction at once.</li>
+              <li>🚗 He drives Percy, Annabeth, and Grover from camp to the bus depot in Manhattan — his first real appearance in the story.</li>
+              <li>🤐 He doesn't speak in these scenes; his role is pure protection and observation.</li>
+            </ul>
+            <div class="chardev">
+              <div class="chardev-head">🧠 Character Development Questions</div>
+              <ul class="question-list">
+                <li>👁️ Why might Camp Half-Blood want a security guard whose entire body is covered in watching eyes?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="char-card">
+          <button class="ch-detail-btn" data-detail="new-furies" style="width:100%;text-align:left;padding:0;background:none;border:none">
+            <div class="char-top"><div class="stick">👵</div><div><strong>The Furies</strong><div class="mini">Mrs. Dodds and her two sisters</div></div></div>
+            <div class="tag-row"><span class="tag">disguised as old women</span><span class="tag">whip weapons</span><span class="tag">hunting something specific</span></div>
+          </button>
+          <div class="char-detail" id="new-furies">
+            <div class="char-detail-head">What Ch.10 establishes about the Furies</div>
+            <ul>
+              <li>👵 Mrs. Dodds — Percy's old math teacher — reappears on the bus, disguised as an elderly woman, along with two identical sisters.</li>
+              <li>🔥 When they attack, they reveal monstrous true forms and fight with whip-like weapons.</li>
+              <li>⚔️ Percy and his friends manage to tie up Mrs. Dodds and destroy one of the sisters, but Mrs. Dodds survives the chapter.</li>
+            </ul>
+            <div class="chardev">
+              <div class="chardev-head">🧠 Character Development Questions</div>
+              <ul class="question-list">
+                <li>👵 Mrs. Dodds first appeared all the way back in Ch.1. What effect does it have on the reader to see her return here, transformed and multiplied?</li>
+              </ul>
+            </div>
+            <div class="mystery">
+              <div class="mystery-label">🔭 Foreshadowing — Notice &amp; Remember</div>
+              The Furies attack almost immediately after the quest begins — before Percy has even left the city. We don't know yet exactly why they're hunting him so urgently. Keep watching.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ WARM-UPS ═══ -->
+<section class="page" id="warmups-page">
+  <div class="topbar"><button class="small back" data-back="hub-page">← Back</button></div>
+  <div class="hero">
+    <div class="eyebrow">Warm-Ups &amp; Comprehension — Chapter 10</div>
+    <h2>Warm-Ups &amp; Comprehension</h2>
+    <p>Four warm-up questions to open discussion, then three comprehension questions.</p>
+  </div>
+  <div class="panel">
+    <div class="group-header">🔥 Warm-Up — Chapter 10 (pick one to discuss)</div>
+    <ol class="warmup-list" style="margin-bottom:1.4rem">
+      <li>🎁 Has anyone ever given you a gift that turned out to mean more than you expected once you understood why they gave it?</li>
+      <li>😔 Have you ever found out the real reason behind a choice an adult made — one you had judged before you understood it?</li>
+      <li>🧠 Think of a time you had to think fast and make a quick decision under pressure. What did you choose, and how did it turn out?</li>
+      <li>👥 Have you ever had to work as a team in a moment of real danger or stress — at school, in sports, or elsewhere? What did that teach you about the people around you?</li>
+    </ol>
+
+    <div class="group-header">📖 Comprehension — Chapter 10</div>
+    <p class="subtle" style="margin-bottom:.8rem">Answer in 1–2 sentences. Click 🇰🇷 to read the question in Korean. Click ✅ to see the best answer.</p>
+
+    <div class="comp-card">
+      <div class="comp-q">1. What three gifts does Percy receive before leaving camp, and why does he give one of them away?</div>
+      <div class="cq-btns">
+        <button class="kr-toggle small" data-kr="cq1">🇰🇷 Korean</button>
+        <button class="ans-toggle small" data-ans="ca1">✅ Answer</button>
+      </div>
+      <div class="kr-pop" id="cq1"><div class="kr-word">퍼시는 캠프를 떠나기 전에 어떤 세 가지 선물을 받나요? 그리고 왜 그중 하나를 다른 사람에게 주나요?</div></div>
+      <div class="ans-pop" id="ca1"><div class="ans-text">👟 Percy receives magic winged sneakers from Luke, ⚔️ Riptide (the sword-pen) from Chiron, and 🎒 supplies like drachmas, ambrosia, and nectar from camp. He gives the winged shoes to Grover because Chiron warns that flying puts Percy in Zeus's territory, which would be dangerous.</div></div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-q">2. Who turns out to be riding the bus with Percy, Annabeth, and Grover, and what do they do?</div>
+      <div class="cq-btns">
+        <button class="kr-toggle small" data-kr="cq2">🇰🇷 Korean</button>
+        <button class="ans-toggle small" data-ans="ca2">✅ Answer</button>
+      </div>
+      <div class="kr-pop" id="cq2"><div class="kr-word">퍼시, 아나베스, 그로버와 함께 버스에 타고 있던 것은 누구였고, 그들은 무엇을 하나요?</div></div>
+      <div class="ans-pop" id="ca2"><div class="ans-text">👵 Mrs. Dodds and two identical sisters — the Furies — board the bus disguised as elderly women. They announce a restroom stop, then attack Annabeth and Grover at the back of the bus while Percy tries to escape unseen at the front.</div></div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-q">3. How does Percy manage to stop the bus and fight back, even though he starts the attack invisible?</div>
+      <div class="cq-btns">
+        <button class="kr-toggle small" data-kr="cq3">🇰🇷 Korean</button>
+        <button class="ans-toggle small" data-ans="ca3">✅ Answer</button>
+      </div>
+      <div class="kr-pop" id="cq3"><div class="kr-word">퍼시는 보이지 않는 상태로 공격이 시작되었음에도 불구하고 어떻게 버스를 멈추고 맞서 싸우나요?</div></div>
+      <div class="ans-pop" id="ca3"><div class="ans-text">🫥 Still wearing Annabeth's invisibility cap, Percy grabs the steering wheel and then the emergency brake, forcing the bus off the road. ⚔️ He then takes off the cap, uncaps Riptide, and fights alongside Annabeth and Grover to tie up Mrs. Dodds and destroy one of her sisters.</div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ DISCUSSION ═══ -->
+<section class="page" id="discussion-page">
+  <div class="topbar"><button class="small back" data-back="hub-page">← Back</button></div>
+  <div class="hero">
+    <div class="eyebrow">Discussion — Chapter 10</div>
+    <h2>Discussion Questions</h2>
+    <p>8 questions. Click 🇰🇷 to read in Korean. Click 💡 to see a strong model answer.</p>
+  </div>
+  <div class="panel">
+    <div class="group-header">💬 Personal &amp; Analytical</div>
+
+    <div class="comp-card">
+      <div class="comp-q">1. Chiron reveals that the Titans' "Golden Age" was really propaganda — a comfortable story that hid a harsher truth. Can you think of a time you learned that a comfortable story you believed wasn't quite true?</div>
+      <div class="cq-btns">
+        <button class="kr-toggle small" data-kr="dq1">🇰🇷 Korean</button>
+        <button class="ans-toggle small" data-ans="da1">💡 Best answer</button>
+      </div>
+      <div class="kr-pop" id="dq1"><div class="kr-word">카이론은 타이탄의 "황금시대"가 사실 선전이었다고 밝힙니다 — 더 가혹한 진실을 감춘 편안한 이야기였죠. 여러분이 믿었던 편안한 이야기가 사실이 아니었다는 것을 알게 된 적이 있나요?</div></div>
+      <div class="ans-pop" id="da1"><div class="ans-text">A strong answer identifies the pattern Riordan is pointing to: those in power often control the story told about their own rule, and "golden ages" are usually golden only for the people telling the story. Chiron's correction shows that history depends on who is allowed to speak. Connecting personally, students might mention a family story, a school legend, or a historical event they later learned was oversimplified. The strongest answers explain not just that the story changed, but how learning the truth changed their feelings about it.</div></div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-q">2. Grover reveals that Sally married Gabe on purpose to protect Percy — a sacrifice that looked, from the outside, like a bad decision. Why is it sometimes hard to recognize sacrifice when we're the one being protected?</div>
+      <div class="cq-btns">
+        <button class="kr-toggle small" data-kr="dq2">🇰🇷 Korean</button>
+        <button class="ans-toggle small" data-ans="da2">💡 Best answer</button>
+      </div>
+      <div class="kr-pop" id="dq2"><div class="kr-word">그로버는 샐리가 퍼시를 보호하기 위해 일부러 게이브와 결혼했다는 것을 밝힙니다 — 겉보기엔 나쁜 결정처럼 보였던 희생이었죠. 우리가 보호받는 당사자일 때 왜 희생을 알아차리기 어려운 걸까요?</div></div>
+      <div class="ans-pop" id="da2"><div class="ans-text">It's difficult because sacrifice, by definition, is often invisible to the person it protects — the whole point is that the protected person doesn't have to see the cost. Percy only experienced Gabe's rudeness and smell; he had no way of knowing the smell was doing a job. A strong answer notes that this creates a painful irony: the people who sacrifice the most for us are often the ones we resent the most, precisely because we can't see what we're being spared from. Recognizing sacrifice usually requires distance, information, or time — exactly what Percy lacked until Grover explained it.</div></div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-q">3. Percy passes the winged shoes to Grover instead of using them himself, even though it was a personal gift from Luke. What does this choice show about how Percy is starting to think as a leader?</div>
+      <div class="cq-btns">
+        <button class="kr-toggle small" data-kr="dq3">🇰🇷 Korean</button>
+        <button class="ans-toggle small" data-ans="da3">💡 Best answer</button>
+      </div>
+      <div class="kr-pop" id="dq3"><div class="kr-word">퍼시는 루크가 자신에게 준 개인적인 선물임에도 불구하고 날개 달린 신발을 직접 사용하는 대신 그로버에게 줍니다. 이 선택은 퍼시가 리더로서 어떻게 생각하기 시작했는지 무엇을 보여주나요?</div></div>
+      <div class="ans-pop" id="da3"><div class="ans-text">Giving away a meaningful personal gift for practical safety reasons shows Percy prioritizing the mission and the team's overall safety over his own feelings or pride. A less mature character might have kept the shoes out of attachment to Luke's gesture, or worn them despite the risk. Instead, Percy makes a clear-eyed judgment: he can't safely use them, but Grover can benefit from them. A strong answer connects this small moment to leadership — leaders often have to set aside what feels good personally in favor of what serves the group.</div></div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-q">4. The Furies attack almost immediately once the quest begins, before Percy has fully left the city. Why might Riordan choose to start the danger this early instead of giving Percy a calm start to the journey?</div>
+      <div class="cq-btns">
+        <button class="kr-toggle small" data-kr="dq4">🇰🇷 Korean</button>
+        <button class="ans-toggle small" data-ans="da4">💡 Best answer</button>
+      </div>
+      <div class="kr-pop" id="dq4"><div class="kr-word">퀘스트가 시작되자마자 복수의 여신들이 거의 즉시 공격합니다. 퍼시가 아직 도시를 완전히 떠나기도 전이죠. 리오단은 왜 여정에 평온한 시작을 주는 대신 이렇게 일찍 위험을 시작하려고 할까요?</div></div>
+      <div class="ans-pop" id="da4"><div class="ans-text">Starting the danger immediately raises the stakes and signals to the reader that this quest will not follow a gentle, predictable pace — it establishes urgency right away. It also forces Percy to use his new gifts (Riptide, the cap) almost instantly, which lets the reader see them in action rather than just hearing about them. A strong answer identifies this as a pacing choice: early conflict hooks the reader and proves that camp's warnings about real danger were not exaggerated.</div></div>
+    </div>
+
+    <div class="group-header">🧠 Character Development</div>
+
+    <div class="comp-card">
+      <div class="comp-q">5. Compare Percy's power in Ch.10 (grabbing the wheel, drawing Riptide) to his earlier power surges (the fountain, the bathroom pipes). What has changed about how he uses it?</div>
+      <div class="cq-btns">
+        <button class="kr-toggle small" data-kr="dq5">🇰🇷 Korean</button>
+        <button class="ans-toggle small" data-ans="da5">💡 Best answer</button>
+      </div>
+      <div class="kr-pop" id="dq5"><div class="kr-word">Ch.10에서 퍼시의 힘(운전대를 잡고, 리프타이드를 뽑는 것)을 이전의 힘의 폭발(분수, 화장실 배관)과 비교해보세요. 그가 힘을 사용하는 방식에서 무엇이 달라졌나요?</div></div>
+      <div class="ans-pop" id="da5"><div class="ans-text">⚡ Earlier, Percy's power activated involuntarily — the water responded to his fear or anger without his permission. 🧠 In Ch.10, by contrast, Percy makes a series of conscious decisions under extreme pressure: grabbing the wheel, pulling the brake, drawing his sword. 🗡️ This is not power acting on him — it's Percy acting with intention, even though he's scared. A strong answer names this shift clearly: from reactive and accidental to deliberate and chosen, and connects it to what kind of hero Percy is becoming — one who learns to act instead of just react.</div></div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-q">6. Annabeth tells Percy bluntly that Athena and Poseidon don't get along, even though it causes tension between them. What does her directness reveal about her values?</div>
+      <div class="cq-btns">
+        <button class="kr-toggle small" data-kr="dq6">🇰🇷 Korean</button>
+        <button class="ans-toggle small" data-ans="da6">💡 Best answer</button>
+      </div>
+      <div class="kr-pop" id="dq6"><div class="kr-word">아나베스는 그것이 둘 사이에 긴장을 유발함에도 불구하고 아테나와 포세이돈이 사이가 좋지 않다고 퍼시에게 솔직하게 말합니다. 그녀의 솔직함은 그녀의 가치관에 대해 무엇을 드러내나요?</div></div>
+      <div class="ans-pop" id="da6"><div class="ans-text">Annabeth values honesty over comfort — she would rather Percy know an uncomfortable truth upfront than let him find out later and feel blindsided. This is consistent with her strategic, planning-focused personality from earlier chapters: she prefers clear information to smooth but misleading relationships. A strong answer notes this is a form of respect, even if it doesn't feel kind in the moment — she is treating Percy as someone capable of handling difficult truths, not someone to be managed or protected from reality.</div></div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-q">7. Grover is the one who finally explains why Sally married Gabe — not Percy's mother herself. Why might Riordan have chosen Grover, specifically, to deliver this information?</div>
+      <div class="cq-btns">
+        <button class="kr-toggle small" data-kr="dq7">🇰🇷 Korean</button>
+        <button class="ans-toggle small" data-ans="da7">💡 Best answer</button>
+      </div>
+      <div class="kr-pop" id="dq7"><div class="kr-word">샐리가 왜 게이브와 결혼했는지 마침내 설명하는 사람은 퍼시의 어머니 자신이 아니라 그로버입니다. 리오단은 왜 하필 그로버를 선택해서 이 정보를 전달하게 했을까요?</div></div>
+      <div class="ans-pop" id="da7"><div class="ans-text">Grover has protected Percy from the shadows for years and often understands emotional truths that Percy himself hasn't processed — this fits his established role as quiet observer and protector. It also may say something about Sally: perhaps she was never able to explain it to Percy herself, whether out of guilt, protectiveness, or simply not wanting her son to carry that knowledge as a child. A strong answer considers both possibilities — what it says about Grover's role, and what it might say about the limits of what a parent can say directly to their child.</div></div>
+    </div>
+
+    <div class="comp-card">
+      <div class="comp-q">8. By the end of Ch.10, Percy has lost all his luggage, fought real monsters away from camp, and used Riptide for the first time in a true battle. How has the "safety net" around Percy changed since Ch.1, and what does that mean for the rest of the quest?</div>
+      <div class="cq-btns">
+        <button class="kr-toggle small" data-kr="dq8">🇰🇷 Korean</button>
+        <button class="ans-toggle small" data-ans="da8">💡 Best answer</button>
+      </div>
+      <div class="kr-pop" id="dq8"><div class="kr-word">Ch.10이 끝날 무렵 퍼시는 모든 짐을 잃었고, 캠프를 벗어나 진짜 괴물들과 싸웠으며, 진짜 전투에서 처음으로 리프타이드를 사용했습니다. Ch.1 이후로 퍼시 주변의 "안전망"은 어떻게 변했나요? 그리고 이것이 남은 퀘스트에 어떤 의미를 가질까요?</div></div>
+      <div class="ans-pop" id="da8"><div class="ans-text">In Ch.1, Percy had teachers, his mother, and eventually Chiron and camp watching over him — even his most dangerous moments happened inside systems built to protect him. By the end of Ch.10, all of that structure is gone: no camp, no adults, no supplies, and no guaranteed safety. A strong answer notes that this stripped-down situation forces real growth — Percy can no longer rely on rescue, so every choice he makes now carries full weight. This sets up the rest of the quest as a genuine test of what he's actually capable of, not just what he can do with backup nearby.</div></div>
+    </div>
+
+  </div>
+</section>
+
+</div><!-- /app -->
+<script>
+const THEME_BANK={
+  tb1: {en:'Identity',             kr:'정체성',           def:'Who am I? This theme explores a character\'s search to understand themselves — their values, origins, or place in the world.'},
+  tb2: {en:'Belonging',            kr:'소속감',           def:'The deep human need to feel accepted by a group or community. A character may struggle to find where they fit in.'},
+  tb3: {en:'Friendship',           kr:'우정',             def:'The bonds formed between characters — trust, loyalty, and support through shared experiences.'},
+  tb4: {en:'Loyalty',              kr:'충성심',           def:'Staying committed to a person, group, or cause even when it is difficult or costly.'},
+  tb5: {en:'Courage',              kr:'용기',             def:'Acting despite fear. True courage is not the absence of fear — it is choosing to act anyway.'},
+  tb6: {en:'Coming of age',        kr:'성장 / 성인식',    def:'A character transitions from childhood to greater awareness, responsibility, or maturity.'},
+  tb7: {en:'Good vs. evil',        kr:'선과 악',          def:'The conflict between forces of good and forces of evil — in the world, in society, or inside a character.'},
+  tb8: {en:'Power and control',    kr:'권력과 통제',      def:'Who has power, how it is used, and what happens to those without it. Power can be political, physical, or emotional.'},
+  tb9: {en:'Family',               kr:'가족',             def:'The relationships — biological or chosen — that shape a character\'s identity, obligations, and emotional life.'},
+  tb10:{en:'Betrayal',             kr:'배신',             def:'When someone breaks trust — a friend, ally, or loved one acts against the character\'s interests. Often the most painful conflict.'},
+  tb11:{en:'Sacrifice',            kr:'희생',             def:'Giving up something important — safety, happiness, or life — for the benefit of someone else or a greater cause.'},
+  tb12:{en:'Fate and destiny',     kr:'운명',             def:'The idea that the future is already decided — by prophecy, the gods, or forces beyond a character\'s control.'},
+  tb13:{en:'Secrecy and truth',    kr:'비밀과 진실',      def:'What characters hide and what they reveal — and the consequences when hidden truths are finally exposed.'},
+  tb14:{en:'Grief and loss',       kr:'슬픔과 상실',      def:'How characters process losing someone or something important. Grief changes people and drives action.'},
+  tb15:{en:'Justice and fairness', kr:'정의와 공평함',    def:'Are people treated fairly? This theme examines systems of reward and punishment and whether they are just.'},
+  tb16:{en:'Perseverance',         kr:'인내 / 끈기',      def:'Continuing to try despite failure, pain, or obstacles. The refusal to give up.'},
+  tb17:{en:'Appearance vs. reality',kr:'겉모습과 실제',   def:'Things — or people — are not what they seem. Surface appearances hide deeper truths.'},
+  tb18:{en:'Social hierarchy',     kr:'사회적 계층',      def:'The ranking of people by power, wealth, birth, or status. Who is at the top, who is at the bottom, and why?'},
+  tb19:{en:'Fear and survival',    kr:'공포와 생존',      def:'Characters face physical or psychological threats. How they respond to fear reveals who they truly are.'},
+  tb20:{en:'Hope',                 kr:'희망',             def:'The belief that things can get better — even in the darkest moments. Hope motivates characters to keep going.'}
+};
+
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.style.display='none');var el=document.getElementById(id);if(el){el.style.display='block';window.scrollTo({top:0,behavior:'smooth'});}}
+function showSubpage(id){var t=document.getElementById(id);if(!t)return;var p=t.closest('.page');if(!p)return;p.querySelectorAll('.subpage').forEach(s=>s.style.display='none');t.style.display='block';}
+function hideSubpage(pid){var p=document.getElementById(pid);if(!p)return;p.querySelectorAll('.subpage').forEach(s=>s.style.display='none');}
+function toggleShow(id){var el=document.getElementById(id);if(el)el.classList.toggle('show');}
+function toggleCharDetail(id){var el=document.getElementById(id);if(el)el.classList.toggle('open');}
+function showTheme(key,btn){
+  var d=THEME_BANK[key];if(!d)return;
+  document.querySelectorAll('.tb-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  var box=document.getElementById('tb-display');
+  document.getElementById('tb-en').textContent=d.en;
+  document.getElementById('tb-kr').textContent=d.kr;
+  document.getElementById('tb-def').textContent=d.def;
+  box.style.display='block';
+}
+function toggleKr(id){var el=document.getElementById(id);if(el)el.classList.toggle('show');}
+function toggleAns(id){var el=document.getElementById(id);if(el)el.classList.toggle('show');}
+
+window.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.nav').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+  document.querySelectorAll('.back').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.back)));
+  document.querySelectorAll('.nav-sub').forEach(b=>b.addEventListener('click',()=>showSubpage(b.dataset.subpage)));
+  document.querySelectorAll('.back-sub').forEach(b=>b.addEventListener('click',()=>hideSubpage(b.dataset.backSub)));
+  document.querySelectorAll('.chapter-btn,.toggle,.flip-btn').forEach(b=>b.addEventListener('click',()=>toggleShow(b.dataset.target)));
+  document.querySelectorAll('.ch-detail-btn').forEach(b=>b.addEventListener('click',()=>toggleCharDetail(b.dataset.detail)));
+  document.querySelectorAll('.tb-btn').forEach(b=>b.addEventListener('click',()=>showTheme(b.dataset.tk,b)));
+  document.querySelectorAll('.ans-toggle').forEach(b=>b.addEventListener('click',()=>toggleAns(b.dataset.ans)));
+  document.querySelectorAll('.kr-toggle').forEach(b=>b.addEventListener('click',()=>toggleKr(b.dataset.kr)));
+  document.getElementById('theme-toggle').addEventListener('click',()=>
+    document.documentElement.setAttribute('data-theme',
+      document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark'));
+  showPage('hub-page');
+});
+</script>
+</body>
+</html>
