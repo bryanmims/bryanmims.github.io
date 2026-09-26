@@ -4,50 +4,50 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Interactive lesson builder | Bryan Mims</title>
-<meta name="description" content="Fifteen interactive HTML lessons and games for classroom TVs, Grades 2, 3, 4, and 6, designed by Bryan Mims with cognitive-load and Rosenshine-aligned principles.">
+<meta name="description" content="24+ interactive HTML lessons and games for classroom TVs, Grades 2, 3, 4, and 6, designed by Bryan Mims with cognitive-load and Rosenshine-aligned principles.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Young+Serif&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case-study.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="wrap site-head">
-  <a class="brand" href="index.html">Bryan Mims</a>
-  <nav aria-label="Main">
-    <a href="index.html#work" aria-current="page">Work</a>
-    <a href="index.html#teaching">Teaching</a>
-    <a href="index.html#background">Background</a>
-    <a href="index.html#contact">Contact</a>
-  </nav>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html#/about">Bryan Mims</a>
+    <nav aria-label="Main">
+      <a href="index.html#/portfolio" aria-current="page">Portfolio</a>
+      <a href="index.html#/creations">My Creations</a>
+      <a href="index.html#/experience">Experience</a>
+      <a href="index.html#/contact">Contact</a>
+    </nav>
+  </div>
 </header>
 
 <main id="main" class="wrap">
-  <p class="back"><a href="index.html#work">Back to all work</a></p>
-  <article class="prose" style="max-width:none">
-    <div style="max-width:42rem">
-      <h1>Fifteen interactive lessons for the classroom TV</h1>
-      <p class="lede">I have built 15 interactive lessons and games for Grades 2, 3, 4, and 6, and they were used in real class periods, not just prepared. They sit on top of four coursebook series: Oxford Beehive, Voices 2, Oxford Discover, and Wonderful World.</p>
+  <p class="back"><a href="index.html#/portfolio">Back to Portfolio</a></p>
+  <article class="prose">
+    <h1>24+ interactive lessons for the classroom TV</h1>
+    <p class="lede">I have built more than 24 interactive lessons and games for Grades 2, 3, 4, and 6, and they were used in real class periods, not just prepared. They sit on top of four coursebook series: Oxford Beehive, Voices 2, Oxford Discover, and Wonderful World.</p>
 
-      <div class="callout">
-        <p><strong>Who did what.</strong> I wrote the design rules and the technical specification. Claude wrote and ran the code under my direction.</p>
-      </div>
-
-      <h2>Design rules I specified</h2>
-      <ul class="plain">
-        <li>A fixed 1280 by 720 canvas, because the audience is a classroom TV and not a laptop.</li>
-        <li>Plain HTML, CSS, and JavaScript with no frameworks, so each lesson is a self-contained file.</li>
-        <li>Practice ratios modeled on Rosenshine's principles of instruction, and content chunked to respect cognitive load.</li>
-        <li>A control bar on every lesson: timer, team score tracker, translation toggle, and a random student picker.</li>
-      </ul>
-
-      <h2>How a lesson gets made</h2>
-      <p>I start from the coursebook and build my own pacing schedule and unit arc to fit the real school calendar, with TOEIC Bridge and vocabulary test milestones written into the arc. A separate planning project handles the calendar: I give it a scope such as "Units 1 to 5," and it accounts for holidays, school events, and the actual number of class days. Once the arc is set, I direct Claude to turn it into an interactive lesson.</p>
+    <div class="callout">
+      <p><strong>Who did what.</strong> I wrote the design rules and the technical specification. Claude wrote and ran the code under my direction.</p>
     </div>
 
+    <h2>Design rules I specified</h2>
+    <ul class="plain">
+      <li>A fixed 1280 by 720 canvas, because the audience is a classroom TV and not a laptop.</li>
+      <li>Plain HTML, CSS, and JavaScript with no frameworks, so each lesson is a self-contained file.</li>
+      <li>Practice ratios modeled on Rosenshine's principles of instruction, and content chunked to respect cognitive load.</li>
+      <li>A control bar on every lesson: timer, team score tracker, translation toggle, and a random student picker.</li>
+    </ul>
+
+    <h2>How a lesson gets made</h2>
+    <p>I start from the coursebook and build my own pacing schedule and unit arc to fit the real school calendar, with TOEIC Bridge and vocabulary test milestones written into the arc. A separate planning project, the Interactive Calendar, handles the schedule: I give it a scope such as "Units 1 to 5," and it accounts for holidays, school events, and the actual number of class days. Once the arc is set, I direct Claude to turn it into an interactive lesson.</p>
+
     <h2>Try the control bar</h2>
-    <div style="max-width:42rem"><p class="caption">This sample slide was made for this page, using the same interface pattern. It is not one of the classroom lessons, which use publisher material and student data that stay private.</p></div>
+    <p class="caption">This sample slide was made for this page, using the same interface pattern. It is not one of the classroom lessons, which use publisher material and student data that stay private. See real, complete lessons on the <a href="index.html#/creations">My Creations</a> page.</p>
 
     <div class="stage" id="demo">
       <div class="chrome">
@@ -71,15 +71,12 @@
       </div>
     </div>
 
-    <div style="max-width:42rem">
-      <h2>The control bar became its own tool</h2>
-      <p>The in-lesson control bar grew into Ribbon Overlay, a separate Windows desktop application (.exe) and not a web page. It tracks team scores over long stretches, runs a timer and a randomizer, and floats over an ebook or slide deck during instruction. An attendance feature is in development.</p>
-      <p>The scoring idea behind it is explained on the <a href="classroom-management.html">classroom management page</a>.</p>
-    </div>
+    <h2>The control bar became its own tool</h2>
+    <p>The in-lesson control bar grew into Ribbon Overlay, a separate Windows desktop application, not a web page. Full details and a live, try-it-yourself demo are on the <a href="index.html#/creations">My Creations</a> page.</p>
   </article>
 </main>
 
-<footer class="wrap site-foot">
+<footer class="site-foot wrap">
   <p>Bryan Mims, Busan, South Korea</p>
 </footer>
 

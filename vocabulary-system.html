@@ -3,39 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vocabulary system: 24 lists for one school | Bryan Mims</title>
-<meta name="description" content="How Bryan Mims designed a 24-list vocabulary curriculum (6 grades, 4 levels) with retrieval practice and spaced repetition built into test sequencing.">
+<title>Vocabulary system: 20 lists for one school | Bryan Mims</title>
+<meta name="description" content="How Bryan Mims designed a 20-list vocabulary curriculum (5 grades, 4 levels) with retrieval practice and spaced repetition built into test sequencing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Young+Serif&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case-study.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="wrap site-head">
-  <a class="brand" href="index.html">Bryan Mims</a>
-  <nav aria-label="Main">
-    <a href="index.html#work" aria-current="page">Work</a>
-    <a href="index.html#teaching">Teaching</a>
-    <a href="index.html#background">Background</a>
-    <a href="index.html#contact">Contact</a>
-  </nav>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html#/about">Bryan Mims</a>
+    <nav aria-label="Main">
+      <a href="index.html#/portfolio" aria-current="page">Portfolio</a>
+      <a href="index.html#/creations">My Creations</a>
+      <a href="index.html#/experience">Experience</a>
+      <a href="index.html#/contact">Contact</a>
+    </nav>
+  </div>
 </header>
 
 <main id="main" class="wrap">
-  <p class="back"><a href="index.html#work">Back to all work</a></p>
+  <p class="back"><a href="index.html#/portfolio">Back to Portfolio</a></p>
   <article class="prose">
     <h1>One vocabulary curriculum for a whole school</h1>
-    <p class="lede">In my first semester at Dongsung Elementary I built a master word list meant to last: six grades, four proficiency levels per grade, 24 lists in all. Second semester and every term after it reuse the list instead of starting over.</p>
+    <p class="lede">In my first semester at Dongsung Elementary I built a master word list meant to last: five grades, four proficiency levels per grade, 20 lists in all, about 800 words total. Second semester and every term after it reuse the list instead of starting over.</p>
 
-    <div class="biggrid" role="img" aria-label="Grid of 24 lists, six grades across and four levels down, darker rows for higher levels">
-      <span class="l1"></span><span class="l1"></span><span class="l1"></span><span class="l1"></span><span class="l1"></span><span class="l1"></span>
-      <span class="l2"></span><span class="l2"></span><span class="l2"></span><span class="l2"></span><span class="l2"></span><span class="l2"></span>
-      <span class="l3"></span><span class="l3"></span><span class="l3"></span><span class="l3"></span><span class="l3"></span><span class="l3"></span>
-      <span class="l4"></span><span class="l4"></span><span class="l4"></span><span class="l4"></span><span class="l4"></span><span class="l4"></span>
+    <div class="biggrid" style="grid-template-columns:repeat(5,1fr)" role="img" aria-label="Grid of 20 lists, five grades across and four levels down, darker rows for higher levels">
+      <span class="l1"></span><span class="l1"></span><span class="l1"></span><span class="l1"></span><span class="l1"></span>
+      <span class="l2"></span><span class="l2"></span><span class="l2"></span><span class="l2"></span><span class="l2"></span>
+      <span class="l3"></span><span class="l3"></span><span class="l3"></span><span class="l3"></span><span class="l3"></span>
+      <span class="l4"></span><span class="l4"></span><span class="l4"></span><span class="l4"></span><span class="l4"></span>
     </div>
-    <div class="legend"><span>Six grades across</span><span>Four levels down, easiest at the top</span></div>
+    <div class="legend"><span>Five grades across</span><span>Four levels down, easiest at the top</span></div>
+
+    <p class="caption">This page covers how the tests are sequenced and generated. For how the 800 words themselves get chosen &mdash; the six weighted gates and the hard rules on top of them &mdash; see <a href="index.html#/creations">My Creations</a>.</p>
 
     <div class="callout">
       <p><strong>Who did what.</strong> I designed the curriculum, the difficulty progression, and the test sequencing. The code is Claude's: I directed it to build the Python and lxml pipeline that produces print-ready tests and answer keys from a single source, and to track down a recurring formatting defect in the test template.</p>
@@ -58,7 +62,7 @@
   </article>
 </main>
 
-<footer class="wrap site-foot">
+<footer class="site-foot wrap">
   <p>Bryan Mims, Busan, South Korea</p>
 </footer>
 </body>

@@ -4,27 +4,29 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Growth Spiral: formative assessment pipeline | Bryan Mims</title>
-<meta name="description" content="Growth Spiral turns photos of student work into skill-by-skill scores tracked over time. In development, with a connection to Writing Helper for second-draft feedback.">
+<meta name="description" content="Growth Spiral turns photos of student work into skill-by-skill scores tracked over time. In development, planned to connect to Writing Helper for second-draft feedback.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Young+Serif&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case-study.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="wrap site-head">
-  <a class="brand" href="index.html">Bryan Mims</a>
-  <nav aria-label="Main">
-    <a href="index.html#work" aria-current="page">Work</a>
-    <a href="index.html#teaching">Teaching</a>
-    <a href="index.html#background">Background</a>
-    <a href="index.html#contact">Contact</a>
-  </nav>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html#/about">Bryan Mims</a>
+    <nav aria-label="Main">
+      <a href="index.html#/portfolio" aria-current="page">Portfolio</a>
+      <a href="index.html#/creations">My Creations</a>
+      <a href="index.html#/experience">Experience</a>
+      <a href="index.html#/contact">Contact</a>
+    </nav>
+  </div>
 </header>
 
 <main id="main" class="wrap">
-  <p class="back"><a href="index.html#work">Back to all work</a></p>
+  <p class="back"><a href="index.html#/portfolio">Back to Portfolio</a></p>
   <article class="prose">
     <h1>Growth Spiral <span class="pill">In development</span></h1>
     <p class="lede">A test score tells you how a student did on one day. Growth Spiral is meant to show how each student is moving on each skill across a term.</p>
@@ -36,13 +38,13 @@
     <h2>How it works</h2>
     <ul class="plain">
       <li>I photograph completed student work.</li>
-      <li>The photos go to a Claude project that grades and scores the work and sorts what it finds by skill.</li>
-      <li>Results are recorded in a Google Sheet, tracked by student and skill over time.</li>
+      <li>The photos go to a Claude project that grades and scores the work and sorts what it finds by skill. This part works now.</li>
+      <li>Automatic photo transfer into that Claude project isn't built yet, and neither is the skill-tracking spreadsheet that will record results by student and skill over time. Both are next.</li>
     </ul>
     <p>Students are identified by the informal English nicknames they use in school, not by legal names.</p>
 
     <h2>Connecting to Writing Helper</h2>
-    <p>Writing Helper is a separate conversational project. I state a feedback goal, usually guidance on a second draft, paste in a student essay, and it returns feedback or a rubric-based grade. It can also suggest several rubrics to choose from. Growth Spiral is being connected to Writing Helper.</p>
+    <p>Writing Helper is a separate conversational project, already working: I state a feedback goal, usually guidance on a second draft, paste in a student essay, and it returns feedback or a rubric-based grade, with several rubrics to choose from. Connecting it to Growth Spiral is a planned next step, not something in progress yet.</p>
 
     <h2>A related tool that is already in use</h2>
     <p>For specific writing projects, I directed Claude to build an essay self-correction tool. It takes a photo of a student's rough draft and produces a worksheet that helps the student locate and fix their own errors. It does not hand back a corrected final draft, because the point is for the student to find the mistakes. It also scores essays against a rubric.</p>
@@ -50,7 +52,7 @@
   </article>
 </main>
 
-<footer class="wrap site-foot">
+<footer class="site-foot wrap">
   <p>Bryan Mims, Busan, South Korea</p>
 </footer>
 </body>

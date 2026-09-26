@@ -1,0 +1,66 @@
+/* Shared styles for case-study pages — matches index.html's design system exactly */
+:root{
+  --navy:#0C2A5E; --royal:#1F5FD6; --royal-dark:#0F3F9A; --sky:#DCE9FF; --ice:#F3F8FF;
+  --line:#B9CFF4; --press:#9DBBF0; --ink:#1A2A44; --muted:#4E5D78; --white:#fff;
+  --head:'Space Grotesk',system-ui,sans-serif; --body:'Nunito',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);font-size:1.0625rem;line-height:1.65;color:var(--ink);background:var(--ice);min-height:100vh}
+a{color:var(--royal);font-weight:700}
+a:hover{color:var(--navy)}
+:focus-visible{outline:3px solid var(--navy);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--head);color:var(--navy);line-height:1.2;font-weight:600}
+h1{font-size:clamp(1.8rem,4vw,2.5rem);margin-bottom:.6rem}
+h2{font-size:1.4rem;margin:1.8rem 0 .6rem}
+.skip{position:absolute;left:-999px;top:8px;background:var(--navy);color:#fff;padding:8px 14px;border-radius:8px;z-index:200}
+.skip:focus{left:8px}
+
+.wrap{max-width:800px;margin:0 auto;padding:0 20px}
+header.site-head{background:var(--white);border-bottom:3px solid var(--royal);padding:14px 0;position:sticky;top:0;z-index:10}
+header.site-head .wrap{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.brand{font-family:var(--head);font-size:1.3rem;font-weight:700;color:var(--navy);text-decoration:none}
+header.site-head nav{display:flex;gap:6px;flex-wrap:wrap}
+header.site-head nav a{color:var(--navy);text-decoration:none;font-weight:800;font-size:.92rem;padding:6px 12px;border-radius:999px}
+header.site-head nav a:hover{background:var(--sky)}
+
+main{padding:34px 0 60px}
+.back{margin-bottom:18px;font-size:.95rem}
+article.prose{background:var(--white);border:3px solid var(--royal);border-radius:22px;box-shadow:0 6px 0 var(--press);padding:32px 36px}
+.lede{color:var(--muted);font-size:1.05rem;margin-bottom:.4rem}
+.prose ul.plain{padding-left:1.3rem;margin:.6rem 0}
+.prose ul.plain li{margin:.4rem 0}
+.prose p{margin:.7rem 0}
+.pill{display:inline-block;font-size:.72rem;font-weight:800;padding:3px 10px;border-radius:999px;background:var(--sky);color:var(--royal-dark);border:1.5px solid var(--line);vertical-align:middle;margin-left:6px}
+
+.callout{background:var(--ice);border-left:5px solid var(--royal);border-radius:0 14px 14px 0;padding:14px 18px;margin:1.2rem 0}
+.callout p{margin:0}
+
+.caption{font-size:.9rem;color:var(--muted);font-style:italic}
+
+footer.site-foot{text-align:center;color:var(--muted);font-size:.9rem;padding:20px 0 34px}
+
+/* vocabulary grid */
+.biggrid{display:grid;gap:4px;margin:18px 0 6px}
+.biggrid span{display:block;height:22px;border-radius:4px}
+.l1{background:#DCE9FF}.l2{background:#9DBBF0}.l3{background:#5C8EE0}.l4{background:#1F5FD6}
+.legend{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-bottom:1rem}
+
+/* interactive lesson-builder demo */
+.stage{background:#FFF4DE;border:3px solid var(--royal);border-radius:16px;padding:16px;margin:1rem 0}
+.chrome{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:#123642;border-radius:10px;padding:8px 12px;margin-bottom:14px}
+.teams{display:flex;gap:8px;flex-wrap:wrap}
+.team{display:flex;align-items:center;gap:4px;background:#1d4a58;border-radius:999px;padding:3px 8px;color:#fff;font-size:.85rem}
+.team .dot{width:9px;height:9px;border-radius:50%}
+.t1{background:#E85C5C}.t2{background:#4C9BE8}.t3{background:#4CAF7D}.t4{background:#FFC94D}
+.team .mini{background:none;border:1px solid #fff6;color:#fff;border-radius:50%;width:18px;height:18px;font-size:.8rem;cursor:pointer}
+.tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.clock{color:#FFC94D;font-weight:800;font-family:var(--head)}
+.chalkbtn{background:#fff;border:2px solid var(--royal);border-radius:8px;padding:5px 10px;font-size:.85rem;font-weight:700;cursor:pointer;color:var(--royal-dark)}
+.chalkbtn:hover{background:var(--sky)}
+.picked{color:#fff;font-weight:700;font-size:.9rem}
+.slide{background:#fff;border-radius:12px;padding:22px;text-align:center}
+.word{font-family:var(--head);font-size:2rem;color:var(--navy);font-weight:700}
+.ko{color:var(--muted);min-height:1.4em}
+.sentence{margin-top:8px;color:var(--ink)}
+
+@media (max-width:640px){article.prose{padding:22px 20px}}
