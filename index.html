@@ -108,8 +108,8 @@ main{position:relative;z-index:1;max-width:1580px;margin:0 auto;padding:36px 20p
 .p-ico{width:26px;height:26px;flex:none;fill:none;stroke:var(--line);stroke-width:1.4}
 .eg em{font-style:italic;color:var(--muted);font-weight:600}
 .wallgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
-.wallgrid img{width:100%;height:150px;object-fit:cover;border-radius:12px;border:2px solid var(--line)}
-@media (max-width:480px){.wallgrid{grid-template-columns:1fr}.wallgrid img{height:180px}}
+.wallgrid img{width:100%;height:220px;object-fit:cover;object-position:top;border-radius:12px;border:2px solid var(--line)}
+@media (max-width:480px){.wallgrid{grid-template-columns:1fr}.wallgrid img{height:260px}}
 .lessonrow{display:flex;align-items:center;justify-content:space-between;gap:20px;background:var(--white);border:2px solid var(--line);border-radius:16px;padding:16px 22px;margin-bottom:12px}
 .lessonrow h3{font-size:1.05rem;margin-bottom:4px}
 .lessonrow p{font-size:.92rem;color:var(--muted);margin:0}
@@ -283,12 +283,12 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
           <img src="wall-1.jpg" alt="Student vacation-report projects displayed along the classroom wall" loading="lazy">
           <img src="wall-2.jpg" alt="A full wall of student work covering multiple grade sections" loading="lazy">
         </div>
-        <p class="eg" style="margin-top:12px"><b>From a student:</b> a second grader wrote me a thank-you note last year. Her name is covered here since she's a minor. <img src="thankyou-card-redacted.jpg" alt="A handwritten thank-you card from a student, name redacted" loading="lazy" style="display:block;margin-top:10px;border-radius:12px;border:2px solid var(--line);max-width:100%"></p>
       </article>
       <article>
         <div class="phead"><h3>Emotional needs come first</h3><svg class="p-ico"><use href="#i-bubble"/></svg></div>
         <p>A student who feels anxious, unsafe, or overlooked is not ready to learn. Feeling secure is the necessary foundation. Students bring different needs into the room, from ADHD to autism to plain nerves, and nearly all of them settle when the routine and the organization stay the same.</p>
         <p class="eg"><b>Example:</b> Clear expectations, consistent routines, and predictable transitions. For a few students who need more structure, that predictability is the difference between staying on task and losing the thread.</p>
+        <p class="eg" style="margin-top:12px"><b>From a student:</b> a second grader wrote me a thank-you note last year. Her name is covered here since she's a minor. <img src="thankyou-card-redacted.jpg" alt="A handwritten thank-you card from a student, name redacted" loading="lazy" style="display:block;margin-top:10px;border-radius:12px;border:2px solid var(--line);max-width:100%"></p>
       </article>
       <article>
         <div class="phead"><h3>Students are accountable for their actions</h3><svg class="p-ico"><use href="#i-check"/></svg></div>
@@ -483,7 +483,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
       <li>Life Out There: Evidence in Reading <a class="file-link" href="lesson-plans/lesson-5-evidence-in-reading.pdf" data-file hidden>PDF</a></li>
     </ol>
 
-    <p class="note" style="margin:20px 0 8px">Two of the interactive lesson decks I direct Claude to build, shown as I actually use them in class. Each is a single self-contained page.</p>
+    <p class="note" style="margin:20px 0 8px">Three of the interactive lesson decks I direct Claude to build, shown as I actually use them in class. Each is a single self-contained page.</p>
     <ul style="padding-left:1.4rem">
       <li><b>Tech &amp; Talk</b> (Grade 6, Module 4) &nbsp;
         <a href="tech-talk-g6-lesson.html">View lesson</a> &middot;
@@ -492,6 +492,10 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
       <li><b>Around Town: Transportation</b> (Grade 2, Unit 5) &nbsp;
         <a href="around-town-g2-lesson.html">View lesson</a> &middot;
         <a href="around-town-g2-lesson.html" download>Download</a>
+      </li>
+      <li><b>Percy Jackson and the Lightning Thief</b> (Chapter 10 demo) &nbsp;
+        <a href="percy-jackson-ch10-lesson.html">View lesson</a> &middot;
+        <a href="percy-jackson-ch10-lesson.html" download>Download</a>
       </li>
     </ul>
   </section>
@@ -672,7 +676,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
   </section>
 
   <section class="panel">
-    <h2 style="margin-bottom:4px">Years in front of a classroom</h2>
+    <h2 style="margin-bottom:4px">Hours in front of a classroom</h2>
     <p class="lede" style="margin-bottom:18px">Rough totals, calculated from average weekly hours at each role, not exact records. Left off the CV on purpose. INTI is not included yet; I taught in 8-week stretches there and don't have a reliable count of how many per year.</p>
     <svg viewBox="0 0 640 260" role="img" aria-label="Bar chart of approximate lifetime teaching hours: Dong-A University about 4150, Banhana English about 5100, Pukyong National University about 2500" style="width:100%;max-width:640px;display:block;margin:0 auto">
       <line x1="70" y1="20" x2="70" y2="210" stroke="#B9CFF4" stroke-width="2"/>
