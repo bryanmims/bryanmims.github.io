@@ -56,11 +56,12 @@ li::marker{color:var(--royal)}
 header.top{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:3px solid var(--royal)}
 .bar{max-width:1580px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brand{font-family:var(--head);font-size:1.45rem;font-weight:700;color:var(--navy);text-decoration:none;white-space:nowrap}
-nav ul{list-style:none;display:flex;gap:4px;padding:0;flex-wrap:wrap}
+nav ul{list-style:none;display:flex;gap:8px;padding:0;flex-wrap:wrap}
 nav li{margin:0}
-nav a{display:block;padding:8px 14px;border-radius:999px;color:var(--navy);text-decoration:none;font-weight:800;font-size:.98rem;transition:background .15s}
-nav a:hover{background:var(--sky)}
-nav a[aria-current="page"]{background:var(--royal);color:#fff;box-shadow:0 4px 0 var(--royal-dark)}
+nav a{display:block;padding:8px 16px;border-radius:10px;color:var(--navy);text-decoration:none;font-weight:800;font-size:.94rem;background:#fff;border:1.5px solid var(--line);box-shadow:0 2px 0 var(--line);transition:transform .12s,box-shadow .12s,background .12s}
+nav a:hover{background:var(--sky);transform:translateY(-1px);box-shadow:0 4px 0 var(--line)}
+nav a:active{transform:translateY(1px);box-shadow:0 1px 0 var(--line)}
+nav a[aria-current="page"]{background:var(--royal);color:#fff;border-color:var(--royal-dark);box-shadow:0 3px 0 var(--royal-dark)}
 .menu-btn{display:none;font:inherit;font-weight:800;background:var(--royal);color:#fff;border:0;border-radius:999px;padding:8px 18px;box-shadow:0 4px 0 var(--royal-dark);cursor:pointer}
 @media (max-width:980px){
   .menu-btn{display:block}
@@ -157,15 +158,23 @@ main{position:relative;z-index:1;max-width:1580px;margin:0 auto;padding:36px 20p
 .org{font-weight:800;color:var(--muted);margin-bottom:8px}
 @media (max-width:760px){.role{grid-template-columns:1fr;gap:6px}}
 
-/* ---------- CV paper ---------- */
-.paper{background:#fff;border:2px solid var(--line);border-radius:6px;box-shadow:0 12px 30px rgba(12,42,94,.14);padding:44px 52px;max-width:820px;margin:8px auto 0}
-.paper h1{font-size:2rem;text-align:left}
-.paper .contact{color:var(--muted);margin-bottom:18px;border-bottom:3px solid var(--royal);padding-bottom:12px}
-.paper h2{font-size:1.15rem;margin:22px 0 6px;text-shadow:none;border-bottom:1px solid var(--line);padding-bottom:3px}
-.paper h3{font-size:1.02rem;font-family:var(--body);font-weight:800}
-.paper p,.paper li{font-size:.98rem;line-height:1.55}
+/* ---------- CV paper (indigo, matches the downloadable document) ---------- */
+:root{--cv-paper:#FBF8F2;--cv-ink:#242220;--cv-muted:#5C574C;--cv-accent:#332C7A;--cv-line:#E3DCC9}
+.paper{background:var(--cv-paper);border:2px solid var(--cv-line);border-radius:6px;box-shadow:0 12px 30px rgba(36,34,32,.14);padding:0 0 44px;max-width:820px;margin:8px auto 0;overflow:hidden;color:var(--cv-ink)}
+.paper .band{background:var(--cv-accent);color:#fff;padding:34px 44px;margin-bottom:26px}
+.paper .band h1{color:#fff;font-size:2rem;text-align:left;margin-bottom:4px}
+.paper .band .role{font-style:italic;opacity:.92;margin-bottom:10px}
+.paper .band .contact{color:#E4E1F0;border-bottom:none;margin-bottom:0;padding-bottom:0;font-size:.94rem}
+.paper .band .contact a{color:#fff;text-decoration:underline}
+.paper .body{padding:0 44px}
+.paper h2{font-size:1.15rem;margin:22px 0 6px;text-shadow:none;border-bottom:2px solid var(--cv-accent);padding-bottom:5px;color:var(--cv-accent)}
+.paper h3{font-size:1.02rem;font-family:var(--body);font-weight:800;color:var(--cv-ink)}
+.paper p,.paper li{font-size:.98rem;line-height:1.55;color:var(--cv-muted)}
+.paper li::marker{color:var(--cv-accent)}
 .paper .row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-@media (max-width:640px){.paper{padding:26px 22px}}
+.paper .row h3{color:var(--cv-ink)}
+.paper .row span{color:var(--cv-ink);font-weight:700}
+@media (max-width:640px){.paper .band{padding:26px 22px}.paper .body{padding:0 22px}}
 
 footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-size:.92rem;padding:0 20px 34px}
 </style>
@@ -263,9 +272,9 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
     <div>
       <h1 id="hi">Hi there! I'm Bryan Mims and this is my profile website.</h1>
       <p class="welcome">Please feel welcome to stay as long as you like.</p>
-      <p>Here you can find an inventory of my teaching skillset, a more detailed version of my work history, my resume and CV, and much more.</p>
+      <p>Here you can find an inventory of my teaching skillset, a more detailed version of my work history, my resume and CV, and much more. <a href="#/cv">More in the CV section</a>.</p>
       <ul class="facts">
-        <li>Native English Teacher (NET), Grades 2, 4, and 6 at Dongsung Elementary School in Busan, South Korea</li>
+        <li>English Teacher, Grades 2, 4, and 6 at Dongsung Elementary School in Busan, South Korea</li>
         <li>Co-Founder and Head Teacher of Banhana English</li>
         <li>Washington DC K-6 teaching license and an M.Ed. in TESOL</li>
         <li>Teaching in Korea since 2008 (<span data-years-since="2008-07">18</span> years)</li>
@@ -307,21 +316,6 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
       </article>
     </div>
   </section>
-
-  <section aria-labelledby="hub-h">
-    <h2 id="hub-h">Explore the site</h2>
-    <div class="hub">
-      <a class="card" href="#/teaching"><div class="ico"><svg><use href="#i-check"/></svg></div><h3>Skillset</h3><p>What I teach and how.</p></a>
-      <a class="card" href="#/experience"><div class="ico"><svg><use href="#i-briefcase"/></svg></div><h3>Experience</h3><p>Current and past roles.</p></a>
-      <a class="card" href="#/learning"><div class="ico"><svg><use href="#i-cap"/></svg></div><h3>Education and credentials</h3><p>License, degrees, and certificates.</p></a>
-      <a class="card" href="#/portfolio/lessons"><div class="ico"><svg><use href="#i-book"/></svg></div><h3>Sample lesson plans</h3><p>ELA, literacy, and university English.</p></a>
-      <a class="card" href="#/portfolio/tools"><div class="ico"><svg><use href="#i-chip"/></svg></div><h3>Digital tools</h3><p>What I use and what I've built.</p></a>
-      <a class="card" href="#/portfolio/assessment"><div class="ico"><svg><use href="#i-search"/></svg></div><h3>Assessment systems</h3><p>How I place, regroup, and track students.</p></a>
-      <a class="card" href="#/teaching/management"><div class="ico"><svg><use href="#i-people"/></svg></div><h3>Classroom management</h3><p>A team-based reinforcement system.</p></a>
-      <a class="card" href="#/creations"><div class="ico"><svg><use href="#i-star"/></svg></div><h3>My Creations</h3><p>Ribbon, the Interactive Calendar, the vocabulary system, and three sample lessons.</p></a>
-      <a class="card" href="#/cv"><div class="ico"><svg><use href="#i-doc"/></svg></div><h3>CV</h3><p>Read it here or download it.</p></a>
-    </div>
-  </section>
 </div>
 
 <!-- =============================== TEACHING =============================== -->
@@ -359,10 +353,10 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
       </ul>
     </div>
     <div class="soft" id="teaching-tech">
-      <h3>Technology and Agentic AI</h3>
+      <h3>Technology and AI</h3>
       <ul>
         <li>Google Workspace and Google Classroom for daily instruction and communication</li>
-        <li>Creative problem solving through Agentic AI: I direct Claude Projects to produce lesson decks, worksheets, pacing plans, and assessment tools</li>
+        <li>I direct Claude Projects through Agentic AI workflows to produce lesson decks, worksheets, pacing plans, and assessment tools</li>
         <li>I write the pedagogy and the specification. Claude writes the code under my direction</li>
       </ul>
       <p style="margin-top:10px"><a href="#/portfolio/tools">See everything I use and everything I've built</a></p>
@@ -429,7 +423,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
 
   <section class="sec-target" id="portfolio-tools">
     <h2>Technology and AI</h2>
-    <p class="lede" style="margin-bottom:6px">I design the pedagogy and write the specifications. Claude, working under my direction through Agentic AI workflows, writes the code. I do not present this as personal programming skill.</p>
+    <p class="lede" style="margin-bottom:6px">I design the pedagogy and write the specifications. Claude writes the code under my direction. I do not present this as personal programming skill.</p>
     <div class="soft" style="margin-bottom:20px">
       <h3>What I use</h3>
       <ul>
@@ -443,7 +437,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
       <div class="soft tool"><h3>HTML lesson builder</h3><p>24+ interactive lessons and games on a fixed 1280 by 720 canvas for classroom TVs, built from the coursebook I am teaching.</p><a href="lesson-builder.html">Case study</a></div>
       <div class="soft tool"><h3>Growth Spiral <span class="pill">In development</span></h3><p>A formative assessment pipeline. I photograph student work, Claude scores and sorts it by skill, and a Google Sheet tracks each student and skill over time.</p><a href="growth-spiral.html">Case study</a></div>
       <div class="soft tool"><h3>Interactive Calendar</h3><p>An adaptive weekly, monthly, and yearly planner that recalculates pacing automatically when a lesson is skipped or cut short.</p><a href="#/creations">See it in My Creations</a></div>
-      <div class="soft tool"><h3>Ribbon Overlay</h3><p>A desktop app that runs over ebooks and slides as a team score tracker, timer, and randomizer, now with an attendance module.</p><a href="#/creations">Try the live demo</a></div>
+      <div class="soft tool"><h3>Ribbon</h3><p>A desktop app (the Ribbon overlay) that runs over ebooks and slides as a team score tracker, timer, and randomizer, now with an attendance module.</p><a href="#/creations">Try the live demo</a></div>
       <div class="soft tool"><h3>Essay self-correction tool</h3><p>Takes a photo of a rough-draft essay and produces a worksheet that helps students find and fix their own errors. I used it to rank essays for the school newspaper.</p></div>
       <div class="soft tool"><h3>Writing Helper</h3><p>A conversational Claude project for second-draft feedback and rubric-based grades on essays students submit as text.</p></div>
     </div>
@@ -525,7 +519,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
   <h2 style="margin-bottom:14px">Tools I created</h2>
 
   <section class="panel sec-target" id="creations-ribbon">
-    <h2>Ribbon Overlay, version 3</h2>
+    <h2>Ribbon</h2>
     <p>I couldn't find a tool that did everything I needed for classroom management, so I built one myself, with a little help from Claude. This is Ribbon, version 3.</p>
     <p>It's a lightweight tool that starts as a small floating button sitting on top of anything on your screen: a PowerPoint, a website, an ebook, a PDF, whatever you're teaching from. Click it, and it expands into a full ribbon of tools, still floating on top of everything underneath. I've since combined it with a separate whiteboard website, which replicates most of what my standalone lesson decks do, with far less prep time.</p>
     <h3 style="margin-top:14px">Built in</h3>
@@ -598,6 +592,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
     <div><h3>Percy Jackson and the Lightning Thief &mdash; Chapter 10</h3><p>One chapter from a full-novel, EAL-focused interactive unit built chapter by chapter across the whole book. Lesson plan included. This is a demo of the format, not the full set.</p></div>
     <a class="btn" href="percy-jackson-ch10-lesson.html">See / Try it here</a>
   </div>
+  <p class="note" style="margin-top:14px"><a href="#/portfolio/lessons">More lesson plans</a> &mdash; a five-lesson Grade 5 unit written during my DC K-6 licensure program.</p>
 </div>
 
 <!-- =============================== EXPERIENCE =============================== -->
@@ -611,7 +606,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
     <div class="soft role">
       <div class="when">April 2026 to present</div>
       <div>
-        <h3>Native English Teacher (NET)</h3>
+        <h3>English Teacher</h3>
         <p class="org">Dongsung Elementary School, Busan</p>
         <p>I took this role on purpose, to add full-time K-12 classroom experience to my university and academy background.</p>
         <ul>
@@ -619,7 +614,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
           <li>Teach EAL and ELA ranging from foundational language instruction to textual analysis and formal essay composition</li>
           <li>Designed the school's 20-list vocabulary curriculum (5 grades by 4 proficiency levels)</li>
           <li>Built a team-based reinforcement system based on Kagan cooperative learning</li>
-          <li>Direct Agentic AI workflows to produce lesson decks, worksheets, and assessment tools</li>
+          <li>Direct Claude Projects to produce lesson decks, worksheets, and assessment tools</li>
         </ul>
       </div>
     </div>
@@ -632,7 +627,6 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
         <ul>
           <li>Co-founded and operate an English literacy and test-prep academy with my wife, also an educator, delivering small-group instruction to EFL learners ages 9 to 14</li>
           <li>Delivered TOEIC Bridge, TOEFL Primary, and TOEFL Junior test preparation; the academy was an authorized test center and proctored these exams on-site</li>
-          <li>80% client retention</li>
           <li>Completed my DC K-6 clinical practice here</li>
         </ul>
       </div>
@@ -750,15 +744,18 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
   </header>
 
   <article class="paper">
-    <h1>Bryan Mims</h1>
-    <p style="margin-top:-8px;color:var(--muted);font-style:italic">EAL / ELA Educator</p>
-    <p class="contact">Busan, South Korea &nbsp;|&nbsp; +82 010 9098 1360 &nbsp;|&nbsp; <a class="js-email" href="mailto:REPLACE-WITH-YOUR-EMAIL">REPLACE-WITH-YOUR-EMAIL</a></p>
+    <div class="band">
+      <h1>Bryan Mims</h1>
+      <p class="role">EAL / ELA Educator</p>
+      <p class="contact">Busan, South Korea &nbsp;|&nbsp; +82 010 9098 1360 &nbsp;|&nbsp; <a class="js-email" href="mailto:REPLACE-WITH-YOUR-EMAIL">REPLACE-WITH-YOUR-EMAIL</a></p>
+    </div>
+    <div class="body">
 
     <h2>Profile</h2>
     <p>EAL/ELA educator based in Busan, South Korea since 2008, with 18 years of international teaching experience. Currently teaches Grades 2, 4, and 6 EAL and ELA at Dongsung Elementary School while co-leading Banhana English, a literacy and test-prep academy since 2016. Uses evidence-informed approaches, including retrieval practice, spaced repetition, cognitive load management, and Kagan Cooperative Learning, to structure instruction and classroom culture. Designs the pedagogy behind custom curriculum, assessment, and classroom management tools, then directs AI-assisted development to build them. Holds a Washington DC K-6 teaching license and an M.Ed. in TESOL; pursuing a Secondary Mathematics endorsement.</p>
 
     <h2>Professional Experience</h2>
-    <div class="row"><h3>Native English Teacher (NET), Dongsung Elementary School, Busan</h3><span>April 2026 to present</span></div>
+    <div class="row"><h3>English Teacher, Dongsung Elementary School, Busan</h3><span>April 2026 to present</span></div>
     <ul>
       <li>Teaches EAL and ELA across Grades 2, 4, and 6, ranging from foundational language instruction to textual analysis and formal essay composition</li>
       <li>Designs interactive lesson materials, games, review activities, and test-prep tools; 24+ custom web-based resources created for classroom use</li>
@@ -807,6 +804,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
 
     <h2>Core Competencies</h2>
     <p>Science of Learning Instructional Design &middot; Kagan Cooperative Learning &middot; AI-Directed Curriculum &amp; Tool Development &middot; Data-Informed Differentiation &middot; EAL/ELA Curriculum Design, Grades 2-6 &middot; Formative Assessment System Design</p>
+    </div>
   </article>
 </div>
 
