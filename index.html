@@ -7,21 +7,21 @@
 <meta name="description" content="Profile website of Bryan Mims, an elementary and EAL/ELA teacher in Busan, South Korea. Teaching skillset, work history, portfolio, resume and CV.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#0C2A5E;
-  --royal:#1F5FD6;
-  --royal-dark:#0F3F9A;
-  --sky:#DCE9FF;
-  --ice:#F3F8FF;
-  --line:#B9CFF4;
-  --press:#9DBBF0;
-  --ink:#1A2A44;
-  --muted:#4E5D78;
+  --navy:#211B54;
+  --royal:#332C7A;
+  --royal-dark:#1C1650;
+  --sky:#E9E4F5;
+  --ice:#F7F3EC;
+  --line:#DDD5C6;
+  --press:#C7BFA9;
+  --ink:#242220;
+  --muted:#5C5650;
   --white:#fff;
-  --head:'Space Grotesk',system-ui,sans-serif;
-  --body:'Nunito',system-ui,sans-serif;
+  --head:'Fraunces',serif;
+  --body:'Inter',system-ui,sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 [hidden]{display:none!important}
@@ -42,7 +42,8 @@ li::marker{color:var(--royal)}
 .skip:focus{left:8px}
 
 /* ---------- background: faint line-art doodles that drift slowly ---------- */
-.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:linear-gradient(180deg,#F7FAFF 0%,#EDF4FF 100%)}
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:var(--ice);background-image:radial-gradient(circle at 1.5px 1.5px, rgba(36,34,32,.05) 1px, transparent 0);background-size:22px 22px}
+.constellation{position:fixed;inset:0;width:100%;height:100%;opacity:.5}
 .d{position:absolute;left:var(--x);top:var(--y);width:var(--s,64px);height:var(--s,64px);color:#B7CEF4;fill:none;stroke:currentColor;stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round;
    transform:rotate(var(--r,0deg));animation:drift var(--t,20s) ease-in-out var(--dl,0s) infinite alternate}
 @keyframes drift{to{transform:translate(var(--dx,10px),var(--dy,-16px)) rotate(calc(var(--r,0deg) + 5deg))}}
@@ -75,7 +76,7 @@ main{position:relative;z-index:1;max-width:1580px;margin:0 auto;padding:36px 20p
 .view > section,.view > header{margin-bottom:44px}
 .lede{max-width:72ch;color:var(--muted);margin-bottom:22px}
 .panel{background:var(--white);border:3px solid var(--royal);border-radius:22px;box-shadow:0 6px 0 var(--press);padding:28px 32px}
-.soft{background:var(--white);border:2px solid var(--line);border-radius:18px;padding:22px 26px}
+.soft{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--royal);border-radius:10px;padding:22px 26px;box-shadow:0 4px 14px rgba(36,34,32,.07)}
 .stack > * + *{margin-top:18px}
 .sec-target{scroll-margin-top:96px}
 .pill{display:inline-block;font-size:.82rem;font-weight:800;padding:2px 12px;border-radius:999px;background:var(--sky);color:var(--royal-dark);border:1.5px solid var(--line);vertical-align:middle}
@@ -205,40 +206,17 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
 </svg>
 
 <div class="bg" aria-hidden="true">
-  <svg class="d" style="--x:4%;--y:10%;--s:70px;--r:-8deg;--t:22s"><use href="#i-pencil"/></svg>
-  <svg class="d" style="--x:17%;--y:4%;--s:58px;--r:6deg;--t:18s;--dl:-4s"><use href="#i-book"/></svg>
-  <svg class="d hide-sm" style="--x:33%;--y:12%;--s:52px;--r:-4deg;--t:24s;--dl:-9s"><use href="#i-bulb"/></svg>
-  <svg class="d" style="--x:52%;--y:5%;--s:66px;--r:8deg;--t:20s;--dl:-2s"><use href="#i-globe"/></svg>
-  <svg class="d hide-sm" style="--x:68%;--y:13%;--s:54px;--r:-10deg;--t:26s;--dl:-12s"><use href="#i-star"/></svg>
-  <svg class="d" style="--x:84%;--y:6%;--s:72px;--r:5deg;--t:19s;--dl:-6s"><use href="#i-cap"/></svg>
-  <svg class="d hide-sm" style="--x:93%;--y:24%;--s:56px;--r:-6deg;--t:23s;--dl:-3s"><use href="#i-bubble"/></svg>
-  <svg class="d" style="--x:2%;--y:34%;--s:60px;--r:9deg;--t:21s;--dl:-8s"><use href="#i-math"/></svg>
-  <svg class="d hide-sm" style="--x:8%;--y:56%;--s:66px;--r:-5deg;--t:25s;--dl:-14s"><use href="#i-ruler"/></svg>
-  <svg class="d" style="--x:90%;--y:44%;--s:62px;--r:7deg;--t:22s;--dl:-5s"><use href="#i-search"/></svg>
-  <svg class="d hide-sm" style="--x:96%;--y:62%;--s:52px;--r:-8deg;--t:18s;--dl:-10s"><use href="#i-pencil"/></svg>
-  <svg class="d" style="--x:3%;--y:76%;--s:56px;--r:4deg;--t:24s;--dl:-7s"><use href="#i-bulb"/></svg>
-  <svg class="d hide-sm" style="--x:22%;--y:88%;--s:58px;--r:-7deg;--t:20s;--dl:-1s"><use href="#i-star"/></svg>
-  <svg class="d" style="--x:44%;--y:90%;--s:60px;--r:5deg;--t:27s;--dl:-11s"><use href="#i-book"/></svg>
-  <svg class="d hide-sm" style="--x:63%;--y:86%;--s:64px;--r:-4deg;--t:21s;--dl:-13s"><use href="#i-globe"/></svg>
-  <svg class="d" style="--x:78%;--y:80%;--s:54px;--r:10deg;--t:19s;--dl:-5s"><use href="#i-math"/></svg>
-  <!-- bottom-left: stack of books -->
-  <svg class="corner l" viewBox="0 0 190 130" fill="none" stroke-linejoin="round" stroke-linecap="round">
-    <ellipse cx="80" cy="122" rx="78" ry="8" fill="#DCE9FF"/>
-    <rect x="12" y="92" width="140" height="26" rx="5" fill="#9DBBF0" stroke="#1F5FD6" stroke-width="3"/>
-    <rect x="26" y="66" width="120" height="26" rx="5" fill="#DCE9FF" stroke="#1F5FD6" stroke-width="3"/>
-    <rect x="18" y="40" width="126" height="26" rx="5" fill="#6F9BEA" stroke="#1F5FD6" stroke-width="3"/>
-    <path d="M32 105h34 M44 79h34 M34 53h34" stroke="#fff" stroke-width="4"/>
-  </svg>
-  <!-- bottom-right: globe and pencil cup -->
-  <svg class="corner r" viewBox="0 0 220 150" fill="none" stroke-linejoin="round" stroke-linecap="round">
-    <ellipse cx="120" cy="142" rx="100" ry="8" fill="#DCE9FF"/>
-    <circle cx="66" cy="72" r="42" fill="#DCE9FF" stroke="#1F5FD6" stroke-width="3"/>
-    <path d="M24 72h84 M66 30c16 14 16 70 0 84 M66 30c-16 14-16 70 0 84" stroke="#1F5FD6" stroke-width="3"/>
-    <path d="M40 128h52 M66 114v14" stroke="#1F5FD6" stroke-width="5"/>
-    <path d="M136 50L128 24 M150 50l2-28 M164 50l10-22" stroke="#1F5FD6" stroke-width="7"/>
-    <path d="M128 24l-1-8 M152 22l1-8 M174 28l3-7" stroke="#0C2A5E" stroke-width="7"/>
-    <rect x="124" y="50" width="56" height="70" rx="8" fill="#9DBBF0" stroke="#1F5FD6" stroke-width="3"/>
-    <path d="M124 74h56" stroke="#fff" stroke-width="4"/>
+  <svg class="constellation" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#242220" stroke-width="0.6" fill="none">
+      <line x1="6%" y1="10%" x2="11%" y2="18%"/><line x1="11%" y1="18%" x2="9%" y2="28%"/>
+      <circle cx="6%" cy="10%" r="1.3"/><circle cx="11%" cy="18%" r="1.3"/><circle cx="9%" cy="28%" r="1.3"/>
+      <line x1="92%" y1="7%" x2="87%" y2="15%"/><line x1="87%" y1="15%" x2="94%" y2="22%"/><line x1="94%" y1="22%" x2="90%" y2="33%"/>
+      <circle cx="92%" cy="7%" r="1.3"/><circle cx="87%" cy="15%" r="1.3"/><circle cx="94%" cy="22%" r="1.3"/><circle cx="90%" cy="33%" r="1.3"/>
+      <line x1="3%" y1="70%" x2="8%" y2="78%"/><circle cx="3%" cy="70%" r="1.1"/><circle cx="8%" cy="78%" r="1.1"/>
+      <line x1="95%" y1="68%" x2="90%" y2="76%"/><line x1="90%" y1="76%" x2="96%" y2="85%"/>
+      <circle cx="95%" cy="68%" r="1.1"/><circle cx="90%" cy="76%" r="1.1"/><circle cx="96%" cy="85%" r="1.1"/>
+      <line x1="48%" y1="4%" x2="53%" y2="9%"/><circle cx="48%" cy="4%" r="1"/><circle cx="53%" cy="9%" r="1"/>
+    </g>
   </svg>
 </div>
 
@@ -678,20 +656,20 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
     <h2 style="margin-bottom:4px">Hours in front of a classroom</h2>
     <p class="lede" style="margin-bottom:18px">Rough totals, calculated from average weekly hours at each role, not exact records. Left off the CV on purpose. INTI is not included yet; I taught in 8-week stretches there and don't have a reliable count of how many per year.</p>
     <svg viewBox="0 0 640 260" role="img" aria-label="Bar chart of approximate lifetime teaching hours: Dong-A University about 4150, Banhana English about 5100, Pukyong National University about 2500" style="width:100%;max-width:640px;display:block;margin:0 auto">
-      <line x1="70" y1="20" x2="70" y2="210" stroke="#B9CFF4" stroke-width="2"/>
-      <line x1="70" y1="210" x2="620" y2="210" stroke="#B9CFF4" stroke-width="2"/>
+      <line x1="70" y1="20" x2="70" y2="210" stroke="#DDD5C6" stroke-width="2"/>
+      <line x1="70" y1="210" x2="620" y2="210" stroke="#DDD5C6" stroke-width="2"/>
       <!-- Dong-A: 4150 -->
-      <rect x="120" y="46" width="90" height="164" rx="6" fill="#1F5FD6"/>
-      <text x="165" y="36" text-anchor="middle" font-family="Space Grotesk" font-size="16" fill="#0C2A5E" font-weight="600">4,150</text>
-      <text x="165" y="230" text-anchor="middle" font-family="Nunito" font-size="13" fill="#4E5D78">Dong-A</text>
+      <rect x="120" y="46" width="90" height="164" rx="6" fill="#332C7A"/>
+      <text x="165" y="36" text-anchor="middle" font-family="Fraunces" font-size="16" fill="#211B54" font-weight="600">4,150</text>
+      <text x="165" y="230" text-anchor="middle" font-family="Inter" font-size="13" fill="#5C5650">Dong-A</text>
       <!-- Banhana: 5100 -->
-      <rect x="280" y="10" width="90" height="200" rx="6" fill="#0F3F9A"/>
-      <text x="325" y="0" text-anchor="middle" font-family="Space Grotesk" font-size="16" fill="#0C2A5E" font-weight="600" dy="10">5,100</text>
-      <text x="325" y="230" text-anchor="middle" font-family="Nunito" font-size="13" fill="#4E5D78">Banhana</text>
+      <rect x="280" y="10" width="90" height="200" rx="6" fill="#211B54"/>
+      <text x="325" y="0" text-anchor="middle" font-family="Fraunces" font-size="16" fill="#211B54" font-weight="600" dy="10">5,100</text>
+      <text x="325" y="230" text-anchor="middle" font-family="Inter" font-size="13" fill="#5C5650">Banhana</text>
       <!-- PKNU: 2500 -->
-      <rect x="440" y="112" width="90" height="98" rx="6" fill="#6F9BEA"/>
-      <text x="485" y="102" text-anchor="middle" font-family="Space Grotesk" font-size="16" fill="#0C2A5E" font-weight="600">2,500</text>
-      <text x="485" y="230" text-anchor="middle" font-family="Nunito" font-size="13" fill="#4E5D78">PKNU</text>
+      <rect x="440" y="112" width="90" height="98" rx="6" fill="#8A7FC7"/>
+      <text x="485" y="102" text-anchor="middle" font-family="Fraunces" font-size="16" fill="#211B54" font-weight="600">2,500</text>
+      <text x="485" y="230" text-anchor="middle" font-family="Inter" font-size="13" fill="#5C5650">PKNU</text>
     </svg>
     <p class="note" style="text-align:center;margin-top:6px">Hours are estimates from typical weekly teaching loads, not payroll records.</p>
   </section>
