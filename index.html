@@ -172,7 +172,9 @@ main{position:relative;z-index:1;max-width:1580px;margin:0 auto;padding:36px 20p
 .paper h3{font-size:1.02rem;font-family:var(--body);font-weight:800;color:var(--cv-ink)}
 .paper p,.paper li{font-size:.98rem;line-height:1.55;color:var(--cv-muted)}
 .paper li::marker{color:var(--cv-accent)}
-.paper .row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.paper .row{display:flex;justify-content:space-between;align-items:baseline;gap:20px}
+.paper .row h3{flex:1 1 auto;min-width:0;padding-right:6px}
+.paper .row span{flex:none;white-space:nowrap}
 .paper .row h3{color:var(--cv-ink)}
 .paper .row span{color:var(--cv-ink);font-weight:700}
 @media (max-width:640px){.paper .band{padding:26px 22px}.paper .body{padding:0 22px}}
@@ -603,7 +605,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
         <h3>Co-Founder and Head Teacher</h3>
         <p class="org">Banhana English, Busan</p>
         <ul>
-          <li>Co-founded and operate an English literacy and test-prep academy with my wife, also an educator, delivering small-group instruction to EFL learners ages 9 to 14</li>
+          <li>Co-founded and co-lead an English literacy and test-prep academy with my wife, also an educator, delivering small-group instruction to EFL learners ages 9 to 14</li>
           <li>Delivered TOEIC Bridge, TOEFL Primary, and TOEFL Junior test preparation; the academy was an authorized test center and proctored these exams on-site</li>
           <li>Completed my DC K-6 clinical practice here</li>
         </ul>
@@ -730,7 +732,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
     <div class="body">
 
     <h2>Profile</h2>
-    <p>EAL/ELA educator based in Busan, South Korea since 2008, with 18 years of international teaching experience. Currently teaches Grades 2, 4, and 6 EAL and ELA at Dongsung Elementary School while co-leading Banhana English, a literacy and test-prep academy since 2016. Uses evidence-informed approaches, including retrieval practice, spaced repetition, cognitive load management, and Kagan Cooperative Learning, to structure instruction and classroom culture. Designs the pedagogy behind custom curriculum, assessment, and classroom management tools, then directs AI-assisted development to build them. Holds a Washington DC K-6 teaching license and an M.Ed. in TESOL; pursuing a Secondary Mathematics endorsement.</p>
+    <p>EAL/ELA educator based in Busan, South Korea since 2008, with 18 years of international teaching experience. Currently teaches Grades 2, 4, and 6 EAL and ELA at Dongsung Elementary School while co-leading Banhana English, a literacy and test-prep academy since 2016. Uses evidence-informed approaches, including retrieval practice, spaced repetition, cognitive load management, and Kagan Cooperative Learning, to structure instruction and classroom culture. Designs the instructional frameworks behind custom curriculum, assessment, and classroom-management tools. Holds a Washington DC K-6 teaching license and an M.Ed. in TESOL; pursuing a Secondary Mathematics endorsement.</p>
 
     <h2>Professional Experience</h2>
     <div class="row"><h3>English Teacher, Dongsung Elementary School, Busan</h3><span>April 2026 to present</span></div>
@@ -742,7 +744,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
     </ul>
     <div class="row" style="margin-top:10px"><h3>Co-Founder and Head Teacher, Banhana English, Busan</h3><span>2016 to present</span></div>
     <ul>
-      <li>Co-founded and operates an English literacy and test-prep academy delivering small-group instruction to EFL learners ages 9 to 14</li>
+      <li>Co-founded and co-leads an English literacy and test-prep academy delivering small-group instruction to EFL learners ages 9 to 14</li>
       <li>Delivered TOEIC Bridge, TOEFL Primary, and TOEFL Junior test preparation; the academy was an authorized test center and proctored these exams on-site</li>
       <li>Designed and directed a modular literature curriculum for private tutoring, using an AI-assisted workflow to build and refine materials covering thematic analysis, character tracking, and tiered comprehension</li>
       <li>Completed Washington DC K-6 teaching licensure practicum on-site</li>
@@ -751,18 +753,21 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
     <ul>
       <li>Delivered EFL coursework and TOEIC test preparation instruction over a nine-and-a-half-year appointment</li>
     </ul>
-    <div class="row" style="margin-top:10px"><h3 style="font-family:var(--body);font-size:.98rem;font-style:italic">Instructor, COLAL Department, INTI International University, Nilai, Malaysia</h3><span>2015 to 2016</span></div>
+    <div class="row" style="margin-top:10px"><h3 style="font-family:var(--body);font-size:.98rem;font-style:italic">Instructor, COLAL Department</h3><span>2015 to 2016</span></div>
+    <p style="font-style:italic;margin-top:-4px;color:var(--muted)">INTI International University, Nilai, Malaysia</p>
     <p style="font-style:italic;margin-top:-4px">Delivered university-level EFL instruction in 8-week terms.</p>
-    <div class="row" style="margin-top:10px"><h3 style="font-family:var(--body);font-size:.98rem;font-style:italic">Guest Professor, Foreign Language Department, Pukyong National University, Busan</h3><span>2010 to 2015</span></div>
+    <div class="row" style="margin-top:10px"><h3 style="font-family:var(--body);font-size:.98rem;font-style:italic">Guest Professor, Foreign Language Department</h3><span>2010 to 2015</span></div>
+    <p style="font-style:italic;margin-top:-4px;color:var(--muted)">Pukyong National University, Busan</p>
     <p style="font-style:italic;margin-top:-4px">Delivered university-level EFL instruction across 15-week semesters and summer camps; received the Outstanding Teacher Award in 2013 and 2014.</p>
-    <div class="row" style="margin-top:10px"><h3 style="font-family:var(--body);font-size:.98rem;font-style:italic">EFL Educator, Maple College and KJC Academy, Busan</h3><span>2008 to 2010</span></div>
+    <div class="row" style="margin-top:10px"><h3 style="font-family:var(--body);font-size:.98rem;font-style:italic">EFL Educator</h3><span>2008 to 2010</span></div>
+    <p style="font-style:italic;margin-top:-4px;color:var(--muted)">Maple College and KJC Academy, Busan</p>
     <p style="font-style:italic;margin-top:-4px">Delivered basic English instruction to elementary-age EFL learners at two Busan hagwons early in his teaching career.</p>
 
     <h2>Selected Projects</h2>
-    <p><b>Growth Spiral</b> &mdash; An AI-assisted formative assessment system that evaluates student work against customizable rubrics and can generate guided self-correction feedback targeting specific skill gaps. Still under construction: the grading and feedback engine is functional, automatic photo transfer and skill-tracking over time are not yet built.</p>
+    <p><b>Growth Spiral</b> &mdash; A formative feedback system that turns photographed student work into instructional data: skills are automatically assessed and logged in a database tracking individual progression over time, informing targeted review, micro-lessons, extension activities, and flexible grouping. Currently under construction.</p>
     <p style="margin-top:8px"><b>Ribbon</b> &mdash; A standalone classroom management application developed for daily classroom use. Displays and logs daily and monthly team points, attendance, and behavioral data, and includes a timer and other functions used throughout live instruction.</p>
     <p style="margin-top:8px"><b>Vocabulary Assessment System</b> &mdash; An 800-word vocabulary curriculum across five grades and four proficiency tiers using a six-factor word-selection model weighing corpus frequency, CEFR level, age of acquisition, morphological generativity, concreteness, and curriculum fit. Paired with an AI-assisted process that generates print-ready tests and answer keys directly from the word lists.</p>
-    <p style="margin-top:8px"><b>Full-Novel Interactive Unit</b> &mdash; An EAL-focused, multi-part interactive lesson series built around a complete novel, covering theme analysis, character development, comprehension, vocabulary development, and more, chapter by chapter across the full book. One of the largest single builds in the interactive lesson series.</p>
+    <p style="margin-top:8px"><b>Full-Novel Interactive Unit</b> &mdash; An EAL-focused, multi-part interactive lesson series built around a complete novel, covering theme analysis, character development, comprehension, vocabulary development, and more, chapter by chapter across the full book.</p>
     <p style="margin-top:8px"><b>bryanmims.com</b> &mdash; Personal portfolio website, developed independently using an AI-assisted workflow.</p>
     <p style="margin-top:8px"><b>Adaptive Weekly Lesson Planner</b> &mdash; Tracks grade-level lesson progression against the school schedule. When a lesson is skipped, cut short, or interrupted, the tool recalculates the class's position in the curriculum automatically, and a built-in AI advisor recommends whether unfinished content should carry into the next session, fold into a later review, or be dropped, weighing retrieval-practice and pacing tradeoffs. Tracks holidays and recurring events, and surfaces how many free days remain for games, review, or extra instruction. Currently configured for Dongsung's own schedule; the underlying template could be adapted to another teacher's schedule with modification.</p>
 
@@ -781,7 +786,7 @@ footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-siz
     </ul>
 
     <h2>Core Competencies</h2>
-    <p>Science of Learning Instructional Design &middot; Kagan Cooperative Learning &middot; AI-Directed Curriculum &amp; Tool Development &middot; Data-Informed Differentiation &middot; EAL/ELA Curriculum Design, Grades 2-6 &middot; Formative Assessment System Design</p>
+    <p>Science of Learning-Informed Instructional Design &middot; Kagan Cooperative Learning &middot; AI-Assisted Curriculum &amp; Tool Development &middot; Data-Informed Differentiation &middot; EAL/ELA Curriculum Design, Grades 2-6 &middot; Formative Assessment System Design</p>
     </div>
   </article>
 </div>
