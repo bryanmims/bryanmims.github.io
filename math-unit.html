@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grade 4 Math Unit | Bryan Mims</title>
+<meta name="description" content="A Grade 4 business-math unit taught at Dongsung Elementary School: revenue, expenses, profit, percent discounts and growth, with student work and a playable demo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#211B54; --royal:#332C7A; --royal-dark:#1C1650; --sky:#E9E4F5; --ice:#F7F3EC;
+  --line:#DDD5C6; --press:#C7BFA9; --ink:#242220; --muted:#5C5650; --white:#fff;
+  --head:'Fraunces',serif; --body:'Inter',system-ui,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);font-size:1.0625rem;line-height:1.65;color:var(--ink);background:var(--ice);min-height:100vh}
+a{color:var(--royal);font-weight:700}
+a:hover{color:var(--navy)}
+:focus-visible{outline:3px solid var(--navy);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--head);color:var(--navy);line-height:1.2;font-weight:600}
+h1{font-size:clamp(2rem,4.4vw,3rem)}
+h2{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:.6rem}
+h3{font-size:1.2rem;margin-bottom:.3rem}
+ul,ol{padding-left:1.2rem}
+li{margin:.3rem 0}
+li::marker{color:var(--royal)}
+.skip{position:absolute;left:-999px;top:8px;background:var(--navy);color:#fff;padding:8px 14px;border-radius:8px;z-index:200}
+.skip:focus{left:8px}
+header.top{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:3px solid var(--royal)}
+.bar{max-width:1180px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{font-family:var(--head);font-size:1.45rem;font-weight:700;color:var(--navy);text-decoration:none}
+nav ul{list-style:none;display:flex;gap:8px;padding:0;flex-wrap:wrap}
+nav li{margin:0}
+nav a{display:block;padding:7px 14px;border-radius:10px;color:var(--navy);text-decoration:none;font-weight:800;font-size:.92rem;background:#fff;border:1.5px solid var(--line);box-shadow:0 2px 0 var(--line)}
+nav a:hover{background:var(--sky)}
+nav a[aria-current="page"]{background:var(--royal);color:#fff;border-color:var(--royal-dark);box-shadow:0 3px 0 var(--royal-dark)}
+main{max-width:1180px;margin:0 auto;padding:36px 20px 80px}
+section{margin-bottom:44px}
+.lede{max-width:70ch;color:var(--muted);margin-bottom:18px}
+.panel{background:var(--white);border:3px solid var(--royal);border-radius:22px;box-shadow:0 6px 0 var(--press);padding:28px 32px}
+.soft{background:var(--white);border:1px solid var(--line);border-left:4px solid var(--royal);border-radius:10px;padding:20px 24px;box-shadow:0 4px 14px rgba(36,34,32,.07)}
+.stack > * + *{margin-top:14px}
+.btn{display:inline-block;background:var(--royal);color:#fff;text-decoration:none;font-weight:800;padding:10px 22px;border-radius:14px;box-shadow:0 5px 0 var(--royal-dark)}
+.btn:hover{color:#fff;transform:translateY(-2px)}
+.btn.alt{background:#fff;color:var(--royal-dark);border:3px solid var(--royal);box-shadow:0 5px 0 var(--press)}
+.btn.alt:hover{color:var(--navy)}
+.pill{display:inline-block;font-size:.82rem;font-weight:800;padding:2px 12px;border-radius:999px;background:var(--sky);color:var(--royal-dark);border:1.5px solid var(--line)}
+.note{font-size:.95rem;color:var(--muted)}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:34px;align-items:center}
+.glance{list-style:none;padding:0}
+.glance li{padding:8px 0;border-bottom:2px solid var(--sky);margin:0}
+.glance li:last-child{border-bottom:0}
+.glance b{color:var(--navy)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.periods{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.period{background:var(--white);border:3px solid var(--royal);border-radius:18px;box-shadow:0 5px 0 var(--press);padding:18px}
+.period .n{font-family:var(--head);font-size:2rem;color:var(--royal);line-height:1}
+.period h3{margin:.3rem 0 .4rem}
+.period p{font-size:.95rem;color:var(--muted);line-height:1.5}
+.period a{display:inline-block;margin-top:8px;font-size:.92rem}
+figure{margin:0}
+figure img{width:100%;height:auto;display:block;border:3px solid var(--royal);border-radius:16px;box-shadow:0 6px 0 var(--press);background:#fff}
+figcaption{font-size:.92rem;color:var(--muted);margin-top:10px}
+.evidence{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.evidence .soft h3{font-size:1.05rem}
+.evidence .soft p{font-size:.97rem}
+@media (max-width:980px){.periods{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:820px){.hero,.two,.evidence{grid-template-columns:1fr}.panel{padding:22px}}
+@media (max-width:520px){.periods{grid-template-columns:1fr}}
+footer{text-align:center;color:var(--muted);font-size:.92rem;padding:0 20px 34px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="bar">
+    <a class="brand" href="index.html#/about">Bryan Mims</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html#/about">About</a></li>
+        <li><a href="math-unit.html" aria-current="page">Math</a></li>
+        <li><a href="index.html#/teaching">Skillset</a></li>
+        <li><a href="index.html#/experience">Experience</a></li>
+        <li><a href="index.html#/portfolio">Portfolio</a></li>
+        <li><a href="index.html#/cv">CV</a></li>
+        <li><a href="index.html#/contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="panel hero" aria-labelledby="t">
+    <div class="stack">
+      <span class="pill">Math teaching demonstration &middot; Grade 4</span>
+      <h1 id="t">Let's Make Money! A business-math unit</h1>
+      <p>Fourth graders at Dongsung Elementary School designed their own businesses. They worked out revenue, expenses, and profit with real numbers, learned how growth compounds over time, designed an advertisement for their own product, and wrote a pitch for their parents.</p>
+      <p>I designed the unit's pedagogy and math, taught it, and directed Claude to build the interactive lesson hub from my specifications. Below are the four lessons, a playable version of the lesson hub I used in class, and the work students produced.</p>
+      <p>
+        <a class="btn" href="big-bucks-demo.html">Try the lesson hub</a>
+        <a class="btn alt" href="#student-work" style="margin-left:10px">See student work</a>
+      </p>
+    </div>
+    <ul class="glance panel" style="padding:20px 26px;box-shadow:0 4px 0 var(--press)">
+      <li><b>Grade:</b> 4, Dongsung Elementary School, Busan</li>
+      <li><b>Length:</b> four 40-minute lessons</li>
+      <li><b>Math:</b> multiplication with larger numbers, subtraction, percent as "out of 100," discounts, repeated multiplication for growth</li>
+      <li><b>English:</b> persuasion, superlatives, "if ... will" sentences, a spoken pitch</li>
+      <li><b>Format:</b> one interactive lesson hub on the classroom TV, with a Korean support toggle</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="periods-h">
+    <h2 id="periods-h">The four lessons</h2>
+    <p class="lede">Each lesson follows the same shape: a retrieval warm-up, a worked example, guided practice, independent practice, a personal task, and an exit ticket. Every lesson has a full lesson plan with objectives, a timeline, formative assessment checks, differentiation, and an exit ticket with answer key.</p>
+    <div class="periods">
+      <div class="period"><div class="n">1</div><h3>Business Money</h3><p>Revenue, expenses, profit, loss, and break-even, using Bryan's glue-stick business. Students calculate each one in vertical format, then test what happens when things go wrong.</p><a href="big-bucks-demo.html#/1/warm">Open lesson</a> &middot; <a href="big-bucks-demo.html#/1/plan">Lesson plan</a></div>
+      <div class="period"><div class="n">2</div><h3>Invest</h3><p>Money grows when profit is invested. Students multiply by 1.1 year after year, then compare starting early with starting late. The lesson ends with a plan for their own business idea.</p><a href="big-bucks-demo.html#/2/warm">Open lesson</a> &middot; <a href="big-bucks-demo.html#/2/plan">Lesson plan</a></div>
+      <div class="period"><div class="n">3</div><h3>Make the Advert</h3><p>Six persuasion tools and six parts of a good advertisement. Students design an advertisement for their own product, with a price students can find at a glance.</p><a href="big-bucks-demo.html#/3/warm">Open lesson</a> &middot; <a href="big-bucks-demo.html#/3/plan">Lesson plan</a></div>
+      <div class="period"><div class="n">4</div><h3>Make the Pitch</h3><p>A six-part pitch to parents with exact numbers: what the business needs, what it will earn, and when it pays back. Scored on a four-level rubric.</p><a href="big-bucks-demo.html#/4/warm">Open lesson</a> &middot; <a href="big-bucks-demo.html#/4/plan">Lesson plan</a></div>
+    </div>
+  </section>
+
+  <section class="panel sec" id="student-work" aria-labelledby="sw-h">
+    <h2 id="sw-h">What students produced</h2>
+    <p class="lede">These are advertisements Grade 4 students made during the unit, each with a price, a pitch, and a way to contact the seller. Student names and phone numbers are covered.</p>
+    <figure>
+      <img src="math-student-work.jpg" alt="Six student-made advertisements on a table: two photocard posters, a notebook and stationery shop, a stationery store with a price list and discounts, a dog-walking service with a price table, and a chocolate cookie shop. Names and phone numbers are blacked out." loading="lazy">
+      <figcaption>Six student advertisements. Names and phone numbers are blacked out.</figcaption>
+    </figure>
+    <h3 style="margin-top:22px">The math students chose to put in their advertisements</h3>
+    <div class="evidence">
+      <div class="soft"><h3>Dog walking</h3><p>A rate table that rises with time (30 minutes, 1 hour, 1.5 hours, up to 3 hours), plus a size charge: 1,000 won more for a big dog, 1,000 won less for a small one.</p></div>
+      <div class="soft"><h3>Stationery store</h3><p>A full price list, percent discounts on pack deals, and a VIP loyalty card with its own discount.</p></div>
+      <div class="soft"><h3>Cookie shop</h3><p>A single price of 3,000 won, with a 20% discount on weekdays and 30% on weekends.</p></div>
+      <div class="soft"><h3>Notebook shop and photocards</h3><p>Unit prices for different items, a limited weekly stock (3 notebooks and 10 pencils), and a "3+1" sale at 1,000 won per picture, with part of the money donated to children in need.</p></div>
+    </div>
+    <p class="note" style="margin-top:16px">This is student work, not test scores. The posters show students setting prices, discounts, and offers and putting them in writing. They also show the unit's persuasion language: superlatives, exclamation marks, and a call to action ("Come quick or you'll lose an opportunity!").</p>
+  </section>
+
+  <section class="two" aria-labelledby="how-h">
+    <div class="soft stack">
+      <h2 id="how-h" style="font-size:1.4rem">How the lessons are built</h2>
+      <ul>
+        <li><b>Retrieval first.</b> Each lesson opens with questions from the one before, so students recall the earlier math before they use it.</li>
+        <li><b>Worked example, then "your turn."</b> I show a calculation one step at a time. Students try the next one on whiteboards before the answer appears.</li>
+        <li><b>Vertical format with a way in.</b> Multiplication is written vertically. A "?" button breaks a hard product into smaller groups (and shows the zero trick), so students who stall have a next step.</li>
+        <li><b>Fresh numbers every time.</b> The practice pages generate new problems on request, so practice never runs out.</li>
+        <li><b>Immediate, specific feedback.</b> A wrong answer shows a hint about the step, not just "try again."</li>
+      </ul>
+    </div>
+    <div class="soft stack">
+      <h2 style="font-size:1.4rem">Being honest about the math</h2>
+      <ul>
+        <li>Compound growth is above Grade 4, so the unit teaches it as repeated multiplication with a calculator, with no formulas.</li>
+        <li>The 10% growth rate is a round number chosen to keep the arithmetic easy. A slide says so directly: real investments go up and down, nothing is guaranteed, and children need a parent or guardian to open a real account.</li>
+        <li>The profit-margin slide uses rough typical figures and tells students that they change by year, country, and company.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="panel stack" aria-labelledby="try-h">
+    <h2 id="try-h">Try it yourself</h2>
+    <p>The lesson hub is the same page I put on the classroom TV. Use the arrow keys to move through the slides, click the numbers to try the practice questions, and press the KR button for the Korean support version. The "Bryan Bucks" counter is the classroom currency students earned for correct answers.</p>
+    <p><a class="btn" href="big-bucks-demo.html">Open the lesson hub</a> <a class="btn alt" href="big-bucks-demo.html#/overview" style="margin-left:10px">Project map</a></p>
+    <p class="note">The hub works best on a computer or tablet.</p>
+  </section>
+
+  <section class="soft stack">
+    <h2 style="font-size:1.4rem">Math background</h2>
+    <p>I hold a Washington DC K-6 teaching license covering all elementary subjects. This unit is my elementary math teaching sample.</p>
+    <p>Separately, I am working toward a DC secondary mathematics endorsement and preparing for the Praxis exam.</p>
+    <p><a href="index.html#/cv">Read my CV</a> &middot; <a href="index.html#/contact">Contact me</a></p>
+  </section>
+
+</main>
+<footer>&copy; <span id="yr">2026</span> Bryan Mims</footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

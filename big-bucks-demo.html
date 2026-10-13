@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Let's Make Money! Grade 4 Business Math Demo | Bryan Mims</title>
+<meta name="description" content="Grade 4 ELL project hub: business money, investing, advertising and pitching. Four 40-minute lessons with interactive practice, lesson plans and exit tickets.">
+<style>
+:root{
+  --ink:#20124d; --purple:#7b3ff2; --pink:#ff4d9d; --yellow:#ffd426; --mint:#1fd6a0; --sky:#34b6ff; --orange:#ff8c1a; --cream:#fff8e6; --white:#fff;
+  --good:#12a36f; --bad:#e23b4e;
+  --font:"Trebuchet MS","Arial Rounded MT Bold","Segoe UI","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font);font-size:22px;line-height:1.55;color:var(--ink);background-color:var(--cream);
+  background-image:radial-gradient(#ffe9a8 2.5px,transparent 3px);background-size:28px 28px;min-height:100vh;}
+a{color:inherit;text-decoration:none;}
+.view{display:none;} .view.on{display:block;}
+/* top bar */
+.top{position:sticky;top:0;z-index:30;background:var(--ink);color:#fff;display:flex;align-items:center;gap:14px;padding:10px 20px;border-bottom:5px solid var(--yellow);}
+.top .home{background:var(--yellow);color:var(--ink);border:3px solid #fff;border-radius:14px;padding:6px 16px;font-weight:900;font-size:19px;cursor:pointer;font-family:inherit;}
+.top .ttl{flex:1;font-size:26px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.top .bk{background:var(--mint);color:var(--ink);border-radius:30px;padding:6px 18px;font-weight:900;font-size:20px;border:3px solid #fff;white-space:nowrap;}
+.tabs{position:sticky;top:62px;z-index:25;background:#fff;border-bottom:5px solid var(--ink);display:flex;gap:8px;overflow-x:auto;padding:10px 16px;}
+.tab{flex:0 0 auto;border:4px solid var(--ink);background:#fff;border-radius:16px;padding:8px 18px;font-size:20px;font-weight:900;cursor:pointer;font-family:inherit;color:var(--ink);box-shadow:3px 3px 0 var(--ink);}
+.tab:hover{background:var(--cream);} .tab.on{background:var(--c,var(--purple));color:#fff;transform:translate(2px,2px);box-shadow:1px 1px 0 var(--ink);}
+.wrap{max-width:1180px;margin:0 auto;padding:30px 22px 90px;}
+/* pop cards */
+.pop{background:#fff;border:4px solid var(--ink);border-radius:22px;box-shadow:7px 7px 0 var(--ink);padding:24px 26px;margin-bottom:28px;}
+.pop.y{background:#fff3b0;} .pop.m{background:#d9fff1;} .pop.p{background:#ffe0f0;} .pop.s{background:#dff3ff;} .pop.v{background:#ece3ff;}
+h1,h2,h3,h4{font-weight:900;line-height:1.15;}
+h2{font-size:38px;margin-bottom:10px;} h3{font-size:28px;margin-bottom:10px;} h4{font-size:22px;margin-bottom:6px;}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:26px;} @media(max-width:900px){.cols{grid-template-columns:1fr;}}
+.timebadge{display:inline-block;background:var(--ink);color:#fff;border-radius:30px;padding:4px 16px;font-size:17px;font-weight:900;margin-bottom:14px;}
+.banner{background:var(--purple);color:#fff;border:4px solid var(--ink);border-radius:22px;box-shadow:7px 7px 0 var(--ink);padding:22px 28px;font-size:30px;font-weight:900;margin-bottom:28px;}
+.btn{background:var(--purple);color:#fff;border:4px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);padding:9px 22px;font-size:20px;font-weight:900;cursor:pointer;font-family:inherit;}
+.btn:hover{filter:brightness(1.08);} .btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink);}
+.btn.y{background:var(--yellow);color:var(--ink);} .btn.m{background:var(--mint);color:var(--ink);} .btn.g{background:#fff;color:var(--ink);} .btn.pk{background:var(--pink);}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;}
+input[type=number],input[type=text],select,textarea{font-family:inherit;font-size:22px;padding:9px 14px;border:4px solid var(--ink);border-radius:14px;outline:none;background:#fff;color:var(--ink);}
+input[type=number]{width:190px;} input.wide,select.wide,textarea.wide{width:100%;}
+input:focus,select:focus,textarea:focus{box-shadow:0 0 0 5px var(--yellow);}
+label.l{display:block;font-weight:900;font-size:19px;margin:12px 0 5px;}
+.hint{font-size:17px;opacity:.75;}
+.note{background:#fff3b0;border:4px dashed var(--ink);border-radius:18px;padding:14px 20px;font-size:19px;margin:16px 0;}
+.note.w{background:#ffe0e0;}
+/* questions */
+.ex{border:4px solid var(--ink);border-radius:18px;padding:16px 20px;margin-bottom:14px;background:#fff;}
+.ex.ok{background:#d7f9e8;border-color:var(--good);} .ex.bad{background:#ffe3e6;border-color:var(--bad);}
+.qt{font-size:22px;margin-bottom:10px;} .qn{display:inline-flex;width:36px;height:36px;border-radius:50%;background:var(--pink);color:#fff;align-items:center;justify-content:center;font-weight:900;margin-right:10px;font-size:19px;border:3px solid var(--ink);}
+.fb{font-weight:900;font-size:19px;margin-top:8px;min-height:24px;} .fb.ok{color:var(--good);} .fb.bad{color:var(--bad);}
+.mc .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;}
+.opt{border:4px solid var(--ink);border-radius:14px;background:#fff;padding:10px 14px;font-size:20px;font-weight:700;cursor:pointer;font-family:inherit;color:var(--ink);text-align:left;}
+.opt:hover{background:var(--cream);} .opt.right{background:#a6f2cf;} .opt.wrong{background:#ffc2c9;}
+/* flip cards */
+.flipgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px;}
+.flip{perspective:900px;height:160px;cursor:pointer;} .f-in{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d;} .flip.on .f-in{transform:rotateY(180deg);}
+.front,.back{position:absolute;inset:0;backface-visibility:hidden;border:4px solid var(--ink);border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;text-align:center;box-shadow:4px 4px 0 var(--ink);}
+.front{background:var(--c,var(--yellow));font-size:30px;font-weight:900;} .back{background:#fff;transform:rotateY(180deg);font-size:19px;}
+.back i{font-size:17px;opacity:.8;margin-top:6px;}
+/* tally */
+.tallies{display:grid;gap:10px;} .tally{display:flex;justify-content:space-between;align-items:center;border:4px solid var(--ink);border-radius:14px;padding:10px 16px;background:#fff;font-size:20px;font-weight:800;cursor:pointer;font-family:inherit;color:var(--ink);text-align:left;gap:10px;}
+.tally:hover{background:var(--cream);} .tally .cnt{background:var(--yellow);border:3px solid var(--ink);border-radius:30px;min-width:48px;text-align:center;padding:0 10px;font-size:22px;}
+/* slides */
+.slides .stage{position:relative;min-height:430px;}
+.slide{display:none;background:#fff;border:4px solid var(--ink);border-radius:26px;box-shadow:8px 8px 0 var(--ink);padding:34px 40px;min-height:430px;animation:pop .35s;}
+.slide.on{display:block;} @keyframes pop{from{transform:scale(.97);opacity:.4}to{transform:none;opacity:1}}
+.slide h3{font-size:36px;} .slide p{font-size:26px;margin:10px 0;} .slide .big{font-size:56px;font-weight:900;line-height:1.1;}
+.slide ul{margin:10px 0 10px 28px;font-size:25px;} .slide li{margin:6px 0;}
+.snav{display:flex;justify-content:space-between;align-items:center;margin:20px 0 28px;gap:12px;}
+.dots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;} .dots i{width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--ink);display:block;} .dots i.on{background:var(--pink);}
+.eq{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;font-size:36px;font-weight:900;margin:18px 0;}
+.eq span.t{padding:8px 22px;border:4px solid var(--ink);border-radius:16px;box-shadow:4px 4px 0 var(--ink);}
+.t.in{background:var(--mint);} .t.out{background:#ff8f9c;} .t.keep{background:var(--yellow);} .t.pl{background:#fff;} .t.pu{background:#d6c4ff;}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;margin-top:20px;}
+.three div.c{border:4px solid var(--ink);border-radius:20px;padding:18px;text-align:center;box-shadow:5px 5px 0 var(--ink);font-size:22px;} .three .c .em{font-size:52px;display:block;} .three .c b{display:block;font-size:30px;}
+.table{width:100%;border-collapse:collapse;font-size:22px;margin:10px 0;} .table th{background:var(--ink);color:#fff;padding:10px 14px;text-align:left;} .table td{padding:10px 14px;border-bottom:3px solid #eadfc2;} .table td.n{text-align:right;font-weight:900;} .table tr.hl td{background:var(--yellow);font-weight:900;}
+/* lab */
+.lab{display:grid;grid-template-columns:1fr 1fr;gap:24px;} @media(max-width:900px){.lab{grid-template-columns:1fr;}}
+.lab input[type=range]{width:100%;accent-color:var(--pink);height:30px;} .lab .v{font-size:28px;font-weight:900;color:var(--purple);}
+.result .rr{display:flex;justify-content:space-between;font-size:24px;font-weight:800;padding:8px 0;border-bottom:3px dashed #cdbd8a;} .result .rr.final{font-size:34px;border-bottom:none;}
+.bars{margin:12px 0;} .bar{height:30px;border:3px solid var(--ink);border-radius:10px;margin:6px 0;position:relative;background:#fff;overflow:hidden;} .bar i{display:block;height:100%;transition:width .3s;} .bar span{position:absolute;left:10px;top:0;font-size:17px;font-weight:900;line-height:24px;}
+/* paths */
+.pathgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;}
+.pathcard{border:4px solid var(--ink);border-radius:18px;background:#fff;padding:12px;} .path{width:100%;background:var(--sky);border:3px solid var(--ink);border-radius:12px;padding:10px;font-size:21px;font-weight:900;cursor:pointer;font-family:inherit;color:var(--ink);} .pathcard .res{font-size:19px;margin-top:10px;} .pathcard .res[hidden]{display:none;}
+/* skill */
+.skill{background:linear-gradient(135deg,#ece3ff,#dff3ff);border:4px solid var(--ink);border-radius:24px;box-shadow:7px 7px 0 var(--ink);padding:26px;margin-bottom:28px;}
+.skill .tp{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+.lvl{display:flex;gap:6px;} .lvl i{width:42px;height:16px;border-radius:9px;border:3px solid var(--ink);background:#fff;display:block;} .lvl i.on{background:var(--yellow);} .lvl i.done{background:var(--mint);}
+.score{display:flex;gap:12px;flex-wrap:wrap;} .score div{background:#fff;border:3px solid var(--ink);border-radius:30px;padding:3px 16px;font-weight:900;font-size:18px;} .score b{font-size:22px;margin-left:6px;color:var(--purple);}
+.skill .prompt{font-size:28px;font-weight:800;margin:16px 0 18px;line-height:1.4;}
+/* charts */
+.chart{width:100%;height:auto;display:block;}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:14px;} .stat{background:#fff;border:4px solid var(--ink);border-radius:16px;padding:12px;text-align:center;box-shadow:4px 4px 0 var(--ink);} .stat .v{font-size:27px;font-weight:900;} .stat .k{font-size:16px;opacity:.8;}
+.explorer{display:grid;grid-template-columns:320px 1fr;gap:26px;} @media(max-width:950px){.explorer{grid-template-columns:1fr;}}
+.explorer input[type=range]{width:100%;accent-color:var(--pink);height:30px;}
+/* hub */
+.hubhero{text-align:center;padding:40px 20px 10px;position:relative;overflow:hidden;}
+.hubhero .small{display:inline-block;background:var(--pink);color:#fff;border:4px solid var(--ink);border-radius:30px;padding:6px 24px;font-size:22px;font-weight:900;transform:rotate(-2deg);box-shadow:4px 4px 0 var(--ink);}
+.hubhero h1{font-size:84px;line-height:1;margin:18px 0 6px;color:var(--purple);text-shadow:4px 4px 0 var(--ink),-2px -2px 0 var(--ink),4px -2px 0 var(--ink),-2px 4px 0 var(--ink);letter-spacing:1px;} @media(max-width:700px){.hubhero h1{font-size:48px;}}
+.hubhero h1 em{color:var(--yellow);font-style:normal;}
+.hubhero .sub{font-size:36px;font-weight:900;margin-bottom:6px;} .hubhero .sub2{font-size:27px;font-weight:800;color:var(--pink);}
+.float{position:absolute;font-size:52px;animation:bob 4s ease-in-out infinite;} @keyframes bob{50%{transform:translateY(-18px) rotate(10deg)}}
+.lessons{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:30px;max-width:1180px;margin:30px auto 20px;padding:0 22px;} @media(max-width:480px){.lessons{grid-template-columns:1fr;}}
+.lcard{display:block;border:5px solid var(--ink);border-radius:28px;box-shadow:9px 9px 0 var(--ink);padding:26px 28px;background:var(--c);color:var(--ink);transition:transform .15s;position:relative;}
+.lcard:hover{transform:translate(-4px,-4px) rotate(-.6deg);box-shadow:13px 13px 0 var(--ink);}
+.lcard .pn{display:inline-block;background:var(--ink);color:#fff;border-radius:30px;padding:3px 16px;font-size:17px;font-weight:900;}
+.lcard .em{font-size:78px;display:block;margin:6px 0;} .lcard .nm{font-size:40px;font-weight:900;line-height:1.05;} .lcard .ds{font-size:21px;margin-top:8px;font-weight:700;} .lcard .tags{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;} .lcard .tags span{background:#fff;border:3px solid var(--ink);border-radius:30px;padding:1px 12px;font-size:16px;font-weight:900;}
+.extras{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin:10px 20px 50px;}
+.extras a{background:#fff;border:4px solid var(--ink);border-radius:18px;box-shadow:5px 5px 0 var(--ink);padding:12px 24px;font-size:22px;font-weight:900;} .extras a:hover{background:var(--yellow);}
+/* plan */
+.plan h3{margin-top:6px;} .plan .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;} @media(max-width:900px){.plan .grid2{grid-template-columns:1fr;}}
+.plan ul{margin:6px 0 6px 26px;} .plan li{margin:6px 0;font-size:20px;} .plan p{font-size:20px;margin:6px 0;}
+.plan .table td,.plan .table th{font-size:19px;}
+.tk{border:3px dashed var(--ink);border-radius:14px;padding:14px;background:#fff;}
+.pill{display:inline-block;border:3px solid var(--ink);border-radius:30px;padding:0 12px;font-weight:900;font-size:16px;background:var(--yellow);margin:2px 3px 2px 0;}
+/* tickets */
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:3px dashed #555;background:#fff;color:#000;}
+.tick{padding:18px 20px;border:2px dashed #888;font-size:17px;min-height:330px;}
+.tick h4{font-size:20px;margin-bottom:4px;} .tick .nm{font-size:15px;margin-bottom:10px;} .tick p{margin:8px 0;font-size:17px;} .ln{display:inline-block;border-bottom:2px solid #000;min-width:90px;height:20px;vertical-align:bottom;}
+.tick .box{border:2px solid #000;min-height:58px;margin:8px 0;}
+/* ad maker */
+.maker{display:grid;grid-template-columns:1fr 440px;gap:28px;} @media(max-width:1000px){.maker{grid-template-columns:1fr;}}
+.paper{background:#fff;border:4px solid var(--ink);box-shadow:7px 7px 0 var(--ink);aspect-ratio:210/297;width:100%;max-width:440px;padding:10% 8%;display:flex;flex-direction:column;gap:3%;font-size:clamp(12px,1.9vw,17px);overflow:hidden;}
+.paper .hl{font-size:2.5em;font-weight:900;line-height:1.05;text-transform:none;} .paper .hk{font-size:1.25em;font-style:italic;} .paper .of{font-size:1.2em;}
+.paper .pic{flex:1;border:3px dashed #999;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#999;font-size:1.1em;text-align:center;padding:6px;min-height:50px;}
+.paper .pr{font-size:2.3em;font-weight:900;} .paper .ct{font-size:1.15em;border-top:3px solid #000;padding-top:2%;} .paper .cta{font-size:1.5em;font-weight:900;}
+.paper.color{background:#fffbe0;} .paper.color .hl{color:var(--purple);} .paper.color .pr{color:var(--pink);}
+.checks div{font-size:19px;padding:4px 0;} .checks .yes{color:var(--good);font-weight:900;} .checks .no{color:#888;}
+.wc{font-size:30px;font-weight:900;} .wc.over{color:var(--bad);}
+.selrow{display:grid;grid-template-columns:1fr 240px;gap:12px;align-items:center;margin-bottom:10px;} @media(max-width:700px){.selrow{grid-template-columns:1fr;}}
+.reorder .it{display:flex;gap:10px;align-items:center;border:4px solid var(--ink);border-radius:14px;padding:8px 12px;margin-bottom:8px;background:#fff;font-size:20px;} .reorder .it .tx{flex:1;} .reorder .it button{border:3px solid var(--ink);border-radius:10px;background:var(--yellow);font-weight:900;cursor:pointer;width:38px;height:38px;font-size:18px;}
+.cloze select{font-size:20px;padding:4px 8px;border-width:3px;} .cloze p{font-size:23px;line-height:2.1;margin:8px 0;}
+.cloze select.ok{background:#a6f2cf;} .cloze select.bad{background:#ffc2c9;}
+.rubric th,.rubric td{font-size:18px;vertical-align:top;}
+.timer{font-size:64px;font-weight:900;text-align:center;} .timer.low{color:var(--bad);}
+.coin{position:absolute;pointer-events:none;font-size:32px;z-index:999;animation:fly 1.1s ease-out forwards;} @keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(360deg);opacity:0}}
+#toast{position:fixed;left:50%;bottom:34px;transform:translate(-50%,40px);background:var(--ink);color:var(--yellow);border:4px solid #fff;border-radius:40px;padding:10px 28px;font-size:26px;font-weight:900;opacity:0;pointer-events:none;transition:all .25s;z-index:1000;box-shadow:0 6px 0 rgba(0,0,0,.25);}
+#toast.on{opacity:1;transform:translate(-50%,0);}
+.top .bk{cursor:pointer;} .top .bk.pulse{animation:pulse .5s;} @keyframes pulse{50%{transform:scale(1.18);background:var(--yellow);}}
+#bkm{display:none;position:fixed;inset:0;background:rgba(32,18,77,.7);z-index:2000;align-items:center;justify-content:center;padding:20px;} #bkm.on{display:flex;}
+#bkm .box{background:#fff;border:5px solid var(--ink);border-radius:26px;box-shadow:9px 9px 0 var(--ink);max-width:640px;padding:28px 32px;font-size:23px;} #bkm h3{font-size:34px;}
+.bkinfo{max-width:1100px;margin:0 auto 20px;padding:0 22px;} .bkinfo .pop{margin-bottom:0;display:flex;gap:20px;align-items:center;flex-wrap:wrap;} .bkinfo .big{font-size:60px;}
+#printRoot{display:none;}
+@media print{
+  @page{size:A4;margin:10mm;}
+  body.printing{background:#fff !important;}
+  body.printing>*:not(#printRoot){display:none !important;}
+  body.printing #printRoot{display:block !important;}
+  #printRoot .paper{box-shadow:none;max-width:none;width:190mm;height:277mm;font-size:16pt;}
+  #printRoot .tgrid{width:190mm;}
+  #printRoot .tick{min-height:132mm;}
+}
+
+/* ===== additions ===== */
+.ko{display:none;} body.kr .en{display:none;} body.kr .ko{display:inline;}
+.top .kr{background:#fff;color:var(--ink);border:3px solid var(--yellow);border-radius:14px;padding:6px 14px;font-weight:900;font-size:19px;cursor:pointer;font-family:inherit;white-space:nowrap;}
+.vm{display:inline-block;font-weight:900;font-size:48px;line-height:1.25;font-variant-numeric:tabular-nums;margin:8px 22px 8px 0;vertical-align:top;}
+.vm .r{display:flex;justify-content:flex-end;gap:16px;} .vm .op{width:44px;text-align:center;opacity:.85;} .vm .num{min-width:210px;text-align:right;padding:0 8px;}
+.vm .vrule{height:0;border-top:7px solid var(--ink);border-radius:4px;margin:4px 0 4px 0;}
+.vm .r.res .num{background:var(--yellow);border-radius:12px;} .vm .num.in{color:#0b8a65;} .vm .num.out{color:var(--bad);}
+.vm .lab{font-size:20px;opacity:.7;align-self:center;margin-left:10px;white-space:nowrap;font-weight:700;}
+.calc{display:inline-block;vertical-align:top;margin:8px 26px 8px 0;background:#fff8d6;border:4px dashed var(--ink);border-radius:20px;padding:12px 20px;}
+.calc .vm{margin:0;font-size:42px;} .calc input{width:210px;font-size:38px;font-weight:900;text-align:right;padding:2px 10px;}
+.calc .row{margin-top:8px;} .calc .fb{font-size:20px;} .calc.done .vm .num.q{background:#a6f2cf;border-radius:12px;}
+.calc .btn{font-size:18px;padding:6px 14px;}
+.rb{margin:12px 0;} .rb .rbl{font-weight:900;font-size:22px;margin-bottom:4px;} .rbt{display:flex;height:52px;border:4px solid var(--ink);border-radius:14px;overflow:hidden;background:#fff;}
+.rbt i{display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:900;font-size:21px;white-space:nowrap;overflow:hidden;} .rbt i.e{background:#ff8f9c;} .rbt i.p{background:var(--yellow);} .rbt i.rv{background:var(--mint);} .rbt i.l{background:#ff6b7a;}
+.marg{width:100%;border-collapse:collapse;font-size:23px;} .marg td{padding:6px 8px;vertical-align:middle;} .marg td.nm{width:230px;font-weight:900;} .marg td.pc{width:90px;text-align:right;font-weight:900;}
+.mgb{display:flex;height:34px;border:3px solid var(--ink);border-radius:10px;overflow:hidden;background:#ff8f9c;} .mgb i{background:var(--yellow);display:block;min-width:4px;}
+.pl{display:grid;grid-template-columns:1fr 290px;gap:22px;align-items:start;} @media(max-width:1000px){.pl{grid-template-columns:1fr;}}
+.prow{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;border-bottom:3px dashed #cdbd8a;padding:9px 0;} .prow .pt{font-size:23px;line-height:1.35;}
+.prow .rt{display:flex;gap:8px;align-items:center;} .prow input{width:150px;padding:6px 10px;font-size:22px;} .prow .btn{font-size:17px;padding:6px 12px;} .prow .st{font-size:26px;width:30px;text-align:center;}
+.prow.ok{background:#e6fbf1;} .prow.bad{background:#fff0f2;} .prow .hn{grid-column:2/4;font-size:17px;color:var(--bad);font-weight:800;}
+.prow .ky{grid-column:2/4;font-size:19px;color:var(--purple);font-weight:900;}
+.side{position:sticky;top:130px;} .side .big{font-size:56px;font-weight:900;color:var(--purple);line-height:1;}
+.pgdots{display:flex;gap:8px;} .pgdots i{width:18px;height:18px;border-radius:50%;border:3px solid var(--ink);background:#fff;display:block;} .pgdots i.on{background:var(--pink);}
+.xp{display:grid;grid-template-columns:330px 1fr;gap:24px;} @media(max-width:1000px){.xp{grid-template-columns:1fr;}}
+.xp input[type=range]{width:100%;accent-color:var(--pink);height:30px;} .xp .big{font-size:50px;font-weight:900;color:var(--good);line-height:1.05;}
+.lg{display:flex;gap:16px;flex-wrap:wrap;font-weight:800;font-size:18px;margin:6px 0;} .lg i{display:inline-block;width:18px;height:18px;border:3px solid var(--ink);border-radius:5px;vertical-align:-3px;margin-right:6px;}
+.lk{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;} .lc{display:block;background:#fff;border:4px solid var(--ink);border-radius:18px;box-shadow:5px 5px 0 var(--ink);padding:14px 18px;} .lc:hover{background:var(--yellow);}
+.lc b{display:block;font-size:22px;} .lc span{font-size:17px;opacity:.8;} .lc em{display:block;font-size:14px;opacity:.65;font-style:normal;word-break:break-all;margin-top:4px;}
+.mad{background:#fff;border:4px solid var(--ink);border-radius:16px;padding:16px 18px;box-shadow:5px 5px 0 var(--ink);font-size:20px;} .mad div{margin:5px 0;} .mad .tg{display:inline-block;background:var(--ink);color:#fff;border-radius:20px;font-size:13px;padding:0 10px;margin-right:8px;font-weight:900;vertical-align:2px;}
+.mad .h{font-size:34px;font-weight:900;line-height:1.1;} .mad .pc2{font-size:30px;font-weight:900;color:var(--pink);}
+.sm{font-size:17px;opacity:.75;}
+
+.vm{display:inline-grid;grid-template-columns:46px auto auto;column-gap:10px;align-items:center;font-weight:900;font-size:48px;line-height:1.25;font-variant-numeric:tabular-nums;margin:8px 26px 8px 0;vertical-align:top;}
+.vm .op{text-align:center;opacity:.85;} .vm .num{text-align:right;padding:0 10px;min-width:200px;border-radius:12px;} .vm .lab{font-size:20px;opacity:.7;font-weight:700;white-space:nowrap;}
+.vm .vrule{grid-column:1/3;height:0;border-top:7px solid var(--ink);border-radius:4px;margin:4px 0;}
+.vm .num.rs{background:var(--yellow);} .vm .num.in{color:#0b8a65;} .vm .num.out{color:var(--bad);} .vm .num.q{background:#fff;border:4px dashed var(--ink);padding:0 6px;}
+.calc.done .vm .num.q{background:#a6f2cf;border:4px solid var(--good);} .calc .cin{width:190px;border-width:0;font-size:40px;padding:0 4px;background:transparent;box-shadow:none !important;}
+
+/* ===== layout ===== */
+:root{--rail:132px;}
+body{padding-left:var(--rail);}
+#rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);background:var(--ink);border-right:5px solid var(--yellow);z-index:40;display:flex;flex-direction:column;gap:10px;padding:10px 8px;overflow-y:auto;}
+#rail .rbtn{background:var(--yellow);color:var(--ink);border:3px solid #fff;border-radius:14px;padding:10px 4px;font-weight:900;font-size:20px;cursor:pointer;font-family:inherit;line-height:1.1;}
+#rail .rbtn.kr{background:#fff;} #rail .rbtn:hover{filter:brightness(1.1);}
+#rail .bk{background:var(--mint);color:var(--ink);border-radius:18px;padding:8px 4px;font-weight:900;font-size:17px;border:3px solid #fff;text-align:center;cursor:pointer;line-height:1.15;}
+#rail .bk b{display:block;font-size:26px;}
+#sn{margin-top:auto;display:flex;flex-direction:column;gap:8px;} #sn .btn{font-size:22px;padding:16px 4px;width:100%;} #scount{text-align:center;color:#fff;font-weight:900;font-size:22px;}
+.top{position:sticky;top:0;z-index:30;display:flex;align-items:stretch;gap:12px;padding:6px 10px;border-bottom:5px solid var(--yellow);background:var(--ink);color:#fff;}
+.top .ttl{flex:0 1 21%;font-size:clamp(14px,1.3vw,22px);white-space:normal;line-height:1.1;display:flex;align-items:center;font-weight:900;}
+.top.dyn .ttl{flex:1;font-size:24px;}
+.tabs{position:static;display:flex;flex:1;gap:6px;border:0;padding:0;background:none;overflow:visible;}
+.tab{flex:1 1 0;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.05;padding:4px;min-height:54px;font-size:clamp(14px,1.5vw,26px);border-width:3px;border-radius:12px;box-shadow:2px 2px 0 #000;min-width:0;}
+@media(max-width:820px){:root{--rail:0px;} #rail{top:auto;bottom:0;left:0;right:0;width:auto;flex-direction:row;border-right:0;border-top:5px solid var(--yellow);padding:6px;} #sn{margin:0 0 0 auto;flex-direction:row;} body{padding-bottom:90px;} .top{flex-wrap:wrap;} .top .ttl{flex:1 0 100%;} .tabs{flex-wrap:wrap;}}
+body.printing{padding-left:0 !important;} #printRoot .pcard{width:190mm;font-size:15pt;box-shadow:none;}
+.bl{display:flex;justify-content:space-between;font-weight:900;font-size:20px;margin-top:8px;} .bar{height:26px !important;margin:3px 0 !important;}
+.vmw{display:inline-block;vertical-align:top;margin:8px 26px 8px 0;max-width:100%;} .vmw .vm{margin:0;} .calc .vmw{margin:0;}
+.qm{vertical-align:top;margin:4px 0 0 4px;width:44px;height:44px;border-radius:50%;border:4px solid var(--ink);background:var(--sky);color:var(--ink);font-weight:900;font-size:24px;cursor:pointer;font-family:inherit;box-shadow:3px 3px 0 var(--ink);}
+.brk{margin-top:8px;background:#e9f6ff;border:3px dashed var(--ink);border-radius:14px;padding:8px 14px;font-size:22px;font-weight:800;max-width:560px;line-height:1.5;} .brk div{margin:3px 0;}
+#fm{display:none;position:fixed;inset:0;background:rgba(32,18,77,.82);z-index:1500;align-items:center;justify-content:center;flex-direction:column;gap:14px;padding:20px;} #fm.on{display:flex;}
+#fm .flip{width:min(900px,88vw);height:min(560px,68vh);} #fm .front{font-size:clamp(48px,10vw,130px);box-shadow:8px 8px 0 #000;} #fm .back{font-size:clamp(26px,3.6vw,50px);padding:30px;box-shadow:8px 8px 0 #000;line-height:1.35;} #fm .back i{font-size:.82em;margin-top:22px;opacity:1;color:var(--purple);font-weight:800;} #fm .fmh{color:#fff;font-size:20px;font-weight:800;}
+.pcard{background:#fff;border:5px solid var(--ink);border-radius:24px;box-shadow:7px 7px 0 var(--ink);overflow:hidden;margin-top:6px;}
+.pcard .ph{display:flex;align-items:center;gap:14px;background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;padding:14px 18px;} .pcard .pe{font-size:68px;line-height:1;background:#fff;border-radius:20px;border:4px solid var(--ink);padding:4px 10px;} .pcard .pt1{font-size:32px;font-weight:900;line-height:1.1;} .pcard .pt2{font-size:18px;font-weight:700;opacity:.95;} .pcard .pp{margin-left:auto;background:var(--yellow);color:var(--ink);border:4px solid var(--ink);border-radius:50%;width:112px;height:112px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:900;font-size:26px;transform:rotate(8deg);flex:0 0 auto;} .pcard .pp small{font-size:15px;}
+.pcard .pb{padding:14px 18px;} .pcard .stats{margin-top:0;} .pcard .pdraw{border:3px dashed #999;border-radius:14px;min-height:70px;display:flex;align-items:center;justify-content:center;color:#999;margin-top:10px;font-size:18px;}
+
+/* ===== final ===== */
+:root{--rail:92px;}
+#rail{padding:8px 6px;gap:8px;} #rail .rbtn{font-size:30px;padding:8px 2px;} #rail .rbtn.kr{font-size:24px;} #rail .bk{font-size:30px;padding:6px 2px;} #rail .bk b{font-size:20px;margin-top:2px;}
+#sn .btn{font-size:30px;padding:14px 2px;} #scount{font-size:18px;}
+.top{padding:3px 10px;gap:10px;} .top .ttl{font-size:clamp(12px,1vw,18px);}
+.tab{min-height:43px;padding:2px 3px;font-size:clamp(11px,1.05vw,17px);line-height:1.05;overflow:hidden;overflow-wrap:anywhere;border-radius:10px;}
+.glab{display:grid;grid-template-columns:minmax(250px,1fr) minmax(280px,1fr);gap:8px 30px;align-items:center;}
+.glab .sl label{display:flex;justify-content:space-between;font-weight:900;font-size:20px;margin:0 0 2px;} .glab .sl .v{font-size:24px;color:var(--purple);}
+.glab input[type=range]{width:100%;accent-color:var(--pink);height:26px;display:block;}
+.glab .rs2{display:flex;justify-content:space-between;align-items:baseline;font-weight:900;font-size:20px;} .glab .rs2 b{font-size:24px;font-variant-numeric:tabular-nums;}
+.glab .bar{height:24px !important;margin:3px 0 0 !important;} .glab .rs2.fin b{font-size:30px;}
+.glab .cell{padding:6px 0;border-bottom:3px dashed #cdbd8a;}
+@media(max-width:900px){.glab{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- HUB -->
+<div class="view on" id="v-home">
+  <div class="hubhero">
+    <span class="float" style="left:6%;top:30px">💰</span><span class="float" style="right:10%;top:50px;animation-delay:1s">🤑</span><span class="float" style="left:14%;top:210px;animation-delay:2s">🪙</span><span class="float" style="right:14%;top:230px;animation-delay:.5s">💵</span>
+    <span class="small"><span class="en">Grade 4 · English + Math</span><span class="ko">4학년 · 영어 + 수학</span></span>
+    <h1><span class="en">LET'S MAKE <em>MONEY!</em></span><span class="ko">돈을 <em>벌자!</em></span></h1>
+    <div class="sub">💰 <span class="en">Big Bucks with Bryan!</span><span class="ko">브라이언과 함께 큰돈!</span> 💰</div>
+    <div class="sub2"><span class="en">Grade 4 is getting RICH!</span><span class="ko">4학년이 부자가 된다!</span></div>
+  </div>
+  <div class="lessons">
+    <a class="lcard" style="--c:var(--yellow)" href="#" data-nav="1/warm"><span class="pn"><span class="en">Period 1 · 40 min</span><span class="ko">1교시 · 40분</span></span><span class="em">💵</span><div class="nm"><span class="en">Business Money</span><span class="ko">비즈니스 머니</span></div><div class="ds"><span class="en">Revenue, expenses, profit. Can Bryan get rich selling glue sticks?</span><span class="ko">수입, 지출, 이익. 브라이언은 딱풀을 팔아 부자가 될 수 있을까?</span></div><div class="tags"><span>Math</span><span>Revenue</span><span>Profit</span></div></a>
+    <a class="lcard" style="--c:var(--mint)" href="#" data-nav="2/warm"><span class="pn"><span class="en">Period 2 · 40 min</span><span class="ko">2교시 · 40분</span></span><span class="em">📈</span><div class="nm"><span class="en">Invest</span><span class="ko">투자하기</span></div><div class="ds"><span class="en">How do rich people get rich? Make your money grow while you sleep.</span><span class="ko">부자들은 어떻게 부자가 될까? 자는 동안에도 돈이 자라게 하자.</span></div><div class="tags"><span>Math</span><span>Compound growth</span><span>Bring-in task</span></div></a>
+    <a class="lcard" style="--c:var(--pink)" href="#" data-nav="3/warm"><span class="pn"><span class="en">Period 3 · 40 min</span><span class="ko">3교시 · 40분</span></span><span class="em">📢</span><div class="nm"><span class="en">Make the Advert</span><span class="ko">광고 만들기</span></div><div class="ds"><span class="en">Persuasion tools and a pencil-only A4 poster that sells.</span><span class="ko">설득의 도구로 연필로 만드는 A4 광고 포스터.</span></div><div class="tags"><span>English</span><span>Persuasion</span><span>A4 poster</span></div></a>
+    <a class="lcard" style="--c:var(--sky)" href="#" data-nav="4/warm"><span class="pn"><span class="en">Period 4 · 40 min</span><span class="ko">4교시 · 40분</span></span><span class="em">🎤</span><div class="nm"><span class="en">Make the Pitch</span><span class="ko">피치 만들기</span></div><div class="ds"><span class="en">Convince your parents to invest. Use real numbers and strong words.</span><span class="ko">부모님을 설득해 투자를 받자. 진짜 숫자와 강한 말을 쓰자.</span></div><div class="tags"><span>English</span><span>will / if...will</span><span>Pitch</span></div></a>
+  </div>
+  <div class="bkinfo"><div class="pop y"><span class="big">💰</span><div style="flex:1;min-width:240px"><h3 style="margin-bottom:4px"><span class="en">What are Bryan Bucks?</span><span class="ko">브라이언 벅스가 뭘까?</span></h3><p style="font-size:22px"><span class="en">Pretend classroom money. Get a question right: <b>+100</b>. Finish a big task: <b>+300</b>. Watch the 💰 counter at the top. Bryan decides what the Bucks are worth!</span><span class="ko">교실에서 쓰는 가짜 돈이에요. 문제를 맞히면 <b>+100</b>, 큰 활동을 끝내면 <b>+300</b>. 위의 💰 숫자를 보세요. 가치는 브라이언이 정해요!</span></p></div><button class="btn m bkhelp"><span class="en">Tell me more</span><span class="ko">더 알아보기</span></button></div></div>
+  <div class="extras">
+    <a href="#" data-nav="overview">🗺️ <span class="en">Project Map</span><span class="ko">프로젝트 지도</span></a>
+    <a href="index.html#/about">🏠 <span class="en">Back to bryanmims.com</span><span class="ko">bryanmims.com으로</span></a>
+    <a href="#" data-nav="tickets">🎟️ <span class="en">Exit Ticket Sheet</span><span class="ko">퇴실 티켓</span></a>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="view" id="v-overview"></div>
+<!-- TICKETS -->
+<div class="view" id="v-tickets"></div>
+
+<!-- LESSON -->
+<div class="view" id="v-lesson">
+  <div class="top" id="ltop"><div class="ttl" id="lttl"></div><div class="tabs" id="tabs"></div></div>
+  <div class="wrap" id="panel"></div>
+</div>
+<div id="printRoot"></div>
+<div id="bkm"><div class="box"><h3>💰 What are Bryan Bucks?</h3><p style="margin:10px 0">Pretend classroom money. You earn it by doing the math and English work in this hub.</p><ul style="margin:6px 0 12px 26px"><li><b>+100</b> for each correct answer</li><li><b>+300</b> for finishing a bigger task</li><li>Bryan decides what the Bucks are worth in class.</li></ul><div class="row"><button class="btn y" id="bkclose">Got it!</button><button class="btn g" id="bkreset">🔄 Reset to 0 (new class)</button></div></div></div>
+
+<aside id="rail">
+  <button class="rbtn" data-nav="home" title="Hub">🏠</button>
+  <button class="rbtn kr" id="krbtn" title="English / 한국어"><span class="en">KR</span><span class="ko">EN</span></button>
+  <div class="bk" id="bkbtn" title="What are Bryan Bucks?">💰<br><b id="bucks">0</b></div>
+  <div id="sn"></div>
+</aside>
+
+<script>
+/* ===== helpers ===== */
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const fmt=n=>Math.round(n).toLocaleString('en-US'), rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a, pick=a=>a[Math.floor(Math.random()*a.length)];
+const g=(p,n)=>p*Math.pow(1.1,n);
+const S={}; /* per-session saved inputs */
+let bucks=0;try{bucks=+localStorage.getItem('g4bucks')||0;}catch(e){}
+function toast(m){let t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';document.body.appendChild(t);}t.textContent=m;t.className='on';clearTimeout(toast.h);toast.h=setTimeout(()=>t.className='',1300);}
+function earn(n,el){bucks+=n;const b=$('#bucks');if(b){b.textContent=fmt(bucks);b.parentElement.classList.remove('pulse');void b.parentElement.offsetWidth;b.parentElement.classList.add('pulse');}toast('+'+n+' 💰 '+L('Bryan Bucks!','브라이언 벅스!'));try{localStorage.setItem('g4bucks',bucks);}catch(e){}if(el)boom(el);}
+function boom(el){const r=el.getBoundingClientRect();for(let i=0;i<8;i++){const s=document.createElement('span');s.className='coin';s.textContent=['💰','🪙','⭐','💵'][i%4];s.style.left=(r.left+r.width/2+scrollX)+'px';s.style.top=(r.top+scrollY)+'px';s.style.setProperty('--dx',(Math.random()*260-130)+'px');s.style.setProperty('--dy',(-60-Math.random()*130)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),1200);}}
+function words(n){const o=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'],t=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
+  const h=n=>{let s='';if(n>=100){s+=o[Math.floor(n/100)]+' hundred';n%=100;if(n)s+=' ';}if(n>=20){s+=t[Math.floor(n/10)];if(n%10)s+='-'+o[n%10];}else if(n>0||!s)s+=o[n];return s;};
+  if(n<1000)return h(n);const k=Math.floor(n/1000),r=n%1000;return h(k)+' thousand'+(r?' '+h(r):'');}
+function speak(t){try{const u=new SpeechSynthesisUtterance(t);u.lang='en-US';u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u);}catch(e){}}
+function printEl(el){const r=$('#printRoot');r.innerHTML='';r.appendChild(el.cloneNode(true));document.body.classList.add('printing');setTimeout(()=>{window.print();setTimeout(()=>{document.body.classList.remove('printing');r.innerHTML='';},300);},50);}
+const esc=s=>String(s).replace(/"/g,'&quot;');
+const K=(en,ko)=>`<span class="en">${en}</span><span class="ko">${ko}</span>`;
+const isKR=()=>document.body.classList.contains('kr');
+const L=(en,ko)=>isKR()?ko:en;
+try{if(localStorage.getItem('g4kr')==='1')document.body.classList.add('kr');}catch(e){}
+
+/* ===== component builders ===== */
+const Q=(n,t,a,o={})=>`<div class="ex" data-ans="${a}" data-tol="${o.tol||0}" data-hint="${esc(o.hint||'Check the formula and try again.')}" data-why="${esc(o.why||'')}"><div class="qt"><span class="qn">${n}</span>${t}</div><div class="row"><input type="number" class="ans" inputmode="numeric"><button class="btn chk">${K('Check ✔','확인 ✔')}</button></div><div class="fb"></div></div>`;
+const MC=(n,t,opts,ok,why)=>{const l=opts.map((o,i)=>({o,k:i===ok?1:0}));if(!(opts.length===2&&/adjective|superlative/.test(opts.join())))l.sort(()=>Math.random()-.5);return `<div class="ex mc" data-why="${esc(why)}"><div class="qt"><span class="qn">${n}</span>${t}</div><div class="opts">${l.map(x=>`<button class="opt" data-ok="${x.k}">${x.o}</button>`).join('')}</div><div class="fb"></div></div>`;};
+const Slides=a=>`<div class="slides"><div class="stage">${a.map((s,i)=>`<div class="slide${i?'':' on'}">${s}</div>`).join('')}</div></div>`;
+const Flip=(w,d,e,c)=>`<div class="flip" style="--c:${c||'var(--yellow)'}"><div class="f-in"><div class="front">${w}</div><div class="back">${d}<i>${e}</i></div></div></div>`;
+const Tally=(label)=>`<button class="tally"><span>${label}</span><span class="cnt">0</span></button>`;
+/* ===== V2 components ===== */
+const vnum=x=>{const n=parseFloat(String(x).replace(/,/g,''));return isNaN(n)?null:n;};
+const tz=n=>{let c=0;while(n>0&&n%10===0){n/=10;c++;}return c;};
+function brk(a,b,full){if(!Number.isInteger(a)||!Number.isInteger(b))return '';const sm=Math.min(a,b),big=Math.max(a,b);if(sm<2||sm>999)return '';let pts=[];
+  if(sm>=100){const st=String(sm);st.split('').forEach((d,i)=>{if(d!=='0')pts.push(+d*Math.pow(10,st.length-1-i));});}
+  else if(sm>=10){for(let i=0;i<Math.floor(sm/10);i++)pts.push(10);if(sm%10)pts.push(sm%10);}
+  else if(sm<=5){pts=[Math.ceil(sm/2),Math.floor(sm/2)];}else pts=[5,sm-5];
+  let h=`<div>${pts.map(p=>`${p} × ${fmt(big)}`).join(' + ')}</div>`;
+  if(full)h+=`<div>= ${pts.map(p=>fmt(p*big)).join(' + ')}</div><div>= <b>${fmt(a*b)}</b></div>`;
+  const za=tz(a),zb=tz(b),z=za+zb;if(z>0){const ca=a/Math.pow(10,za),cb=b/Math.pow(10,zb);h+=full?`<div>⭐ Zero trick: ${ca} × ${cb} = ${fmt(ca*cb)}, then add ${z} zero${z>1?'s':''}: <b>${fmt(a*b)}</b></div>`:`<div>⭐ Zero trick: cover the zeros. Do ${ca} × ${cb}, then put ${z} zero${z>1?'s':''} back.</div>`;}
+  return `<div class="brk" hidden><b>${K('Break it into groups','나눠서 계산해요')}</b>${h}</div>`;}
+const VM=(rows,res,o={})=>{rows=rows.map(r=>r.slice());let q='';
+  if(rows.length===2&&rows[1][0]==='×'){let x=vnum(rows[0][1]),y=vnum(rows[1][1]);if(x!==null&&y!==null){if(x<y){const t=rows[0];rows[0]=['',rows[1][1],rows[1][2],rows[1][3]];rows[1]=['×',t[1],t[2],t[3]];x=vnum(rows[0][1]);y=vnum(rows[1][1]);}
+    const bk=brk(x,y,!o.calc);if(bk)q=`<button class="qm" title="How to break it up">?</button>${bk}`;}}
+  return `<div class="vmw"><div class="vm">${rows.map(r=>`<span class="op">${r[0]||''}</span><span class="num ${r[2]||''}">${r[1]}</span><span class="lab">${r[3]||''}</span>`).join('')}<div class="vrule"></div><span></span><span class="op"></span><span class="num rs ${res[1]||''}">${res[0]}</span><span class="lab">${res[2]||''}</span></div>${q}</div>`;};
+const Calc=(rows,ans,o={})=>`<div class="calc" data-ans="${ans}" data-tol="${o.tol||0}" data-why="${esc(o.why||'')}" data-hint="${esc(o.hint||'')}">${VM(rows,[`<input type="number" class="cin" inputmode="numeric" placeholder="?"><span class="cres" hidden>${fmt(ans)}</span>`,'q',o.rl||''],{calc:1})}<div class="row"><button class="btn cchk">${K('Check ✔','확인 ✔')}</button><button class="btn g crev">${K('Show answer','정답 보기')}</button></div><div class="fb"></div></div>`;
+function calcDone(c,earned){const inp=$('.cin',c);inp.hidden=true;$('.cres',c).hidden=false;c.classList.add('done');const fb=$('.fb',c);fb.textContent=(earned?L('✅ Correct! ','✅ 정답! '):L('Answer shown. ','정답을 보여줘요. '))+(c.dataset.why||'');fb.className='fb ok';if(earned&&!c.dataset.done){c.dataset.done=1;earn(100,$('.cchk',c));}}
+const revBar=(rev,exp,title,note)=>{note=note!==false;const pf=rev-exp;if(pf>=0){const pe=exp/rev*100;return `<div class="rb"><div class="rbl">${title||''}</div><div class="rbt"><i class="e" style="width:${pe}%">${pe>=14?K('Expenses','지출')+' '+fmt(exp):''}</i><i class="p" style="width:${100-pe}%">${K('Profit','이익')} ${fmt(pf)}</i></div>${note?`<div class="sm">${K('Whole bar = revenue (money IN)','전체 막대 = 수입 (money IN)')} ${fmt(rev)}</div>`:''}</div>`;}
+  return `<div class="rb"><div class="rbl">${title||''}</div><div class="rbt"><i class="rv" style="width:${rev/exp*100}%">${K('Revenue','수입')} ${fmt(rev)}</i><i class="l" style="flex:1">${K('LOSS','손실')} ${fmt(-pf)}</i></div>${note?`<div class="sm">${K('Whole bar = expenses (money OUT)','전체 막대 = 지출 (money OUT)')} ${fmt(exp)}</div>`:''}</div>`;};
+const MARG=[['🛒','Grocery store','식료품점',2],['🚗','Car dealer','자동차 판매점',3],['🍔','Restaurant','식당',5],['👕','Clothing store','옷 가게',6],['💊','Medicine company','제약회사',15],['💻','Software company','소프트웨어 회사',25]];
+const margTable=(rows)=>`<table class="marg">${rows.map(m=>`<tr><td class="nm">${m[0]} ${K(m[1],m[2])}</td><td><div class="mgb"><i style="width:${m[3]}%"></i></div></td><td class="pc">${m[3]}%</td></tr>`).join('')}</table><div class="lg"><span><i style="background:#ff8f9c"></i>${K('expenses','지출')}</span><span><i style="background:var(--yellow)"></i>${K('profit you keep','남는 이익')}</span><span>${K('Bar = 100 won of revenue','막대 = 수입 100원')}</span></div>`;
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+function interestBars(P0,N,hl){const W=760,H=300,Lm=84,Rm=20,T=34,Bm=52,pw=W-Lm-Rm,ph=H-T-Bm,I=[];for(let t=1;t<=N;t++)I.push(g(P0,t-1)*0.1);
+  const ym=niceMax(Math.max(...I)*1.15),y=v=>T+ph-(v/ym)*ph,bw=pw/N;let s='';
+  for(let k=0;k<=4;k++){const v=ym*k/4;s+=`<line x1="${Lm}" x2="${W-Rm}" y1="${y(v)}" y2="${y(v)}" stroke="#d9cfa8"/><text x="${Lm-8}" y="${y(v)+6}" text-anchor="end" font-size="18" font-weight="700" fill="#20124d">${sh(v)}</text>`;}
+  I.forEach((v,i)=>{const x=Lm+i*bw+bw*.12,w=bw*.76,on=hl.includes(i+1);s+=`<rect x="${x}" y="${y(v)}" width="${w}" height="${y(0)-y(v)}" fill="${on?'#ff4d9d':'#1fd6a0'}" stroke="#20124d" stroke-width="3"/><text x="${x+w/2}" y="${H-28}" text-anchor="middle" font-size="18" font-weight="700" fill="#20124d">${i+1}</text>`;
+    if(on)s+=`<text x="${x+w/2}" y="${y(v)-8}" text-anchor="middle" font-size="22" font-weight="900" fill="#20124d">${fmt(v)}</text>`;});
+  s+=`<line x1="${Lm}" x2="${W-Rm}" y1="${y(P0*0.1)}" y2="${y(P0*0.1)}" stroke="#34b6ff" stroke-width="5" stroke-dasharray="10 7"/><text x="${W-Rm-4}" y="${y(P0*0.1)-8}" text-anchor="end" font-size="17" font-weight="900" fill="#1a8fd6">${L('Simple: same every year','단리: 해마다 똑같음')}</text><text x="${Lm+pw/2}" y="${H-5}" text-anchor="middle" font-size="17" font-weight="900" fill="#7b3ff2">${L('Year','연도')}</text>`;
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}">${s}</svg>`;}
+function PList(host,gen,o){
+  let seed=Math.floor(Math.random()*9000)+1000,pg=0,showKey=false,st={},pr=[];
+  const mk=()=>{pr=[0,1].map(p=>{const f=rng(seed*7+p*131);f.p=a=>a[Math.floor(f()*a.length)];return gen(p,f);});st={};};
+  const total=()=>pr.reduce((a,b)=>a+b.length,0),okc=()=>Object.values(st).filter(x=>x.ok).length;
+  const draw=()=>{const P=pr[pg];
+    host.innerHTML=`<div class="pl"><div class="pop"><div class="row" style="justify-content:space-between;margin-bottom:6px"><h3 style="margin:0">${o.title} · ${K('Page','페이지')} ${pg+1} / 2</h3><span class="timebadge" style="margin:0">${pg?K('Harder','조금 어려움'):K('Warm start','쉬운 시작')}</span></div>
+    <p class="hint" style="margin-bottom:6px">${o.tip}</p>
+    ${P.map((q,i)=>{const k=pg+'_'+i,s=st[k]||{};return `<div class="prow${s.ok?' ok':s.bad?' bad':''}" data-i="${i}"><b class="qn">${pg*8+i+1}</b><div class="pt">${q.t}</div><div class="rt"><input type="number" class="pin" inputmode="numeric" value="${s.v??''}"><button class="btn chkp">${K('Check ✔','확인 ✔')}</button><span class="st">${s.ok?'✅':s.bad?'❌':''}</span></div>${s.bad&&!s.ok?`<div class="hn">${L('Hint: ','힌트: ')}${q.h}</div>`:''}${showKey?`<div class="ky">${L('Answer: ','정답: ')}${fmt(q.a)}</div>`:''}</div>`;}).join('')}
+    <div class="row" style="margin-top:16px;justify-content:space-between"><button class="btn g pgb" data-d="-1" ${pg?'':'disabled'}>◀ ${K('Back','이전')}</button><div class="pgdots"><i class="${pg?'':'on'}"></i><i class="${pg?'on':''}"></i></div><button class="btn y pgb" data-d="${pg?-1:1}">${pg?K('Page 1 ◀','1페이지로 ◀'):K('Next page ▶','다음 페이지 ▶')}</button></div></div>
+    <div class="pop m side"><h4>${K('Score','점수')}</h4><div class="big">${okc()}<span style="font-size:26px"> / ${total()}</span></div><p class="sm" style="margin:6px 0 12px">${K('Students: answer on paper. Check here when ready.','학생은 종이에 풀고, 여기서 확인해요.')}</p><div class="row"><button class="btn g newp">🔄 ${K('New numbers','새 숫자')}</button><button class="btn g keyb">🔑 ${showKey?K('Hide key','정답 숨기기'):K('Teacher key','교사용 정답')}</button></div></div></div>`;
+    $$('.pgb',host).forEach(b=>b.onclick=()=>{pg=Math.max(0,Math.min(1,pg+(+b.dataset.d)));draw();window.scrollTo(0,0);});
+    $('.newp',host).onclick=()=>{seed+=1;mk();draw();};
+    $('.keyb',host).onclick=()=>{showKey=!showKey;draw();};
+    $$('.prow',host).forEach(r=>{const i=+r.dataset.i,k=pg+'_'+i,inp=$('.pin',r);
+      const chk=()=>{const v=parseFloat(inp.value);if(isNaN(v))return;const q=pr[pg][i],was=st[k]&&st[k].ok;const ok=Math.abs(v-q.a)<=(q.tol||0);st[k]={v:inp.value,ok,bad:!ok};
+        if(ok&&!was)earn(100,$('.chkp',r));const y=window.scrollY;draw();window.scrollTo(0,y);};
+      $('.chkp',r).onclick=chk;inp.addEventListener('keydown',e=>{if(e.key==='Enter')chk();});});};
+  mk();draw();}
+function growth(P0,C,N,stop){const V=[P0],D=[P0];let add=true,r31=-1;for(let t=1;t<=N;t++){const c=add?C:0;V[t]=V[t-1]*1.1+c;D[t]=D[t-1]+c;if(r31<0&&D[t]>0&&V[t]>=3*D[t]){r31=t;if(stop)add=false;}}return{V,D,r31};}
+function niceMax(v){const e=Math.pow(10,Math.floor(Math.log10(Math.max(v,1))));for(const m of [1,1.5,2,2.5,3,4,5,6,8,10]){if(m*e>=v)return m*e;}return 10*e;}
+const sh=v=>{const a=Math.abs(v);return a>=1e6?(v/1e6).toFixed(a>=1e7?0:1).replace(/\.0$/,'')+'M':a>=1e3?(v/1e3).toFixed(a>=1e5?0:1).replace(/\.0$/,'')+'K':Math.round(v)+'';};
+function colChart(svg,gr,o){ /* gr:{V,D,r31}, o:{shown,age,ymax,ghost} */
+  const W=800,H=390,Lm=84,R=20,T=26,B=60,pw=W-Lm-R,ph=H-T-B,N=gr.V.length-1,n=N+1,bw=pw/n,y=v=>T+ph-(v/o.ymax)*ph;let s='';
+  for(let k=0;k<=4;k++){const v=o.ymax*k/4;s+=`<line x1="${Lm}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#d9cfa8"/><text x="${Lm-8}" y="${y(v)+6}" text-anchor="end" font-size="18" font-weight="700" fill="#20124d">${sh(v)}</text>`;}
+  const ev=Math.max(1,Math.ceil(n/10));
+  for(let t=0;t<=N;t++){const x=Lm+t*bw+bw*.11,w=bw*.78;
+    if(t<=o.shown){const dep=gr.D[t],tot=gr.V[t];s+=`<rect x="${x}" y="${y(dep)}" width="${w}" height="${Math.max(0,y(0)-y(dep))}" fill="#34b6ff" stroke="#20124d" stroke-width="${n>25?1:2}"/><rect x="${x}" y="${y(tot)}" width="${w}" height="${Math.max(0,y(dep)-y(tot))}" fill="#1fd6a0" stroke="#20124d" stroke-width="${n>25?1:2}"/>`;}
+    if(t%ev===0||t===N)s+=`<text x="${x+w/2}" y="${H-32}" text-anchor="middle" font-size="17" font-weight="700" fill="#20124d">${o.age+t}</text>`;}
+  s+=`<text x="${Lm+pw/2}" y="${H-8}" text-anchor="middle" font-size="17" font-weight="900" fill="#7b3ff2">${L('My age','나이')}</text>`;
+  if(o.ghost){const p=o.ghost.V.map((v,t)=>`${Lm+t*bw+bw/2},${y(Math.min(v,o.ymax))}`).join(' ');s+=`<polyline points="${p}" fill="none" stroke="#7b3ff2" stroke-width="5" stroke-dasharray="10 7" stroke-linejoin="round"/>`;}
+  if(gr.r31>=0&&gr.r31<=o.shown){const x=Lm+gr.r31*bw+bw/2;s+=`<line x1="${x}" x2="${x}" y1="${T}" y2="${y(0)}" stroke="#e23b4e" stroke-width="4" stroke-dasharray="8 6"/><text x="${Math.min(x,W-70)}" y="${T+16}" text-anchor="middle" font-size="20" font-weight="900" fill="#e23b4e">3 : 1</text>`;}
+  svg.innerHTML=s;}
+function initExplorer(root){
+  let ghost=null,timer=null,shown=999;
+  const el=id=>$('#'+id,root),num=id=>Math.max(0,+el(id).value||0);
+  const cur=()=>({P0:num('xa'),C:num('xc'),N:+el('xn').value,age:num('xg')||10,stop:el('xs').checked,fixed:el('xf').checked});
+  const draw=(k)=>{const c=cur(),gr=growth(c.P0,c.C,c.N,c.stop);const full=growth(c.P0,c.C,c.N,false),stp=growth(c.P0,c.C,c.N,true);
+    const mx=Math.max(gr.V[c.N],ghost?Math.max(...ghost.V):0);const ymax=c.fixed?Math.max(2500000,niceMax(mx*1.05)):niceMax(mx*1.05);
+    const sk=k===undefined?c.N:Math.min(k,c.N);
+    colChart(el('xch'),gr,{shown:sk,age:c.age,ymax,ghost});
+    el('xn_l').textContent=c.N;
+    el('xbig').textContent=fmt(gr.V[sk])+' '+L('won','원');
+    const dep=gr.D[sk],tot=gr.V[sk];
+    el('xst').innerHTML=`<div class="stat"><div class="v" style="color:#1a8fd6">${fmt(dep)}</div><div class="k">${K('I put in','내가 넣은 돈')}</div></div><div class="stat"><div class="v" style="color:var(--good)">${fmt(tot-dep)}</div><div class="k">${K('Growth (free money!)','불어난 돈 (공짜 돈!)')}</div></div><div class="stat"><div class="v">${dep>0?(tot/dep).toFixed(1):'-'}×</div><div class="k">${K('Total ÷ put in','전체 ÷ 넣은 돈')}</div></div>`;
+    const m=el('xm');
+    if(gr.r31>=0){m.innerHTML=`<b>3 : 1</b> ${L('reached in year','도달: ')} <b>${gr.r31}</b> (${L('age','나이')} ${c.age+gr.r31}). ${L('Your money is 3 times what you put in.','내 돈이 넣은 돈의 3배예요.')}`;}else m.innerHTML=`<b>3 : 1</b> ${L('not reached yet. Add more years!','아직 아니에요. 햇수를 늘려 보세요!')}`;
+    el('xcmp').innerHTML=c.C>0?`${L('Keep adding every year','매년 계속 넣으면')}: <b>${fmt(full.V[c.N])}</b><br>${L('Stop adding at 3:1','3:1에서 멈추면')}: <b>${fmt(stp.V[c.N])}</b><br>${L('Difference','차이')}: <b>${fmt(full.V[c.N]-stp.V[c.N])}</b> (${full.V[c.N]>0?((full.V[c.N]-stp.V[c.N])/full.V[c.N]*100).toFixed(0):0}%) ${L('for','를 위해')} ${fmt(full.D[c.N]-stp.D[c.N])} ${L('extra won put in','원을 더 넣음')}`:L('Set "add each year" above 0 to compare.','"매년 넣는 돈"을 0보다 크게 해서 비교해 보세요.');
+    el('xlg').innerHTML=ghost?`<span><i style="background:none;border-style:dashed;border-color:#7b3ff2"></i>${L('Pinned','고정한 그래프')}: ${ghost.label}</span>`:'';
+  };
+  const stop=()=>{if(timer){clearInterval(timer);timer=null;el('xpl').textContent='▶ '+L('Play','재생');}};
+  const full=()=>{stop();draw();};
+  ['xa','xc','xn','xg'].forEach(id=>el(id).addEventListener('input',full));el('xs').onchange=full;el('xf').onchange=full;
+  $$('.qa',root).forEach(b=>b.onclick=()=>{el('xc').value=b.dataset.v;full();});
+  el('xpl').onclick=()=>{if(timer){stop();draw();return;}const N=+el('xn').value;let k=0;el('xpl').textContent='⏸ '+L('Pause','멈춤');draw(0);timer=setInterval(()=>{k++;draw(k);if(k>=N)stop();},Math.max(60,Math.min(260,6000/Math.max(N,1))));};
+  el('xpin').onclick=()=>{const c=cur(),gr=growth(c.P0,c.C,c.N,c.stop);ghost={V:gr.V,label:`${fmt(c.P0)} + ${fmt(c.C)}/yr · ${c.N}`};full();};
+  el('xclr').onclick=()=>{ghost=null;full();};
+  draw();}
+
+function lineChart(svg,labels,series,o={}){
+  const W=760,H=o.h||360,L=84,R=30,T=26,B=56,pw=W-L-R,ph=H-T-B;
+  const mx=Math.max(...series.flatMap(s=>s.data),1)*1.1,mn=Math.min(0,...series.flatMap(s=>s.data));
+  const x=i=>L+(labels.length<2?0:i/(labels.length-1))*pw,y=v=>T+ph-((v-mn)/(mx-mn))*ph;
+  const sh=v=>{const a=Math.abs(v);return a>=1e6?(v/1e6).toFixed(1).replace(/\.0$/,'')+'M':a>=1e3?(v/1e3).toFixed(a>=1e5?0:1).replace(/\.0$/,'')+'K':Math.round(v)+'';};
+  let s='';for(let k=0;k<=4;k++){const v=mn+(mx-mn)*k/4;s+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#d9cfa8"/><text x="${L-10}" y="${y(v)+6}" text-anchor="end" font-size="18" font-weight="700" fill="#20124d">${sh(v)}</text>`;}
+  if(mn<0)s+=`<line x1="${L}" x2="${W-R}" y1="${y(0)}" y2="${y(0)}" stroke="#20124d" stroke-width="2"/>`;
+  const ev=Math.ceil(labels.length/(o.max||9));labels.forEach((l,i)=>{if(i%ev===0||i===labels.length-1)s+=`<text x="${x(i)}" y="${H-24}" text-anchor="middle" font-size="18" font-weight="700" fill="#20124d">${l}</text>`;});
+  if(o.xt)s+=`<text x="${L+pw/2}" y="${H-3}" text-anchor="middle" font-size="17" font-weight="900" fill="#7b3ff2">${o.xt}</text>`;
+  series.forEach(se=>{const p=se.data.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
+    if(se.fill)s+=`<polygon points="${x(0)},${y(0)} ${p} ${x(se.data.length-1)},${y(0)}" fill="${se.color}" opacity=".18"/>`;
+    s+=`<polyline points="${p}" fill="none" stroke="${se.color}" stroke-width="6" ${se.dash?'stroke-dasharray="12 8"':''} stroke-linejoin="round" stroke-linecap="round"/>`;
+    (se.marks||[]).forEach(i=>{s+=`<circle cx="${x(i)}" cy="${y(se.data[i])}" r="9" fill="${se.color}" stroke="#20124d" stroke-width="3"/>`;if(se.ml)s+=`<text x="${Math.min(x(i),W-60)}" y="${y(se.data[i])-16}" text-anchor="middle" font-size="18" font-weight="900" fill="#20124d">${sh(se.data[i])}</text>`;});});
+  svg.innerHTML=s;}
+function plan(o){return `<div class="plan">
+<div class="pop y"><span class="timebadge">${o.title}</span><h3>Big Question: ${o.bq}</h3><p><b>Frameworks:</b> ${o.fw}</p></div>
+<div class="grid2"><div class="pop"><h3>🎯 Content objectives</h3><ul>${o.co.map(x=>`<li>${x}</li>`).join('')}</ul><h3>🗣️ Language objectives (SIOP)</h3><ul>${o.lo.map(x=>`<li>${x}</li>`).join('')}</ul><p><b>Grammar link:</b> ${o.gl}</p></div>
+<div class="pop"><h3>📚 Vocabulary</h3><p>${o.vocab.map(v=>`<span class="pill">${v}</span>`).join('')}</p><h3>🧰 Materials</h3><ul>${o.mat.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
+<div class="pop m"><h3>⏱️ 40-minute timeline (5 admin + 35 instruction)</h3><table class="table"><tr><th>Min</th><th>Tab</th><th>What happens</th></tr>${o.time.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</table></div>
+<div class="pop s"><h3>👀 Formative assessment tips</h3><ul>${o.fa.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+<div class="grid2"><div class="pop p"><h3>🧩 Differentiation</h3><p><b>Support:</b></p><ul>${o.sup.map(x=>`<li>${x}</li>`).join('')}</ul><p><b>Challenge:</b></p><ul>${o.chal.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+<div class="pop v"><h3>🎟️ Exit ticket</h3><div class="tk">${o.exit}</div><p class="hint" style="margin-top:8px">Whiteboard version: ${o.exitWB}</p><p><b>Answer key:</b> ${o.key}</p><p><a class="btn y" href="#" data-nav="tickets">Open printable 2×2 sheet</a></p></div></div>
+</div>`;}
+
+/* ===== data ===== */
+const ADIDEAS=[['🐕','Dog walking','service',5000,0],['🌱','Plant watering','service',3000,0],['🍪','Cookie bags','product',3000,1000],['👕','Custom t-shirts','product',15000,6000],['🎀','Bracelets','product',3000,800],['📚','English tutoring','service',10000,0],['🚗','Car washing','service',8000,0],['🥤','Lemonade','product',2000,500],['💌','Photo cards','product',5000,3000],['🧹','Hallway sweeping','service',3000,0]];
+
+/* ===== PANELS ===== */
+const P={1:{},2:{},3:{},4:{}};
+const TABS=[['warm','🔥','Warm Up','워밍업'],['pres','🎬','Presentation','설명'],['prac','✏️','Practice','연습'],['more','🚀','More Practice','추가 연습'],['pers','🌟','Personalize','나만의 활동'],['proj','🎯','Project','프로젝트'],['plan','📋','Lesson Plan','수업 계획']];
+const LES={1:{t:K('Period 1: Business Money 💵','1교시: 비즈니스 머니 💵'),c:'var(--yellow)'},2:{t:K('Period 2: Invest 📈','2교시: 투자하기 📈'),c:'var(--mint)'},3:{t:K('Period 3: Make the Advert 📢','3교시: 광고 만들기 📢'),c:'var(--pink)'},4:{t:K('Period 4: Make the Pitch 🎤','4교시: 피치 만들기 🎤'),c:'var(--sky)'}};
+
+/* ---------- LESSON 1 ---------- */
+P[1].warm={h:()=>`<span class="timebadge">⏱ 5 min · Retrieval + Hook</span>
+<div class="banner">${K('Bryan wants to get RICH! 🤑 His big plan: sell <u>GLUE STICKS</u>.','브라이언은 부자가 되고 싶어요! 🤑 큰 계획: <u>딱풀</u>을 팔기!')}</div>
+<div class="cols"><div class="pop m"><h3>${K('⚡ Brain Warm-Up: multiply!','⚡ 두뇌 워밍업: 곱셈!')}</h3>${Q(1,'30 × 100 = ?',3000)}${Q(2,'30 × 500 = ?',15000)}${Q(3,'5 × 500 = ?',2500)}${Q(4,'15,000 − 3,000 = ?',12000)}</div>
+<div class="pop p"><h3>${K("🗳️ Predict: Is Bryan's plan good?",'🗳️ 예상해 보기: 브라이언의 계획은 좋을까?')}</h3><p style="margin-bottom:10px">${K('He buys glue for <b>100 won</b>. He sells it for <b>500 won</b>. Vote!','딱풀을 <b>100원</b>에 사서 <b>500원</b>에 팔아요. 투표!')}</p><div class="tallies">${Tally(K('😍 Great plan! He will be rich!','😍 최고의 계획! 부자가 될 거야!'))}${Tally(K('🙂 Okay plan','🙂 괜찮은 계획'))}${Tally(K('😬 Bad plan','😬 나쁜 계획'))}</div></div></div>
+<div class="pop"><h3>${K('🃏 Money Words (click a card to flip)','🃏 돈 낱말 (카드를 눌러 뒤집기)')}</h3><div class="flipgrid">
+${Flip('revenue','<b>수입</b>: 손님에게서 들어오는 돈 (money IN)','"The revenue was high because we sold everything!"','var(--mint)')}
+${Flip('expenses','<b>지출</b>: 내가 쓰는 돈 (money OUT)','"My expenses were small because I used old boxes."','#ff8f9c')}
+${Flip('profit','<b>이익</b>: 수입 − 지출, 내가 남기는 돈','"I made a profit because I sold more than I spent."','var(--yellow)')}
+${Flip('loss','<b>손실</b>: 지출이 수입보다 커서 돈이 줄어드는 것','"It rained, so we had a loss of 500 won."','#d6c4ff')}
+${Flip('price','<b>가격</b>: 손님이 내는 돈','"The price is 500 won for one glue stick."','var(--sky)')}
+${Flip('cost','<b>원가</b>: 내가 물건을 얻으려고 내는 돈','"The cost of one glue stick is 100 won."','var(--orange)')}
+${Flip('break even','<b>손익분기</b>: 수입과 지출이 똑같은 때','"We break even after we sell six sticks."','#bff3dc')}
+${Flip('reinvest','<b>재투자</b>: 이익으로 사업을 키우는 것','"I will reinvest my profit and buy more glue."','#ffd9e8')}
+${Flip('profit margin','<b>이익률</b>: 수입 100원 중 남는 돈','"A restaurant keeps only five won from every hundred."','#fff3b0')}</div></div>`};
+
+P[1].pres={h:()=>{
+ const sl=[
+ `<h3>${K('🤔 Big Question','🤔 큰 질문')}</h3><p class="big">${K('How do you know if a business makes money?','사업이 돈을 버는지 어떻게 알까?')}</p><div class="three"><div class="c" style="background:var(--mint)"><span class="em">💵</span><b>${K('Revenue','수입')}</b>money IN</div><div class="c" style="background:#ff8f9c"><span class="em">💸</span><b>${K('Expenses','지출')}</b>money OUT</div><div class="c" style="background:var(--yellow)"><span class="em">🏆</span><b>${K('Profit','이익')}</b>${K('money you KEEP','내가 남기는 돈')}</div></div>`,
+ `<h3>${K("🧴 Meet Bryan's Glue Business",'🧴 브라이언의 딱풀 사업')}</h3><p>${K('Bryan <b>buys 30 glue sticks</b> for <b>100 won each</b>.','브라이언은 딱풀 <b>30개</b>를 개당 <b>100원</b>에 <b>사요</b>.')}</p><p>${K('Bryan <b>sells</b> them for <b>500 won each</b>.','그리고 개당 <b>500원</b>에 <b>팔아요</b>.')}</p><div class="eq"><span class="t out">Cost: 100</span>→<span class="t in">Price: 500</span></div><p class="big">${K('How much money will he make?','얼마를 벌까?')}</p>`,
+ `<h3>${K('Step 1: Expenses 💸','1단계: 지출 💸')}</h3><p>${K('How much did Bryan <b>spend</b>? Line up the numbers.','브라이언이 얼마를 <b>썼을까요</b>? 숫자를 세로로 맞춰요.')}</p>${VM([['','30','',K('sticks','개')],['×','100','',K('won each','원씩')]],['3,000','out',K('expenses (money OUT)','지출 (money OUT)')])}<p>${K('cost per stick × number bought','개당 원가 × 산 개수')}</p>`,
+ `<h3>${K('Step 2: Revenue 💵','2단계: 수입 💵')}</h3><p>${K('How much did customers <b>pay</b>?','손님이 얼마를 <b>냈을까요</b>?')}</p>${VM([['','30','',K('sticks sold','팔린 개수')],['×','500','',K('won each','원씩')]],['15,000','in',K('revenue (money IN)','수입 (money IN)')])}<p>${K('price per stick × number sold','개당 가격 × 판 개수')}</p>`,
+ `<h3>${K('Step 3: Profit 🏆','3단계: 이익 🏆')}</h3>${VM([['','15,000','in',K('revenue','수입')],['−','3,000','out',K('expenses','지출')]],['12,000','',K('profit!','이익!')])}<p class="big" style="margin-top:6px">${K('Bryan made 12,000 won profit! 🎉','브라이언의 이익은 12,000원! 🎉')}</p><p>${K('Shortcut check: profit per stick = 500 − 100 = <b>400</b>. And 400 × 30 = <b>12,000</b> ✔','빠른 확인: 한 개당 이익 = 500 − 100 = <b>400</b>. 400 × 30 = <b>12,000</b> ✔')}</p>`,
+ `<h3>${K('👀 See it: revenue, expenses, profit','👀 눈으로 보기: 수입, 지출, 이익')}</h3><p>${K('The WHOLE bar is revenue. It splits into expenses (pink) and profit (yellow).','막대 전체가 수입이에요. 지출(분홍)과 이익(노랑)으로 나뉘어요.')}</p>${revBar(15000,3000,'🧴 '+L('Glue sticks','딱풀')+' · 15,000',false)}${revBar(30000,10000,'🐕 '+L('Dog walking','강아지 산책')+' · 30,000',false)}${revBar(20000,8000,'🥤 '+L('Lemonade','레모네이드')+' · 20,000',false)}<p class="sm">${K('Every whole bar = revenue (money IN). The number after each name is its revenue.','막대 전체 = 수입 (money IN). 이름 옆 숫자가 수입이에요.')}</p><p class="hint">${K('Which bar has the most yellow? Which has the biggest PERCENT of yellow?','노랑이 가장 많은 막대는? 노랑 비율이 가장 큰 막대는?')}</p>`,
+ `<h3>${K('💬 Grammar link: If + will','💬 문법 연결: If + will')}</h3><ul><li><b>If</b> Bryan sells all 30 sticks, his profit <b>will be</b> 12,000 won.</li><li><b>If</b> Bryan sells 20 sticks, his profit <b>will be</b> 7,000 won. <span class="hint">(20 × 500 = 10,000 − 3,000)</span></li></ul><p>${K('Say it with a partner: "If I sell ___, my profit will be ___."','짝과 말해 보세요: "If I sell ___, my profit will be ___."')}</p>`,
+ `<h3>${K('🤑 What should Bryan do with 12,000 won?','🤑 브라이언은 12,000원으로 무엇을 할까?')}</h3><p>${K('Four choices. Talk to a partner first!','네 가지 선택. 먼저 짝과 이야기해요!')}</p><div class="three"><div class="c" style="background:#ffd9e8"><span class="em">🛍️</span><b>${K('Spend it','쓰기')}</b>0 won</div><div class="c" style="background:#dff3ff"><span class="em">🐷</span><b>${K('Save it','저금')}</b>12,000 won</div><div class="c" style="background:#d9fff1"><span class="em">🔁</span><b>${K('Reinvest','재투자')}</b>${K('buy more glue','딱풀 더 사기')}</div><div class="c" style="background:#fff3b0"><span class="em">📈</span><b>${K('Invest','투자')}</b>${K('make it grow (next lesson!)','돈을 키우기 (다음 시간!)')}</div></div>`,
+ `<h3>${K('🔁 Reinvest = use profit to grow the business','🔁 재투자 = 이익으로 사업 키우기')}</h3><p>12,000 ÷ 100 = <b>120</b> ${K('new glue sticks','새 딱풀')}</p><p>${K('If all 120 sell: revenue = 120 × 500 = <b>60,000</b>. Expenses = <b>12,000</b>. Profit = <b>48,000</b>!','120개가 다 팔리면: 수입 = 120 × 500 = <b>60,000</b>, 지출 = <b>12,000</b>, 이익 = <b>48,000</b>!')}</p><div class="note w">${K('<b>Risk question:</b> Will 120 people really buy glue sticks? Business people call this <b>demand</b>.','<b>위험 질문:</b> 정말 120명이 딱풀을 살까요? 사업하는 사람들은 이것을 <b>수요</b>(demand)라고 해요.')}</div>`,
+ `<h3>${K('😱 Uh-oh! Bryan eats 5 glue sticks! YOUR TURN','😱 이런! 브라이언이 딱풀 5개를 먹었어요! 네 차례')}</h3><p>${K('Work it out on your whiteboard. Then check.','화이트보드에 풀고 확인해요.')}</p>
+  ${Calc([['','30','',K('bought','산 개수')],['−','5','',K('eaten','먹은 개수')]],25,{rl:K('can sell','팔 수 있는 개수'),hint:'30 − 5',why:'30 − 5 = 25'})}
+  ${Calc([['','25','',K('sticks sold','판 개수')],['×','500','',K('won each','원씩')]],12500,{rl:K('revenue','수입'),hint:'25 × 500',why:'25 × 500 = 12,500'})}
+  ${Calc([['','12,500','in',K('revenue','수입')],['−','3,000','out',K('expenses','지출')]],9500,{rl:K('profit','이익'),hint:'12,500 − 3,000',why:L('Expenses stay 3,000 because he already bought all 30.','이미 30개를 샀기 때문에 지출은 그대로 3,000원이에요.')})}
+  <div class="note w">${K('🚫 Do NOT eat glue! This is a silly math story. Glue is not food.','🚫 풀을 먹으면 안 돼요! 웃긴 수학 이야기예요. 풀은 음식이 아니에요.')}</div>`,
+ `<h3>${K('😬 What if almost nobody buys? YOUR TURN','😬 거의 아무도 안 사면? 네 차례')}</h3><p>${K('Bryan sells only <b>4</b> sticks. Expenses are still 3,000.','브라이언은 딱 <b>4개</b>만 팔아요. 지출은 여전히 3,000원.')}</p>
+  ${Calc([['','4','',K('sold','판 개수')],['×','500','',K('won each','원씩')]],2000,{rl:K('revenue','수입'),hint:'4 × 500',why:'4 × 500 = 2,000'})}
+  ${Calc([['','2,000','in',K('revenue','수입')],['−','3,000','out',K('expenses','지출')]],-1000,{rl:K('profit or LOSS','이익 또는 손실'),hint:L('Smaller minus bigger = a negative number (loss).','작은 수 − 큰 수 = 음수 (손실)'),why:L('Negative = a LOSS of 1,000 won.','음수 = 1,000원 손실.')})}
+  ${Calc([['','3,000','out',K('expenses','지출')],['÷','500','',K('price of one','한 개 가격')]],6,{rl:K('break-even sticks','손익분기 개수'),hint:'3,000 ÷ 500',why:L('After stick #6, every sale is profit!','6번째 이후부터는 팔 때마다 이익이에요!')})}`,
+ `<h3>${K('🐕 Example 2: Dog Walking','🐕 예시 2: 강아지 산책')}</h3><p>${K('Startup costs (one time): poop bags 4,000 + treats 6,000 = <b>10,000 won</b>. Price: <b>5,000 per walk</b>. She does <b>6 walks</b>.','시작 비용(한 번만): 배변 봉투 4,000 + 간식 6,000 = <b>10,000원</b>. 가격: 산책 한 번에 <b>5,000원</b>. <b>6번</b> 산책해요.')}</p>${VM([['','6 × 5,000','in',K('revenue','수입')],['−','10,000','out',K('startup cost','시작 비용')]],['20,000','',K('profit','이익')])}<p>${K('Break-even: 10,000 ÷ 5,000 = <b>2 walks</b>. Services often have <b>low expenses</b>, but your <b>time</b> is valuable too.','손익분기: 10,000 ÷ 5,000 = <b>2번</b>. 서비스는 지출이 <b>적은</b> 편이지만 내 <b>시간</b>도 소중해요.')}</p>`,
+ `<h3>${K('🥤 Example 3: Lemonade Stand','🥤 예시 3: 레모네이드 가게')}</h3><p>${K('Each cup costs <b>400</b> to make. Price: <b>1,000</b>. She makes <b>20 cups</b> and sells them all.','한 잔 만드는 데 <b>400원</b>, 가격은 <b>1,000원</b>. <b>20잔</b>을 만들어 다 팔아요.')}</p>${VM([['','20,000','in','20 × 1,000'],['−','8,000','out','20 × 400']],['12,000','',K('profit','이익')])}`,
+ `<h3>${K('🌧️ It rains! YOUR TURN','🌧️ 비가 와요! 네 차례')}</h3><p>${K('She spills 4 cups, so she sells only <b>16</b>. She already paid 8,000 for 20 cups.','4잔을 쏟아서 <b>16잔</b>만 팔아요. 20잔 값 8,000원은 이미 냈어요.')}</p>
+  ${Calc([['','16','',K('cups sold','판 잔 수')],['×','1,000','',K('won each','원씩')]],16000,{rl:K('revenue','수입'),hint:'16 × 1,000',why:'16 × 1,000 = 16,000'})}
+  ${Calc([['','16,000','in',K('revenue','수입')],['−','8,000','out',K('expenses','지출')]],8000,{rl:K('profit','이익'),hint:'16,000 − 8,000',why:L('Rain cost her 4,000 won of profit (12,000 → 8,000).','비 때문에 이익이 4,000원 줄었어요 (12,000 → 8,000).')})}`,
+ `<h3>${K('📊 Profit margin: how much of every 100 won do you KEEP?','📊 이익률: 수입 100원 중 얼마가 남을까?')}</h3>${margTable(MARG)}<p class="sm">${K('Rough typical net profit margins. They change by year, country and company.','대략적인 평균 순이익률이에요. 연도, 나라, 회사마다 달라요.')}</p>`,
+ `<h3>${K('🚗 Big amount vs big percent','🚗 큰 금액 vs 큰 퍼센트')}</h3><div class="cols"><div class="pop y" style="margin:0"><b>🚗 ${K('Car dealer (example)','자동차 판매점 (예시)')}</b><br>${K('One car sells for 30,000,000 won. Margin about 3%.','자동차 한 대 30,000,000원. 이익률 약 3%.')}<br><b>${K('Profit about 900,000 won per car','한 대당 이익 약 900,000원')}</b> ${K('(big amount, small percent)','(금액은 크고 퍼센트는 작아요)')}</div><div class="pop m" style="margin:0"><b>🧴 ${K('Glue stick (Bryan)','딱풀 (브라이언)')}</b><br>${K('One stick sells for 500 won. Cost 100.','한 개 500원, 원가 100원.')}<br><b>${K('Profit 400 won per stick = 80%','한 개당 이익 400원 = 80%')}</b> ${K('(small amount, big percent)','(금액은 작고 퍼센트는 커요)')}</div></div><p style="margin-top:10px">${K('Why can glue have 80%? Bryan counts no rent, no workers, no taxes. Real shops pay for those, so their percent is smaller.','딱풀이 왜 80%일까요? 브라이언은 가게 임대료, 직원 월급, 세금을 계산하지 않았어요. 진짜 가게는 이런 비용이 있어서 퍼센트가 더 작아요.')}</p>
+  ${Calc([['','20,000','',L('2,000,000 ÷ 100','2,000,000 ÷ 100')],['×','5','',K('won kept per 100','100원당 남는 돈')]],100000,{rl:K('restaurant profit','식당 이익'),hint:L('Restaurant keeps 5 of every 100. 20,000 groups of 100.','식당은 100원당 5원이 남아요. 100원 묶음이 20,000개예요.'),why:L('A restaurant with 2,000,000 won revenue keeps about 100,000 won.','수입 2,000,000원인 식당은 약 100,000원이 남아요.')})}`,
+ `<h3>${K('🧠 Big Words Recap','🧠 큰 낱말 정리')}</h3><ul><li><b>${K('Revenue','수입')}</b> − <b>${K('Expenses','지출')}</b> = <b>${K('Profit','이익')}</b></li><li><b>Price</b> = ${K('what customers pay','손님이 내는 돈')}. <b>Cost</b> = ${K('what you pay','내가 내는 돈')}.</li><li><b>${K('Break-even','손익분기')}</b>: ${K('revenue = expenses','수입 = 지출')}. <b>${K('Loss','손실')}</b>: ${K('expenses are bigger','지출이 더 커요')}.</li><li><b>${K('Reinvest','재투자')}</b>: ${K('use profit to grow the business','이익으로 사업 키우기')}.</li><li><b>${K('Profit margin','이익률')}</b>: ${K('profit out of every 100 won of revenue','수입 100원 중 남는 이익')}.</li></ul>`];
+ return `<span class="timebadge">⏱ 10 min · Model (I do) then YOUR TURN · use ← → keys</span>`+Slides(sl);}};
+
+P[1].prac={h:()=>`<span class="timebadge">⏱ 8 min · Guided practice (We do)</span>
+<div class="cols"><div class="pop y"><h3>${K("🧴 Bryan's Glue Business","🧴 브라이언의 딱풀 사업")}</h3>
+${Q(1,'Bryan buys 30 sticks at 100 won. <b>Expenses?</b>',3000,{hint:'cost × number bought'})}
+${Q(2,'He sells all 30 at 500 won. <b>Revenue?</b>',15000,{hint:'price × number sold'})}
+${Q(3,'<b>Profit?</b>',12000,{hint:'revenue − expenses'})}
+${Q(4,'Bryan eats 5. How many can he <b>sell</b>?',25,{hint:'30 − 5'})}
+${Q(5,'Now what is his <b>profit</b>? (revenue 12,500, expenses 3,000)',9500,{hint:'12,500 − 3,000'})}
+${Q(6,'He sells only 4 sticks. <b>Profit</b>? (use − for a loss)',-1000,{hint:'4 × 500 = 2,000. 2,000 − 3,000'})}</div>
+<div class="pop"><h3>${K('🧪 Glue Lab: change the numbers!','🧪 딱풀 실험실: 숫자를 바꿔 보세요!')}</h3>
+<div class="glab">
+<div class="sl"><label>${K('Sticks bought','산 개수')} <span class="v" id="o_n">30</span></label><input type="range" id="r_n" min="10" max="60" step="5" value="30"></div>
+<div class="cell" style="grid-row:span 2"><div class="rs2"><span>${K('Expenses (money OUT)','지출 (money OUT)')}</span><b id="x_e">3,000</b></div><div class="bar"><i id="b_e" style="background:#ff8f9c;width:5%"></i></div><p class="sm" style="margin-top:4px">${K('cost × sticks bought','원가 × 산 개수')}</p></div>
+<div class="sl"><label>${K('Cost per stick','개당 원가')} <span class="v" id="o_c">100</span></label><input type="range" id="r_c" min="50" max="400" step="50" value="100"></div>
+<div class="sl"><label>${K('Sticks eaten or lost','먹거나 잃은 개수')} <span class="v" id="o_k">0</span></label><input type="range" id="r_k" min="0" max="30" step="1" value="0"></div>
+<div class="cell"><div class="rs2"><span>${K('Sticks sold','판 개수')}</span><b id="x_s">30</b></div><div class="bar"><i id="b_s" style="background:var(--sky);width:50%"></i></div><p class="sm" style="margin-top:4px">${K('bought − eaten','산 개수 − 먹은 개수')}</p></div>
+<div class="sl"><label>${K('Selling price','판매 가격')} <span class="v" id="o_p">500</span></label><input type="range" id="r_p" min="100" max="1000" step="100" value="500"></div>
+<div class="cell"><div class="rs2"><span>${K('Revenue (money IN)','수입 (money IN)')}</span><b id="x_r">15,000</b></div><div class="bar"><i id="b_r" style="background:var(--mint);width:25%"></i></div><p class="sm" style="margin-top:4px">${K('price × sticks sold','가격 × 판 개수')}</p></div>
+<div class="sm">${K('Money bars use one scale: a full bar = 60,000 won. Sticks bar: full = 60.','돈 막대는 같은 눈금: 막대 전체 = 60,000원. 개수 막대: 전체 = 60개.')}</div>
+<div class="cell" style="border:0"><div class="rs2 fin"><span id="x_l">${K('Profit','이익')}</span><b id="x_pf">12,000</b></div><div class="bar"><i id="b_p" style="background:var(--yellow);width:20%"></i></div></div>
+</div></div>
+<div class="pop m"><h3>${K('🤑 Choose your path: what should Bryan do with 12,000 won?','🤑 길을 고르세요: 브라이언은 12,000원으로 무엇을 할까?')}</h3><p class="hint" style="margin-bottom:12px">${K('Click each choice to see what happens. There is no single right answer. Defend your choice in English!','선택지를 눌러 결과를 보세요. 정답은 하나가 아니에요. 영어로 이유를 말해 보세요!')}</p><div class="pathgrid">
+<div class="pathcard"><button class="path">🛍️ ${K('Spend it all','다 쓰기')}</button><div class="res" hidden>You have <b>0 won</b> left. Fun today, but nothing to grow.</div></div>
+<div class="pathcard"><button class="path">🐷 ${K('Save it','저금하기')}</button><div class="res" hidden>You still have <b>12,000 won</b>. Safe, but it does not grow by itself.</div></div>
+<div class="pathcard"><button class="path">🔁 ${K('Buy more glue','딱풀 더 사기')}</button><div class="res" hidden>12,000 ÷ 100 = <b>120 sticks</b>. If all sell: profit <b>48,000</b>. Risk: maybe nobody wants 120 glue sticks (demand).</div></div>
+<div class="pathcard"><button class="path">📈 ${K('Invest at 10%','10%로 투자하기')}</button><div class="res" hidden>After 1 year: <b>${fmt(g(12000,1))}</b>. After 30 years: <b>${fmt(g(12000,30))}</b>. Next lesson!</div></div>
+<div class="pathcard"><button class="path">🧩 ${K('Do a mix','섞어서 하기')}</button><div class="res" hidden>Smart business people split profit: some to spend, some to save, some to reinvest, some to invest.</div></div></div></div>`,
+ i:root=>{const f=()=>{const c=+$('#r_c',root).value,p=+$('#r_p',root).value,n=+$('#r_n',root).value,k=Math.min(+$('#r_k',root).value,n),e=c*n,sd=n-k,r=sd*p,pf=r-e,M=60000;
+  $('#o_c',root).textContent=fmt(c);$('#o_p',root).textContent=fmt(p);$('#o_n',root).textContent=n;$('#o_k',root).textContent=k;
+  $('#x_e',root).textContent=fmt(e);$('#x_s',root).textContent=sd;$('#x_r',root).textContent=fmt(r);
+  $('#x_pf',root).textContent=pf>=0?fmt(pf):'-'+fmt(-pf);$('#x_pf',root).style.color=pf>=0?'var(--good)':'var(--bad)';$('#x_l',root).innerHTML=pf>=0?K('Profit','이익'):K('LOSS (no profit bar)','손실 (이익 막대 없음)');
+  const w=v=>Math.max(0,Math.min(100,v/M*100))+'%';
+  $('#b_e',root).style.width=w(e);$('#b_r',root).style.width=w(r);$('#b_p',root).style.width=w(Math.max(0,pf));$('#b_s',root).style.width=(sd/60*100)+'%';};
+  $$('.glab input',root).forEach(x=>x.addEventListener('input',f));f();}};
+
+const IT=['glue sticks','pencils','stickers','erasers','markers','hair clips'];
+function gen1(p,f){const N=()=>f.p([10,20,30,40]),C=()=>f.p([100,200,300,400]),Pp=()=>f.p([500,600,800,1000]),it=()=>f.p(IT),R=[];
+  const W=(t,a,h,tol)=>R.push({t,a,h,tol:tol||0});
+  if(p===0){let n=N(),c=C(),i=it();W(`Bryan buys <b>${n}</b> ${i} for <b>${c} won</b> each. What are his <b>expenses</b>?`,n*c,'cost × number bought');
+   n=N();let pp=Pp();i=it();W(`Bryan sells <b>${n}</b> ${i} for <b>${fmt(pp)} won</b> each. What is his <b>revenue</b>?`,n*pp,'price × number sold');
+   n=N();c=C();i=it();W(`Mina buys <b>${n}</b> ${i} for <b>${c} won</b> each. What are her <b>expenses</b>?`,n*c,'cost × number bought');
+   n=N();pp=Pp();i=it();W(`Mina sells <b>${n}</b> ${i} for <b>${fmt(pp)} won</b> each. What is her <b>revenue</b>?`,n*pp,'price × number sold');
+   const rv=f.p([20000,15000,30000,12000]),ex=f.p([5000,3000,8000,6000]);W(`Revenue is <b>${fmt(rv)}</b>. Expenses are <b>${fmt(ex)}</b>. What is the <b>profit</b>?`,rv-ex,'revenue − expenses');
+   c=C();pp=Pp();W(`One item costs <b>${c}</b> won. The price is <b>${fmt(pp)}</b> won. What is the profit on <b>ONE</b> item?`,pp-c,'price − cost');
+   n=N();c=C();pp=Pp();i=it();W(`Ji-ho buys <b>${n}</b> ${i} for <b>${c}</b> each. He sells them <b>all</b> for <b>${fmt(pp)}</b> each. What is his <b>profit</b>?`,n*(pp-c),'revenue − expenses, or profit per item × number');
+   n=f.p([30,40,50]);c=C();pp=Pp();i=it();W(`Sora buys <b>${n}</b> ${i} for <b>${c}</b> each. She sells them <b>all</b> for <b>${fmt(pp)}</b> each. What is her <b>profit</b>?`,n*(pp-c),'revenue − expenses');}
+  else{let n=N(),c=C(),pp=Pp(),k=f.p([2,3,4,5]),i=it();W(`Bryan buys <b>${n}</b> ${i} for <b>${c}</b> each. He loses <b>${k}</b>. He sells the rest for <b>${fmt(pp)}</b> each. What is his <b>profit</b>?`,(n-k)*pp-n*c,`Sold = ${n} − ${k}. Revenue − expenses.`);
+   n=f.p([20,30,40]);c=f.p([200,300,400]);pp=f.p([500,600,800]);let s=f.p([2,3,4]);i=it();W(`Mina buys <b>${n}</b> ${i} for <b>${c}</b> each. She sells only <b>${s}</b> for <b>${fmt(pp)}</b> each. What is her <b>profit</b>? (use − for a loss)`,s*pp-n*c,'revenue − expenses. Smaller minus bigger = negative.');
+   let t=0,nn,cc,ppp;do{nn=f.p([10,20,30,40]);cc=f.p([100,200,300,400]);ppp=f.p([500,600,800,1000]);t++;}while(((nn*cc)%ppp!==0||nn*cc/ppp<2)&&t<80);if((nn*cc)%ppp!==0){nn=30;cc=100;ppp=500;}
+   W(`Bryan spends <b>${fmt(nn*cc)} won</b> on ${it()}. He sells each for <b>${fmt(ppp)} won</b>. How many must he sell to <b>break even</b>?`,nn*cc/ppp,'expenses ÷ price');
+   const X=f.p([6000,8000,10000,12000]),pr=f.p([3000,4000,5000]),w=f.p([6,8,10]);W(`Dog walking: startup cost <b>${fmt(X)}</b>. Price <b>${fmt(pr)}</b> per walk. She does <b>${w}</b> walks. What is her <b>profit</b>?`,w*pr-X,'walks × price − startup cost');
+   const F=f.p([6000,9000,12000,15000]),cc2=f.p([100,200,300]);W(`Bryan reinvests <b>${fmt(F)} won</b> profit. New sticks cost <b>${cc2}</b> each. How many can he buy?`,F/cc2,'profit ÷ cost per stick');
+   const sl=f.p([12,14,16]);W(`Lemonade: 20 cups cost <b>400</b> each. Price is <b>1,000</b>. It rains and she sells only <b>${sl}</b> cups. What is her <b>profit</b>?`,sl*1000-8000,'sold × 1,000 − (20 × 400)');
+   const Rv=f.p([1000,2000,5000]),m=f.p([10,20,25,40,50]);W(`A shop takes in <b>${fmt(Rv)} won</b> and spends <b>${fmt(Rv*(100-m)/100)} won</b> on expenses. How many won does it KEEP out of every <b>100 won</b>? (profit margin)`,m,'profit ÷ revenue × 100');
+   n=f.p([20,30,40]);c=f.p([100,200,300]);k=f.p([2,3,4,5]);const FF=f.p([1000,2000,3000]);pp=f.p([500,600,800,1000]);W(`Stall day: buy <b>${n}</b> items at <b>${c}</b> each. Pay a <b>${fmt(FF)}</b> stall fee. Lose <b>${k}</b> items. Sell the rest at <b>${fmt(pp)}</b>. What is the <b>profit</b>?`,(n-k)*pp-n*c-FF,'revenue − item cost − stall fee');}
+  return R;}
+
+P[1].more={h:()=>`<span class="timebadge">⏱ 5 min · Independent practice (You do)</span><div id="pl1"></div>`,
+ i:root=>PList($('#pl1',root),gen1,{title:K('💰 Profit Practice','💰 이익 연습'),tip:K('Leave this on the TV. Students solve on paper (calculators allowed), then check here for Bryan Bucks.','TV에 띄워 두세요. 학생은 종이에 풀고(계산기 사용 가능), 여기서 확인하고 브라이언 벅스를 받아요.')})};
+
+P[1].pers={h:()=>`<span class="timebadge">⏱ 5 min · Make it yours</span>
+<div class="pop v"><h3>${K('🧮 My Business Math','🧮 나의 사업 수학')}</h3><div class="cols"><div>
+<label class="l">${K('Pick an idea, or write your own!','아이디어를 고르거나 직접 써 보세요!')}</label><div class="row" id="chips"><button class="btn g pc" data-v="Glue sticks|100|500">🧴 Glue</button><button class="btn g pc" data-v="Lemonade cups|400|1000">🥤 Lemonade</button><button class="btn g pc" data-v="Cookie bags|1000|3000">🍪 Cookies</button><button class="btn g pc" data-v="Bracelets|800|3000">🎀 Bracelets</button><button class="btn g pc" data-v="Sticker packs|300|1500">⭐ Stickers</button><button class="btn y pc" data-v="">✏️ ${K('Your idea...','내 아이디어...')}</button></div>
+<label class="l">${K('My item','내 물건')}</label><input type="text" id="pn" class="wide" data-k="L1pn" placeholder="e.g. bracelets">
+<label class="l">${K('I pay (cost per item, won)','내가 내는 돈 (개당 원가, 원)')}</label><input type="number" id="pc" class="wide" data-k="L1pc">
+<label class="l">${K('I sell (price per item, won)','내가 파는 가격 (개당, 원)')}</label><input type="number" id="pp" class="wide" data-k="L1pp">
+<label class="l">${K('I buy or make how many?','몇 개를 사거나 만들까?')}</label><input type="number" id="pq" class="wide" data-k="L1pq" value="20">
+<label class="l">${K('Oops! How many do I lose or not sell?','앗! 몇 개를 잃거나 못 팔까?')}</label><input type="number" id="pk" class="wide" data-k="L1pk" value="0"></div>
+<div><div class="pop y" id="pout"><p>Fill in the numbers to see your story.</p></div></div></div></div>`,
+ i:root=>{const f=()=>{const n=$('#pn',root).value||'items',c=+$('#pc',root).value,p=+$('#pp',root).value,q=+$('#pq',root).value,k=Math.min(+$('#pk',root).value||0,q);if(!c||!p||!q){$('#pout',root).innerHTML='<p>'+L('Fill in the numbers to see your story.','숫자를 채우면 이야기가 나와요.')+'</p>';return;}
+   const e=c*q,r=(q-k)*p,pf=r-e;$('#pout',root).innerHTML=`<h4>My story</h4><p>I buy <b>${q} ${n}</b> for ${fmt(c)} won each.<br>My <b>expenses</b> are ${fmt(e)} won.</p><p>I sell <b>${q-k}</b> for ${fmt(p)} won each.<br>My <b>revenue</b> is ${fmt(r)} won.</p><p style="font-size:28px;font-weight:900;color:${pf>=0?'var(--good)':'var(--bad)'}">${pf>=0?'Profit':'Loss'}: ${fmt(pf)} won</p>${revBar(Math.max(r,1),e,'',false)}<div class="note">🗣️ Say it: "If I sell ${q-k} ${n}, my ${pf>=0?'profit':'loss'} will be ${fmt(Math.abs(pf))} won."</div>${pf>12000?'<p style="font-size:26px;font-weight:900">🏆 You beat Bryan\'s 12,000 won!</p>':''}`;};
+  $$('.pc',root).forEach(b=>b.onclick=()=>{const v=b.dataset.v.split('|');if(v.length<3){['pn','pc','pp'].forEach(id=>{$('#'+id,root).value='';$('#'+id,root).dispatchEvent(new Event('input'));});$('#pn',root).focus();}else{$('#pn',root).value=v[0];$('#pc',root).value=v[1];$('#pp',root).value=v[2];['pn','pc','pp'].forEach(id=>$('#'+id,root).dispatchEvent(new Event('input')));}f();});
+  $$('input',root).forEach(x=>x.addEventListener('input',f));f();}};
+
+P[1].proj={h:()=>`<span class="timebadge">⏱ Optional extension · Team game</span>
+<div class="pop"><h3>🥊 Profit Battle! Which business wins?</h3><p>Teams predict the winner. Press <b>Reveal</b>. Then hit <b>Twist!</b> Each twist hits businesses differently, so the winner can change!</p>
+<table class="table" id="bt"></table>
+<div class="row" style="margin:12px 0"><button class="btn y" id="brev">Reveal profits</button><button class="btn pk" id="btw">🎲 Twist!</button><button class="btn g" id="brs">Reset</button></div><div class="fb" id="btx" style="font-size:24px"></div></div>
+<div class="note">Team talk frames: "We think ___ will win because ___." / "After the twist, ___'s profit will be ___."</div>`,
+ i:root=>{const B=[{n:'🧴 Glue sticks',uc:100,buy:30,fx:0,pr:500,sold:30},{n:'🐕 Dog walking',uc:0,buy:0,fx:10000,pr:5000,sold:6},{n:'🥤 Lemonade',uc:400,buy:20,fx:0,pr:1000,sold:20},{n:'🍪 Cookies',uc:0,buy:0,fx:13000,pr:3000,sold:8}];
+  const base=()=>B.map(b=>({...b})),exp=b=>b.fx+b.uc*b.buy,prof=b=>b.pr*b.sold-exp(b);
+  const TW=[['🧴 Glue price goes UP: the factory now charges 300 won a stick. Bryan still buys 30.',s=>{s[0].uc=300;}],
+   ['🌧️ Monsoon week: only 2 of 6 dog walks happen, and only 8 lemonade cups sell.',s=>{s[1].sold=2;s[2].sold=8;}],
+   ['🔥 Heatwave: lemonade sells out! She makes 40 cups (400 each) and sells all 40.',s=>{s[2].buy=40;s[2].sold=40;}],
+   ['🏷️ Price war: a rival walks dogs for less. Dog walking drops to 3,000 per walk.',s=>{s[1].pr=3000;}],
+   ['🧈 Butter price doubles: cookie supplies now cost 26,000.',s=>{s[3].fx=26000;}],
+   ['🎉 Viral video: cookies sell 16 bags instead of 8!',s=>{s[3].sold=16;}],
+   ['😱 Glue price UP to 300 AND Bryan eats 5 sticks (he sells 25).',s=>{s[0].uc=300;s[0].sold=25;}]];
+  let st=null,rev=false,order=[],last='';
+  const b0=base();
+  const draw=()=>{const S=st||b0,m=Math.max(...S.map(prof));
+   $('#bt',root).innerHTML='<tr><th>Business</th><th>Expenses</th><th>Price</th><th>Sold</th><th>Profit</th><th>Change</th></tr>'+S.map((b,i)=>{const d=prof(b)-prof(b0[i]);return `<tr${rev&&prof(b)===m?' class="hl"':''}><td>${b.n}</td><td class="n">${fmt(exp(b))}</td><td class="n">${fmt(b.pr)}</td><td class="n">${b.sold}</td><td class="n">${rev?fmt(prof(b)):'?'}</td><td class="n">${rev&&st?(d>0?'▲ +':d<0?'▼ ':'= ')+(d===0?'':fmt(d)):''}</td></tr>`;}).join('');
+   return S.filter(b=>prof(b)===m).map(b=>b.n).join(' + ');};
+  $('#brev',root).onclick=()=>{rev=true;const w=draw();$('#btx',root).textContent=(st?last+' ':'')+'🏆 Winner: '+w;earn(200,$('#brev',root));};
+  $('#btw',root).onclick=()=>{rev=true;if(!order.length)order=TW.map((_,i)=>i).sort(()=>Math.random()-.5);const k=order.pop();st=base();TW[k][1](st);last=TW[k][0];const w=draw();$('#btx',root).textContent=last+'  🏆 Winner now: '+w;};
+  $('#brs',root).onclick=()=>{rev=false;st=null;order=[];$('#btx',root).textContent='';draw();};draw();}};
+
+P[1].plan={h:()=>plan({title:'Period 1: Business Money',bq:'How do you know if a business makes money?',fw:'SIOP (content + language objectives), Rosenshine (daily review, small steps, modeling, guided then independent practice), Science of Learning (retrieval warm up, worked examples before practice).',
+ co:['Calculate expenses (cost × number bought), revenue (price × number sold) and profit (revenue − expenses).','Identify loss and break-even, and explain how lost or unsold items reduce profit.','Compare ways to use profit: spend, save, reinvest, invest.'],
+ lo:['Use revenue, expenses, profit, loss, price, cost in spoken sentences.','Say first conditional statements: "If Bryan eats 5 glue sticks, his profit will be 9,500 won."'],
+ gl:'Future simple and first conditional (will / if + will) is the grammar of the Period 4 pitch. Every example here is stated as "If..., ... will ...".',
+ vocab:['revenue','expenses','profit','loss','price','cost','startup cost','break even','reinvest','demand'],mat:['TV with this hub','Mini whiteboards and markers','Calculators (optional, 1 per pair)','Exit Ticket sheet (optional)'],
+ time:[['0 to 5','Admin','Attendance, Dojo, seating'],['5 to 10','Warm Up','Multiplication retrieval, vote on Bryan\'s plan, flip vocab cards'],['10 to 20','Presentation','Glue example in vertical math, revenue/expenses/profit bar, reinvest, then YOUR TURN slides (eats 5, sells 4, rain): whiteboards up, reveal after 30 seconds. Margin slides if time allows (arrow keys)'],['20 to 28','Practice','Guided Qs 1 to 6 on whiteboards, Glue Lab, choose-your-path discussion'],['28 to 33','More Practice','Page 1 of the problem list on the TV. Students solve on paper, check on the screen. Page 2 is for fast finishers or the next warm-up'],['33 to 38','Personalize','My Business Math, say the "If..." sentence to a partner'],['38 to 40','Exit Ticket','Whiteboard or printed ticket, collect']],
+ fa:['After slide 5, "show me" whiteboards: "Revenue 20,000. Expenses 14,000. Profit?" Scan for 6,000.','Cold call: "Which is bigger, revenue or profit? Why?" Listen for "revenue includes expenses".','Watch for price/cost swaps while students work Q1 and Q2. Re-teach with the formula strip if more than a third miss.','Error hunt: write "Bryan says profit = 15,000 + 3,000 = 18,000." Students find the error with a partner.','3-finger self-check at the end: 3 = I can teach it, 2 = almost, 1 = help me.'],
+ sup:['Smaller numbers: 10 sticks at 100 and 500.','Calculator and formula strip on the desk.','Sentence frame cards for "If..., ... will ...".'],chal:['Find profit per stick first, then multiply.','How many sticks can 12,000 won buy? Predict profit if all sell.','Create a twist event and calculate its effect.'],
+ exit:'Bryan buys 20 glue sticks for 100 won each and sells them all for 400 won each. (1) Expenses? (2) Revenue? (3) Profit? (4) Finish: "If Bryan sells all 20, his profit will be ______."',exitWB:'write only (3) and the sentence in 2 minutes.',key:'2,000 · 8,000 · 6,000 · "...his profit will be 6,000 won."'})};
+
+/* ---------- LESSON 2 ---------- */
+P[2].warm={h:()=>`<span class="timebadge">⏱ 5 min · Retrieval + Hook</span>
+<div class="banner">${K('🧐 How do rich people get rich?','🧐 부자들은 어떻게 부자가 될까?')}</div>
+<div class="cols"><div class="pop p"><h3>${K('🗳️ Class vote: what is the biggest reason?','🗳️ 투표: 가장 큰 이유는?')}</h3><div class="tallies">${Tally(K('⏰ They work more hours','⏰ 더 오래 일해서'))}${Tally(K('🎰 They win the lottery','🎰 복권에 당첨돼서'))}${Tally(K('🏭 They own businesses','🏭 사업을 해서'))}${Tally(K('📈 They invest, and wait','📈 투자하고 기다려서'))}${Tally(K('👨‍👩‍👧 They are born rich','👨‍👩‍👧 부자 집에서 태어나서'))}</div>
+<div class="note" style="margin-top:14px">${K('<b>Honest answer:</b> many things matter, including luck and family money. One idea ANYONE can learn: make your money <b>work for you</b>. Own a business, <b>invest</b>, and give it <b>time</b>.','<b>솔직한 답:</b> 운과 가정 환경도 중요해요. 하지만 누구나 배울 수 있는 생각이 있어요: 돈이 <b>일하게</b> 하기. 사업을 하고, <b>투자</b>하고, <b>시간</b>을 주는 것.')}</div></div>
+<div class="pop y"><h3>${K("⚡ Quick review: Bryan's glue profit","⚡ 빠른 복습: 브라이언의 딱풀 이익")}</h3><p style="margin-bottom:10px">${K('Last time, Bryan <b>bought 30 glue sticks</b> for <b>100 won</b> each. He <b>sold them all</b> for <b>500 won</b> each.','지난 시간에 브라이언은 딱풀 <b>30개</b>를 개당 <b>100원</b>에 사서 <b>모두</b> 개당 <b>500원</b>에 팔았어요.')}</p>${Q(1,'<b>Expenses?</b> (money OUT)',3000,{hint:'30 × 100'})}${Q(2,'<b>Revenue?</b> (money IN)',15000,{hint:'30 × 500'})}${Q(3,'<b>Profit?</b> This is the money we invest today!',12000,{hint:'revenue − expenses'})}</div></div>
+<div class="pop"><h3>${K('🃏 Money Words (click a card to flip)','🃏 돈 낱말 (카드를 눌러 뒤집기)')}</h3><div class="flipgrid">
+${Flip('invest','<b>투자하다</b>: 돈이 자라도록 어딘가에 넣어 두는 것','"I invest 10,000 won so it can grow."','var(--mint)')}
+${Flip('rate','<b>이율</b>: 해마다 돈이 얼마나 느는지 (예: 10%)','"The rate is 10%, so 10,000 won grows by 1,000."','var(--yellow)')}
+${Flip('interest','<b>이자</b>: 돈을 맡겨서 생기는 추가 돈','"The interest was 1,000 won after one year."','#ff8f9c')}
+${Flip('compound','<b>복리</b>: 이자에도 이자가 붙는 것','"Compound growth is fast because interest earns interest."','#d6c4ff')}
+${Flip('principal','<b>원금</b>: 처음에 넣은 돈','"My principal was 50,000 won."','var(--sky)')}
+${Flip('grow','<b>자라다</b>: 시간이 지나며 점점 커지는 것','"My money will grow if I wait."','var(--orange)')}</div></div>
+<div class="pop m"><h3>${K('🪙 Would you rather...?','🪙 어느 쪽이 좋아?')}</h3><p><b>A:</b> 1,000,000 ${K('won today.','원을 오늘 받기.')} <b>B:</b> 1 ${K('won today that <b>doubles every day</b> for 30 days.','원을 오늘 받고 30일 동안 <b>매일 2배</b>가 되기.')}</p>
+<div class="row"><label class="l" style="margin:0">${K('Day','일')} <span class="v" id="dd" style="font-size:30px;color:var(--purple)">1</span></label><input type="range" id="dr" min="1" max="30" value="1" style="flex:1;min-width:220px;accent-color:var(--pink);height:30px"></div>
+<p style="font-size:38px;font-weight:900" id="dv">1 won</p><div class="fb" id="dm" style="font-size:22px"></div><div class="note w">${K('Real investing grows MUCH slower than doubling every day. This is a hook to feel how growth can explode over time.','진짜 투자는 매일 2배보다 훨씬 느려요. 시간이 지나면 성장이 얼마나 커질 수 있는지 느껴 보는 맛보기예요.')}</div></div>`,
+ i:root=>{const f=()=>{const d=+$('#dr',root).value,v=Math.pow(2,d-1);$('#dd',root).textContent=d;$('#dv',root).textContent=fmt(v)+' won';$('#dm',root).textContent=v>1000000?L('🤯 More than 1,000,000 won! (It passed on day 21.)','🤯 1,000,000원이 넘었어요! (21일째에 넘어요.)'):v>100000?L('😮 Getting big...','😮 점점 커져요...'):'';$('#dm',root).className='fb '+(v>1000000?'ok':'');if(d===21&&!root.dataset.k21){root.dataset.k21=1;earn(100);}};$('#dr',root).addEventListener('input',f);f();}};
+
+P[2].pres={h:()=>{
+ const t=[1,2,3,4,5].map(n=>fmt(g(12000,n)));
+ const sl=[
+ `<h3>${K('🤔 Big Question','🤔 큰 질문')}</h3><p class="big">${K('How does money make more money?','돈은 어떻게 돈을 더 벌까?')}</p><div class="three"><div class="c" style="background:var(--mint)"><span class="em">🌱</span><b>invest</b>${K('put money where it can grow','돈이 자랄 곳에 넣기')}</div><div class="c" style="background:var(--yellow)"><span class="em">📊</span><b>rate</b>${K('how fast it grows each year','해마다 자라는 속도')}</div><div class="c" style="background:#d6c4ff"><span class="em">⏳</span><b>time</b>${K('the secret ingredient','비밀 재료')}</div></div>`,
+ `<h3>${K('🧴 Bryan has 12,000 won profit','🧴 브라이언의 이익 12,000원')}</h3><p>${K('He puts it into a growth fund that grows <b>10% a year</b> (a round number to keep the math easy).','브라이언은 <b>1년에 10%</b> 자라는 성장 펀드에 넣어요 (계산이 쉽도록 고른 숫자예요).')}</p>${VM([['','12,000','',K('start','시작')],['×','1.1','',K('growth: 110%','증가: 110%')]],[fmt(g(12000,1)),'',K('after 1 year','1년 후')])}<p>${K('That is','늘어난 돈:')} <b>${fmt(g(12000,1)-12000)}</b> ${K('won extra!','원!')}</p>`,
+ `<h3>${K('✖️ The ×1.1 rule','✖️ ×1.1 규칙')}</h3><p>100% ${K('of your money','내 돈')} + 10% ${K('extra','추가')} = <b>110%</b> = <b>×1.1</b></p>${VM([['','12,000'],['×','1.1']],[t[0],'',K('year 1','1년')])}${VM([['',t[0]],['×','1.1']],[t[1],'',K('year 2','2년')])}<p>${K('next year = this year × 1.1','다음 해 = 올해 × 1.1')}</p>`,
+ `<h3>${K('🌟 Compound growth: interest on interest','🌟 복리: 이자에 붙는 이자')}</h3><p>${K('Year 2 grows from','2년째는')} <b>${t[0]}</b>${K(', not from 12,000. The extra money also earns extra money!',' 에서 자라요 (12,000이 아니에요). 늘어난 돈도 돈을 더 벌어요!')}</p><table class="table"><tr><th>${K('Year','연도')}</th><th>${K('Money','돈')}</th></tr><tr><td>0</td><td class="n">12,000</td></tr>${t.map((v,i)=>`<tr${i===4?' class="hl"':''}><td>${i+1}</td><td class="n">${v}</td></tr>`).join('')}</table>`,
+ `<h3>${K('🌟 YOUR TURN: grow 10,000 won','🌟 네 차례: 10,000원 키우기')}</h3>
+  ${Calc([['','10,000'],['×','1.1']],11000,{rl:K('year 1','1년'),hint:'10,000 × 1.1',why:'10,000 + 1,000 = 11,000'})}
+  ${Calc([['','11,000'],['×','1.1']],12100,{rl:K('year 2','2년'),hint:'11,000 × 1.1',why:L('Interest on 11,000 is 1,100.','11,000의 이자는 1,100원.')})}
+  ${Calc([['','12,100'],['×','1.1']],13310,{rl:K('year 3','3년'),hint:'12,100 × 1.1',why:'12,100 + 1,210 = 13,310'})}`,
+ `<h3>${K('🔍 Year 2 vs Year 10: what does the money EARN?','🔍 2년째 vs 10년째: 돈이 얼마를 벌까?')}</h3><p>${K('Start with 10,000 won. Each bar = the interest earned in that ONE year.','10,000원으로 시작해요. 막대 하나 = 그 해 한 해 동안 번 이자예요.')}</p>${interestBars(10000,10,[2,10])}<p class="sm">${K('Blue dashed line = simple interest (always 1,000). Green and pink bars = compound interest.','파란 점선 = 단리 (항상 1,000원). 초록·분홍 막대 = 복리.')}</p>`,
+ `<h3>${K('🔍 Year 2 vs Year 10: the math','🔍 2년째 vs 10년째: 계산')}</h3><div class="cols"><div>${VM([['',fmt(g(10000,1)),'',K('start of year 2','2년째 시작')],['×','0.1','',K('10% interest','이자 10%')]],[fmt(g(10000,1)*0.1),'',K('earned in year 2','2년째 이자')])}</div><div>${VM([['',fmt(g(10000,9)),'',K('start of year 10','10년째 시작')],['×','0.1','',K('10% interest','이자 10%')]],[fmt(g(10000,9)*0.1),'',K('earned in year 10','10년째 이자')])}</div></div><p class="big" style="font-size:40px">${K('Year 10 earns','10년째 이자는')} ${(g(10000,9)*0.1/(g(10000,1)*0.1)).toFixed(1)}× ${K('more than year 2!','2년째의 배!')}</p><p>${K('The money did not work harder. There was just MORE money working.','돈이 더 열심히 일한 게 아니에요. 일하는 돈이 더 많아진 거예요.')}</p>`,
+ `<h3>${K('🔍 YOUR TURN: year 10 interest','🔍 네 차례: 10년째 이자')}</h3><p>${K('At the start of year 10, the money is 23,579 won.','10년째가 시작될 때 돈은 23,579원이에요.')}</p>${Calc([['','23,579'],['×','0.1']],2358,{tol:2,rl:K('interest in year 10','10년째 이자'),hint:'23,579 × 0.1',why:L('About 2,358 won, in ONE year.','한 해에 약 2,358원이에요.')})}`,
+ `<h3>${K('✨ The real magic: year 1 vs year 30','✨ 진짜 마법: 1년째 vs 30년째')}</h3><p>${K('Invest <b>50,000 won</b> once. Never add more.','<b>50,000원</b>을 한 번만 투자해요. 더 넣지 않아요.')}</p><div class="three"><div class="c" style="background:#dff3ff"><b>${K('Year 1 earns','1년째 이자')}</b>${fmt(g(50000,0)*0.1)}</div><div class="c" style="background:#d9fff1"><b>${K('Year 10 earns','10년째 이자')}</b>${fmt(g(50000,9)*0.1)}</div><div class="c" style="background:#ffd9e8"><b>${K('Year 30 earns','30년째 이자')}</b>${fmt(g(50000,29)*0.1)}</div></div><p class="big" style="font-size:38px">${K('In year 30, the money earns','30년째에는 한 해에')} ${fmt(g(50000,29)*0.1)} ${K('won in ONE year. That is MORE than the 50,000 you started with!','원을 벌어요. 처음 넣은 50,000원보다 많아요!')}</p>`,
+ `<h3>${K('⚖️ Simple vs Compound: 10,000 won, 5 years','⚖️ 단리 vs 복리: 10,000원, 5년')}</h3><div class="three"><div class="c" style="background:#dff3ff"><b>${K('Simple','단리')}</b>${K('Earn 1,000 each year.','해마다 1,000원.')}<br>10,000 + 5 × 1,000 = <b>15,000</b></div><div class="c" style="background:#d9fff1"><b>${K('Compound','복리')}</b>×1.1 ${K('each year.','해마다.')}<br>10,000 × 1.1 ×5 = <b>${fmt(g(10000,5))}</b></div></div><p>${K('The gap is small at 5 years. Wait for the next slide...','5년에는 차이가 작아요. 다음 장을 보세요...')}</p>`,
+ `<h3>${K('⏳ Time is the secret ingredient','⏳ 시간이 비밀 재료')}</h3><p>${K('Invest <b>50,000 won</b> at age 10. Never add more.','10살에 <b>50,000원</b>을 투자해요. 더 넣지 않아요.')}</p><div class="three"><div class="c" style="background:#fff3b0"><b>${K('Age','나이')} 20</b>${fmt(g(50000,10))}</div><div class="c" style="background:#d9fff1"><b>${K('Age','나이')} 30</b>${fmt(g(50000,20))}</div><div class="c" style="background:#ffd9e8"><b>${K('Age','나이')} 40</b>${fmt(g(50000,30))}</div><div class="c" style="background:#d6c4ff"><b>${K('Age','나이')} 50</b>${fmt(g(50000,40))}</div></div><p>50,000 → <b>${fmt(g(50000,40))}</b> ${K('won. That is','원. 약')} <b>${(g(50000,40)/50000).toFixed(1)}×</b></p>`,
+ `<h3>${K('🏁 Start early vs start late','🏁 일찍 시작 vs 늦게 시작')}</h3><p>${K('Two friends each invest 50,000 won. Both stop at age 50.','두 친구가 각각 50,000원을 투자해요. 둘 다 50살에 멈춰요.')}</p><div class="eq"><span class="t in">${K('Start at 10','10살 시작')}: ${fmt(g(50000,40))}</span><span class="t out">${K('Start at 20','20살 시작')}: ${fmt(g(50000,30))}</span></div><p>${K('Starting 10 years earlier = about','10년 일찍 시작 = 약')} <b>${(g(50000,40)/g(50000,30)).toFixed(1)}×</b> ${K('more money.','더 많은 돈.')}</p>`,
+ `<h3>${K('➕ Add money every year','➕ 해마다 돈 더하기')}</h3><p>${K('Each year the money grows, THEN you add 10,000 more (like saving every year).','해마다 돈이 자라고, 그다음 10,000원을 더 넣어요 (매년 저축하는 것처럼).')}</p>${VM([['','10,000'],['×','1.1']],['11,000','',K('grows','자람')])}${VM([['','11,000'],['+','10,000']],['21,000','',K('add','더하기')])}<p>${K('Adding helps a lot at first. When your money reaches <b>3 times</b> what you put in (<b>3 : 1</b>), the new deposits matter less each year. Find 3 : 1 in the Explorer!','처음엔 더하기가 크게 도움돼요. 내 돈이 넣은 돈의 <b>3배</b>(<b>3 : 1</b>)가 되면 새로 넣는 돈의 영향은 해마다 작아져요. 탐험기에서 3 : 1을 찾아보세요!')}</p>`,
+ `<h3>${K('⚠️ Be honest: investing is not magic','⚠️ 솔직히: 투자는 마법이 아니에요')}</h3><ul><li>${K('10% is a <b>round number to keep the math easy</b>. Real investments go up and down. Long-run real returns are usually lower, and nothing is guaranteed.','10%는 <b>계산을 쉽게 하려고 고른 숫자</b>예요. 진짜 투자는 오르내리고, 보통 더 낮으며, 보장은 없어요.')}</li><li>${K('You can lose money. Only invest money you can leave alone for a long time.','돈을 잃을 수도 있어요. 오래 두어도 되는 돈만 투자해요.')}</li><li>${K('Kids need a <b>parent or guardian</b> to open real accounts.','어린이가 진짜 계좌를 만들려면 <b>부모님이나 보호자</b>가 필요해요.')}</li></ul>`,
+ `<h3>${K('🔄 The Money Cycle','🔄 돈의 순환')}</h3><div class="eq"><span class="t in">SELL</span>→<span class="t keep">PROFIT</span>→<span class="t pu">INVEST</span>→<span class="t in">GROW</span></div><p>${K('Business makes profit. Investing makes profit grow. That is how business owners build wealth over time.','사업은 이익을 만들고, 투자는 이익을 키워요. 사업가는 이렇게 시간이 지나며 부를 쌓아요.')}</p>`,
+ `<h3>${K('💬 Grammar link: If + will (again!)','💬 문법 연결: If + will (또!)')}</h3><ul><li><b>If</b> I invest 12,000 won, it <b>will grow</b> to ${t[0]} won in 1 year.</li><li><b>If</b> I wait 30 years, I <b>will have</b> ${fmt(g(12000,30))} won.</li></ul><p>${K('Partner talk: "If I invest ___ won at age ___, I will have ___ won at age ___."','짝과 말하기: "If I invest ___ won at age ___, I will have ___ won at age ___."')}</p>`];
+ return `<span class="timebadge">⏱ 10 min · Model (I do) then YOUR TURN · use ← → keys</span>`+Slides(sl);}};
+
+P[2].prac={h:()=>`<span class="timebadge">⏱ 8 min · Guided practice (We do)</span>
+<div class="cols"><div class="pop y"><h3>${K('🧮 Build the Growth Table','🧮 성장표 만들기')}</h3><p class="hint" style="margin-bottom:10px">${K('Start 10,000 won. Multiply by 1.1 each year. Round to the nearest won. Use a calculator.','10,000원으로 시작. 해마다 1.1을 곱해요. 가장 가까운 원으로 반올림. 계산기를 써요.')}</p>
+<table class="table" id="gt"><tr><th>${K('Year','연도')}</th><th>${K('Math','계산')}</th><th>${K('Money','돈')}</th><th></th></tr><tr><td>0</td><td>start</td><td class="n">10,000</td><td></td></tr>${[1,2,3,4,5].map(i=>`<tr><td>${i}</td><td>${i===1?'10,000':'last year'} × 1.1</td><td><input type="number" id="g${i}" style="width:150px"></td><td id="m${i}"></td></tr>`).join('')}</table>
+<div class="row"><button class="btn" id="gck">${K('Check my table','표 확인')}</button><button class="btn g" id="gsh">${K('Show answers','정답 보기')}</button></div><div class="fb" id="gfb"></div></div>
+<div class="pop"><h3>${K('✏️ Quick questions','✏️ 빠른 문제')}</h3>${Q(1,'You invest <b>50,000</b> at 10%. After 1 year?',Math.round(g(50000,1)),{tol:2,hint:'50,000 × 1.1'})}${Q(2,'You invest <b>20,000</b>. After 2 years?',Math.round(g(20000,2)),{tol:3,hint:'20,000 × 1.1 × 1.1'})}${Q(3,'10,000 grew to 13,310 in 3 years. <b>Extra money earned?</b>',3310,{hint:'13,310 − 10,000'})}</div></div>
+<div class="pop"><h3>${K('🔭 Growth Explorer: watch your money grow!','🔭 성장 탐험기: 내 돈이 자라는 모습을 보세요!')}</h3><div class="xp"><div>
+<label class="l">${K('Money I invest now (won)','지금 투자하는 돈 (원)')}</label><input type="number" id="xa" class="wide" value="50000" min="0" step="1000">
+<label class="l">${K('Add each year (won)','해마다 더하는 돈 (원)')}</label><input type="number" id="xc" class="wide" value="0" min="0" step="1000">
+<div class="row" style="margin-top:6px"><button class="btn g qa" data-v="0">0</button><button class="btn g qa" data-v="5000">5,000</button><button class="btn g qa" data-v="10000">10,000</button><button class="btn g qa" data-v="50000">50,000</button></div>
+<label class="l">${K('Years','햇수')}: <b id="xn_l">20</b></label><input type="range" id="xn" min="1" max="40" value="20">
+<label class="l">${K('My age now','지금 나이')}</label><input type="number" id="xg" class="wide" value="10" min="5" max="30">
+<label class="l" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="xs" checked style="width:24px;height:24px"> ${K('Stop adding at 3 : 1','3 : 1에서 더하기 멈춤')}</label>
+<label class="l" style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="xf" checked style="width:24px;height:24px"> ${K('Fixed scale (see it grow and shrink)','눈금 고정 (커지고 작아지는 모습 보기)')}</label>
+<div class="row" style="margin-top:10px"><button class="btn y" id="xpl">▶ ${K('Play','재생')}</button><button class="btn g" id="xpin">📌 ${K('Pin','고정')}</button><button class="btn g" id="xclr">✖ ${K('Clear pin','고정 해제')}</button></div></div>
+<div><div class="big" id="xbig">0</div><svg class="chart" id="xch" viewBox="0 0 800 390"></svg>
+<div class="lg"><span><i style="background:#34b6ff"></i>${K('money I put in','내가 넣은 돈')}</span><span><i style="background:#1fd6a0"></i>${K('growth','불어난 돈')}</span><span><i style="background:#fff;border-color:#e23b4e"></i>3 : 1</span></div><div class="lg" id="xlg"></div>
+<div class="stats" id="xst"></div><div class="note" id="xm"></div><div class="sm" id="xcmp"></div></div></div></div>`,
+ i:root=>{const gA=[];let v=10000;for(let i=1;i<=5;i++){v*=1.1;gA.push(Math.round(v));}
+  $('#gck',root).onclick=()=>{let ok=0;for(let i=1;i<=5;i++){const x=parseFloat($('#g'+i,root).value),m=$('#m'+i,root);if(!isNaN(x)&&Math.abs(x-gA[i-1])<=2){ok++;m.textContent='✅';}else m.textContent='❌';}
+    $('#gfb',root).textContent=ok===5?L('🎉 Perfect! 10,000 became ','🎉 완벽! 10,000원이 ')+fmt(gA[4])+L(' won.','원이 됐어요.'):ok+L(' of 5 correct. Fix the ❌ rows.','/5 정답. ❌ 줄을 고쳐 보세요.');$('#gfb',root).className='fb '+(ok===5?'ok':'bad');if(ok===5&&!root.dataset.gt){root.dataset.gt=1;earn(300,$('#gck',root));}};
+  $('#gsh',root).onclick=()=>{for(let i=1;i<=5;i++)$('#g'+i,root).value=gA[i-1];$('#gck',root).click();};
+  initExplorer(root);}};
+
+function gen2(p,f){const R=[],A=()=>f.p([10000,20000,30000,40000,50000,60000,70000,80000,90000,100000]),B=()=>f.p([10000,20000,30000,40000,50000]);
+  const W=(t,a,h,tol)=>R.push({t,a,h,tol:tol===undefined?2:tol});
+  if(p===0){let a=A();W(`You invest <b>${fmt(a)} won</b> at 10% a year. How much after <b>1 year</b>?`,a*1.1,`${fmt(a)} × 1.1`);
+   a=A();W(`You invest <b>${fmt(a)} won</b> at 10% a year. How much <b>extra</b> do you earn in <b>1 year</b>?`,a*.1,`10% of ${fmt(a)}, or ${fmt(a)} × 1.1 − ${fmt(a)}`);
+   a=B();W(`You invest <b>${fmt(a)} won</b> at 10% a year. How much after <b>2 years</b>?`,a*1.21,`${fmt(a)} × 1.1 × 1.1`);
+   a=B();W(`You invest <b>${fmt(a)} won</b> at 10% a year. How much after <b>3 years</b>?`,a*1.331,'Multiply by 1.1 three times.');
+   a=B();W(`You invest <b>${fmt(a)} won</b> for <b>2 years</b> at 10%. How much <b>extra money</b> did you earn?`,a*1.21-a,'final money − starting money');
+   a=B();W(`Your money was <b>${fmt(a*1.21)}</b> after year 2. How much <b>interest</b> will it earn in year 3?`,a*1.21*.1,'10% of the year-2 money');
+   a=B();W(`You invest <b>${fmt(a)} won</b> at 10% a year. How much after <b>4 years</b>?`,a*1.4641,'Multiply by 1.1 four times.');
+   a=B();W(`You invest <b>${fmt(a)} won</b> for <b>3 years</b> at 10%. How much <b>extra money</b> did you earn?`,a*1.331-a,'final money − starting money');}
+  else{let a=A();W(`You invest <b>${fmt(a)} won</b> at 10% a year. How much after <b>5 years</b>? (calculator)`,a*1.61051,'Multiply by 1.1 five times.',3);
+   a=f.p([10000,20000,30000]);W(`Friend A invests <b>${fmt(2*a)}</b>. Friend B invests <b>${fmt(a)}</b>. Both wait <b>3 years</b>. How much <b>MORE</b> does Friend A have?`,a*1.331,'A has double the money, so A has double the growth. Find B first.',3);
+   let c=f.p([5000,10000,20000]);a=f.p([10000,20000,30000]);W(`You have <b>${fmt(a)}</b>. It grows 10%. Then you add <b>${fmt(c)}</b>. How much after <b>1 year</b>?`,a*1.1+c,'start × 1.1, then + the added money');
+   a=f.p([10000,20000]);c=f.p([10000,5000]);W(`You have <b>${fmt(a)}</b>. Each year it grows 10%, then you add <b>${fmt(c)}</b>. How much after <b>2 years</b>?`,(a*1.1+c)*1.1+c,'Do one year, then do it again.');
+   W(`You add <b>10,000</b> at the END of each year (start with 0). The money grows 10% every year. How much after <b>3 years</b>?`,33100,'Year 1: 10,000. Year 2: 10,000 × 1.1 + 10,000. Year 3: do it again.');
+   W(`In the last problem you put in 30,000 total. How much was <b>growth</b> (free money)?`,3100,'33,100 − 30,000');
+   a=B();W(`You invest <b>${fmt(a)} won</b> for <b>4 years</b> at 10%. How much <b>extra money</b> did you earn?`,a*1.4641-a,'final money − starting money');
+   a=f.p([10000,20000]);c=f.p([10000,5000]);W(`You have <b>${fmt(a)}</b>. Each year it grows 10%, then you add <b>${fmt(c)}</b>. How much after <b>3 years</b>?`,((a*1.1+c)*1.1+c)*1.1+c,'Repeat: × 1.1, then add. Three times.',3);}
+  return R;}
+
+P[2].more={h:()=>`<span class="timebadge">⏱ 5 min · Independent practice (You do)</span><div id="pl2"></div>`,
+ i:root=>PList($('#pl2',root),gen2,{title:K('📈 Growth Practice','📈 성장 연습'),tip:K('Leave this on the TV. Use a calculator. Answers within a few won are accepted. Page 2 adds a yearly deposit.','TV에 띄워 두세요. 계산기를 써요. 몇 원 차이는 정답으로 인정돼요. 2페이지에는 매년 넣는 돈이 나와요.')})};
+
+P[2].pers={h:()=>`<span class="timebadge">⏱ 5 min · Make it yours</span>
+<div class="pop v"><h3>🧩 My Profit Plan</h3><p>Split your profit into 4 buckets. The total must be 100%.</p><div class="cols"><div>
+<label class="l">My profit (won)</label><input type="number" id="pf" class="wide" data-k="L2pf" value="12000">
+<label class="l">My age now</label><input type="number" id="pa" class="wide" data-k="L2pa" value="10">
+<label class="l">🛍️ Spend %</label><input type="number" id="b1" class="wide bk" data-k="L2b1" value="25">
+<label class="l">🐷 Save %</label><input type="number" id="b2" class="wide bk" data-k="L2b2" value="25">
+<label class="l">🔁 Reinvest in my business %</label><input type="number" id="b3" class="wide bk" data-k="L2b3" value="25">
+<label class="l">📈 Invest %</label><input type="number" id="b4" class="wide bk" data-k="L2b4" value="25"></div>
+<div><div class="pop y" id="po"></div></div></div></div>`,
+ i:root=>{const f=()=>{const pf=+$('#pf',root).value||0,age=+$('#pa',root).value||10,b=[1,2,3,4].map(i=>+$('#b'+i,root).value||0),t=b.reduce((a,c)=>a+c,0),nm=['🛍️ Spend','🐷 Save','🔁 Reinvest','📈 Invest'];
+  $('#po',root).innerHTML=`<h4>${t===100?'✅ Total 100%':'⚠️ Total '+t+'% (needs 100%)'}</h4><table class="table">${b.map((x,i)=>`<tr><td>${nm[i]}</td><td class="n">${x}%</td><td class="n">${fmt(pf*x/100)} won</td></tr>`).join('')}</table>
+  <p>My invest bucket: <b>${fmt(pf*b[3]/100)} won</b> at age ${age} will be <b>${fmt(g(pf*b[3]/100,40))} won</b> at age ${age+40}.</p><div class="note">🗣️ "If I invest ${fmt(pf*b[3]/100)} won, I will have ${fmt(g(pf*b[3]/100,40))} won when I am ${age+40}."</div>`;};
+  $$('input',root).forEach(x=>x.addEventListener('input',f));f();}};
+
+P[2].proj={h:()=>`<span class="timebadge">⏱ 5 min in class · then BRING IN tomorrow</span>
+<div class="banner" style="background:var(--pink)">🎒 YOUR MISSION: What will YOU sell?</div>
+<div class="pop y"><h3>Bring your idea to class tomorrow:</h3><ul style="margin-left:26px;font-size:24px"><li>A product or a service</li><li>The <b>price</b> you will charge</li><li>What it <b>costs</b> you to make or do it</li></ul><p class="hint">Show it on paper, on this card (print it), or drawn. Ask a parent before you buy anything.</p></div>
+<div class="cols"><div class="pop"><h3>💡 Idea starters (click one)</h3><div class="pathgrid" id="ig">${ADIDEAS.map((a,i)=>`<button class="btn g ib" data-i="${i}" style="font-size:19px">${a[0]} ${a[1]}</button>`).join('')}<button class="btn y ib" data-i="-1" style="font-size:19px">✏️ ${K('Your idea...','내 아이디어...')}</button></div><div class="note">Pick something you can really do in your apartment complex. Safe, legal, and parent-approved.</div></div>
+<div class="pop m"><h3>🧾 ${K('My Product Card','나의 상품 카드')}</h3><label class="l">${K('My name','내 이름')}</label><input type="text" id="cn" class="wide" data-k="L2cn"><label class="l">${K('I will sell','내가 팔 것')}</label><input type="text" id="ci" class="wide" data-k="L2ci">
+<label class="l">${K('Pick an emoji','이모지 고르기')}</label><div class="row">${['🍪','🧁','🎀','👕','🧴','🥤','🐕','🌱','🚗','📚','🎨','🧹','⭐','💌'].map(e=>`<button class="btn g em" data-e="${e}" style="font-size:26px;padding:2px 10px">${e}</button>`).join('')}</div><input type="hidden" id="ce" data-k="L2ce" value="💡">
+<div class="row"><div style="flex:1"><label class="l">${K('Type','종류')}</label><select id="ct" class="wide" data-k="L2ct"><option>product</option><option>service</option></select></div><div style="flex:1"><label class="l">${K('I sell for (won)','판매 가격 (원)')}</label><input type="number" id="cp" class="wide" data-k="L2cp"></div></div>
+<div class="row"><div style="flex:1"><label class="l">${K('It costs me (won each)','개당 원가 (원)')}</label><input type="number" id="cc" class="wide" data-k="L2cc"></div><div style="flex:1"><label class="l">${K('One-time startup cost (won)','시작 비용, 한 번만 (원)')}</label><input type="number" id="cs" class="wide" data-k="L2cs" value="0"></div></div>
+<div id="co" style="margin-top:12px"></div><div class="row" style="margin-top:12px"><button class="btn y" id="cpt">🖨️ ${K('Print my card','카드 인쇄')}</button></div></div></div>
+<div class="pop"><h3>✅ Safety and permission check</h3><div class="checks"><div>☐ A parent said yes.</div><div>☐ It is safe (no dangerous tools or hot things alone).</div><div>☐ It is allowed in my building. (Ask your parent.)</div><div>☐ I know the price and what it costs me.</div></div></div>`,
+ i:root=>{
+  const f=()=>{const it=$('#ci',root).value,p=+$('#cp',root).value,c=+$('#cc',root).value,cs=+$('#cs',root).value||0,em=$('#ce',root).value||'💡',nm=$('#cn',root).value||L('(your name)','(내 이름)');
+   if(!it||!p){$('#co',root).innerHTML='<p class="hint">'+L('Fill in your idea and price to see your card.','아이디어와 가격을 넣으면 카드가 나와요.')+'</p>';return;}
+   const pi=p-c,be=pi>0?Math.max(1,Math.ceil(cs/pi)):'-',mg=Math.round(pi/p*100),ty=$('#ct',root).value;
+   const ns=[2,4,6,8,10,12,14,16,18,20],vals=ns.map(n=>n*pi-cs),W=760,H=270,Lm=84,Rm=16,T=26,Bm=48,pw=W-Lm-Rm,ph=H-T-Bm,mx=Math.max(...vals,1),mn=Math.min(...vals,0),sp=(mx-mn)||1,y=v=>T+ph-((v-mn)/sp)*ph,bw=pw/ns.length;
+   let svg='';vals.forEach((v,i)=>{const x=Lm+i*bw+bw*.12,w=bw*.76,y0=y(0),y1=y(v);svg+=`<rect x="${x}" y="${Math.min(y0,y1)}" width="${w}" height="${Math.max(2,Math.abs(y0-y1))}" fill="${v>=0?'#1fd6a0':'#ff6b7a'}" stroke="#20124d" stroke-width="3"/><text x="${x+w/2}" y="${H-24}" text-anchor="middle" font-size="18" font-weight="700" fill="#20124d">${ns[i]}</text><text x="${x+w/2}" y="${(v>=0?y1-6:y1+20)}" text-anchor="middle" font-size="15" font-weight="900" fill="#20124d">${sh(v)}</text>`;});
+   svg+=`<line x1="${Lm}" x2="${W-Rm}" y1="${y(0)}" y2="${y(0)}" stroke="#20124d" stroke-width="3"/><text x="${Lm-8}" y="${y(0)+6}" text-anchor="end" font-size="18" font-weight="700">0</text><text x="${Lm+pw/2}" y="${H-3}" text-anchor="middle" font-size="17" font-weight="900" fill="#7b3ff2">${L('How many I sell','판매 개수')}</text>`;
+   $('#co',root).innerHTML=`<div class="pcard"><div class="ph"><span class="pe">${em}</span><div><div class="pt1">${it}</div><div class="pt2">${nm} · ${ty}</div></div><div class="pp">${fmt(p)}<small>${L('won','원')}</small></div></div><div class="pb">
+   <div class="stats"><div class="stat"><div class="v">💸 ${fmt(c)}</div><div class="k">${K('cost each','개당 원가')}</div></div><div class="stat"><div class="v" style="color:${pi>=0?'var(--good)':'var(--bad)'}">🏆 ${fmt(pi)}</div><div class="k">${K('profit per sale','판매당 이익')}</div></div><div class="stat"><div class="v">📊 ${mg}%</div><div class="k">${K('profit margin','이익률')}</div></div><div class="stat"><div class="v">⚖️ ${be}</div><div class="k">${K('sales to break even','손익분기 판매 수')}</div></div></div>
+   ${revBar(10*p,10*c+cs,'📦 '+L('If I sell 10','10개 팔면'),false)}
+   <div class="rbl" style="font-weight:900;font-size:20px;margin:10px 0 2px">📈 ${K('Profit if I sell...','이만큼 팔면 이익은...')}</div><svg class="chart" viewBox="0 0 ${W} ${H}">${svg}</svg>
+   <div class="note">🗣️ "I will sell ${it} for ${fmt(p)} won. If I sell 5, my profit will be ${fmt(5*pi-cs)} won."</div><div class="pdraw">✏️ ${K('Draw your product here','여기에 상품을 그려요')}</div></div></div>`;};
+  $$('.ib',root).forEach(b=>b.onclick=()=>{if(+b.dataset.i<0){['ci','cp','cc'].forEach(id=>{$('#'+id,root).value='';S['L2'+id]='';});$('#ci',root).focus();f();return;}const a=ADIDEAS[+b.dataset.i];$('#ci',root).value=a[1];$('#ct',root).value=a[2];$('#cp',root).value=a[3];$('#cc',root).value=a[4];$('#ce',root).value=a[0];['ci','ct','cp','cc','ce'].forEach(id=>$('#'+id,root).dispatchEvent(new Event('input')));f();});
+  $$('.em',root).forEach(b=>b.onclick=()=>{$('#ce',root).value=b.dataset.e;$('#ce',root).dispatchEvent(new Event('input'));f();});
+  $$('input,select',root).forEach(x=>x.addEventListener('input',f));
+  $('#cpt',root).onclick=()=>{const c=$('.pcard',root);if(c)printEl(c);};f();}};
+
+P[2].plan={h:()=>plan({title:'Period 2: Invest',bq:'How does money make more money?',fw:'SIOP, Rosenshine, Science of Learning (spaced retrieval of Period 1 profit math, worked examples, interleaving of repeated multiplication with real contexts).',
+ co:['Explain invest, rate and compound growth in simple words.','Calculate growth by repeated multiplication by 1.1 with a calculator.','Compare starting early and starting late using the growth explorer.','Choose a product or service idea and state its price and cost.'],
+ lo:['Use invest, rate, compound, grow in spoken sentences.','Say: "If I invest 12,000 won, it will grow to 13,200 won in 1 year."'],
+ gl:'First conditional again. "If I wait 30 years, I will have ..." The same frame is used in the Period 4 pitch.',
+ vocab:['invest','rate','interest / return','compound','principal','grow','simple vs compound'],mat:['TV with this hub','Calculators (1 per pair)','Mini whiteboards','Product Card (print) or notebook paper'],
+ time:[['0 to 5','Admin','Attendance, Dojo'],['5 to 10','Warm Up','Retrieval of profit math, vote "How do rich people get rich?", doubling hook'],['10 to 20','Presentation','Glue profit invested at 10%, ×1.1 rule, compound table, time is the secret'],['20 to 28','Practice','Fill the growth table, 3 quick Qs, Growth Explorer (Play, change amount, years, yearly add, pin a comparison)'],['28 to 33','More Practice','Page 1 of the problem list on the TV, students on paper. Page 2 adds a yearly deposit'],['33 to 38','Personalize','My Profit Plan: 4 buckets'],['38 to 40','Exit Ticket','Whiteboard or printed ticket. Announce the bring-in task.']],
+ fa:['After the ×1.1 slide, whiteboard: "10,000 × 1.1 = ?" Scan for 11,000.','Ask: "Why is year 2 interest bigger than year 1?" Listen for "interest on interest".','During the table: watch for students multiplying by 0.1 only. Re-teach: 100% + 10% = 110%.','Prediction check at the explorer: "Which gets bigger, age 10 start or age 20 start? Show fingers: 10 or 20."','Parent-talk check: "Who can help you open a real account?" (a parent or guardian).'],
+ sup:['Calculator and the ×1.1 strip on the desk.','Use 10,000 won and only 3 years.','Partner does half the table.'],chal:['Pin a 50,000 start with no yearly add, then add 10,000 a year and compare to the pinned dashed line.','How many years until 10,000 doubles? (about 7)','Create a profit plan that gets the biggest result at age 50.'],
+ exit:'You invest 20,000 won at 10% a year. (1) After 1 year: 20,000 × 1.1 = ______ won. (2) Friend A starts at age 10. Friend B starts at age 20. Who has more at age 50? ______ Why? ______',exitWB:'write (1) and the person who has more.',key:'22,000 · Friend A · more time to grow'})};
+
+/* ---------- LESSON 3 ---------- */
+P[3].warm={h:()=>`<span class="timebadge">⏱ 5 min · Bring-in check + Retrieval</span>
+<div class="banner" style="background:var(--pink)">🎒 Show me your idea! Partner share: 2 minutes.</div>
+<div class="cols"><div class="pop m"><h3>🗣️ Say it to a partner</h3><div class="note" style="margin:0 0 10px;font-size:23px">"My idea is ______. I will sell it for ______ won. It costs me ______ won. If I sell 5, my profit will be ______ won."</div><p class="hint">Partner listens and says: "Great idea!" or "Can you make the price lower?"</p></div>
+<div class="pop y"><h3>⚡ Adjective or superlative?</h3>${MC(1,'"fresh"',['adjective','superlative'],0,'fresh describes a noun.')}${MC(2,'"the cheapest"',['adjective','superlative'],1,'The most or least of all: -est.')}${MC(3,'"the most creative"',['adjective','superlative'],1,'most + long adjective = superlative.')}${MC(4,'"delicious"',['adjective','superlative'],0,'delicious is a plain adjective.')}</div></div>
+<div class="pop"><h3>🔁 Quick memory check</h3>${Q(1,'Profit = revenue − expenses. Revenue 8,000, expenses 2,000. <b>Profit?</b>',6000)}${Q(2,'12,000 × 1.1 = ? (round to nearest won)',Math.round(g(12000,1)),{tol:1})}</div>`};
+
+P[3].pres={h:()=>{
+ const sl=[
+ `<h3>🤔 Big Question</h3><p class="big">What makes you say "I WANT that!"?</p><p>Think of an ad you remember. What words or pictures made you want it?</p>`,
+ `<h3>🧰 The 6 Persuasion Tools (1/2)</h3><div class="three"><div class="c" style="background:#dff3ff"><span class="em">❓</span><b>Questions</b>"Is your dog tired?"</div><div class="c" style="background:#ffe0f0"><span class="em">🎨</span><b>Adjectives</b>fresh, shiny, amazing</div><div class="c" style="background:#fff3b0"><span class="em">🏆</span><b>Superlatives</b>the best, the cheapest</div></div>`,
+ `<h3>🧰 The 6 Persuasion Tools (2/2)</h3><div class="three"><div class="c" style="background:#d9fff1"><span class="em">📊</span><b>Facts</b>"30-minute walks."</div><div class="c" style="background:#ece3ff"><span class="em">💬</span><b>Opinions</b>"Everybody loves cookies!"</div><div class="c" style="background:#ffd9d9"><span class="em">❗</span><b>Exclamation marks</b>"Order NOW!"</div></div><p>Your ad needs <b>all 6</b>.</p>`,
+ `<h3>🔎 Find the tools in this ad</h3><div style="border:4px solid var(--ink);border-radius:16px;padding:16px;font-size:26px;background:#fffbe0"><span style="background:#bfe6ff">Tired dog?</span> <span style="background:#ffc2e0">I am the <b>best</b> dog walker in Building 3.</span> <span style="background:#fff3b0">Safe and <b>happy</b> walks.</span> <span style="background:#bff3dc">30 minutes, Monday to Saturday.</span> <span style="background:#e2d6ff">Everybody loves a happy dog.</span> <span style="background:#ffc8c8">Message me TODAY!</span></div><p class="hint" style="margin-top:10px">Blue = question · pink = superlative · yellow = adjective · green = fact · purple = opinion · red = exclamation</p>`,
+ `<h3>📐 6 Key Elements of a Good Ad</h3><ul><li><b>1 Headline</b>: BIGGEST text. Short and catchy.</li><li><b>2 Hook</b>: a question or bold statement.</li><li><b>3 Offer</b>: what, when, where (2 to 3 short sentences).</li><li><b>4 Price</b>: big and easy to see.</li><li><b>5 Contact</b>: KakaoTalk ID or unit number.</li><li><b>6 Call to action</b>: one short command.</li></ul>`,
+ `<h3>⚖️ Good Ad vs Bad Ad</h3><div class="cols"><div style="background:#ffe3e6;border:4px solid var(--bad);border-radius:16px;padding:16px;font-size:23px"><b>❌ Bad</b><br>Too much text<br>No price<br>Tiny headline<br>No contact<br>No call to action</div><div style="background:#d7f9e8;border:4px solid var(--good);border-radius:16px;padding:16px;font-size:23px"><b>✅ Good</b><br>Big headline<br>Price easy to find<br>Only key information<br>Contact at the bottom<br>One clear action</div></div>`,
+ `<h3>✏️ Pencil-Only Design Rules</h3><div class="three"><div class="c" style="background:#fff3b0"><span class="em">📏</span>Fill the A4 page</div><div class="c" style="background:#dff3ff"><span class="em">⬜</span>Leave white space</div><div class="c" style="background:#ffe0f0"><span class="em">🖍️</span>Draw one simple picture</div></div><p>Under <b>50 words</b> total. Headline = biggest. Price = easy to spot.</p>`,
+ `<h3>💬 Grammar link: the language of ads</h3><ul><li><b>Questions:</b> "Is your car dirty?"</li><li><b>Superlatives:</b> the cheap<b>est</b>, the <b>most</b> creative</li><li><b>Commands:</b> "Message me today!"</li><li><b>Future:</b> "I <b>will</b> wash your car."</li></ul>`];
+ return `<span class="timebadge">⏱ 10 min · Model (I do) · use ← → keys</span>`+Slides(sl);}};
+
+P[3].prac={h:()=>`<span class="timebadge">⏱ 8 min · Guided practice (We do)</span>
+<div class="pop y"><h3>🔎 Tool Spotter: which persuasion tool is it?</h3><div id="ts"></div><div class="row"><button class="btn" id="tck">Check ✔</button></div><div class="fb" id="tfb"></div></div>
+<div class="pop m"><h3>📝 Say it out loud (pairs)</h3><p>Use ONE tool at a time about your own product:</p><ul style="margin-left:26px;font-size:22px"><li>Question: "Do you want ______?"</li><li>Superlative: "I am the ______est ______ in ______."</li><li>Fact: "I ______ for ______ minutes."</li></ul></div>`,
+ i:root=>{const L=[['Is your car dirty?',0],['I will make it shiny and sparkling.',1],['I am the best car washer in Building 3.',2],['I wash every car in 20 minutes.',3],['Everybody loves a clean car.',4],['Book your Saturday spot NOW!',5]];const T=['Question','Adjectives','Superlative','Fact','Opinion','Exclamation'];
+  $('#ts',root).innerHTML=L.map((l,i)=>`<div class="selrow"><div style="font-size:23px"><b>${i+1}.</b> "${l[0]}"</div><select class="ts" data-a="${l[1]}"><option value="">Choose...</option>${T.map((t,j)=>`<option value="${j}">${t}</option>`).join('')}</select></div>`).join('');
+  $('#tck',root).onclick=()=>{let ok=0;$$('.ts',root).forEach(s=>{const c=s.value===s.dataset.a;s.className='ts '+(c?'ok':'bad');s.style.background=c?'#a6f2cf':'#ffc2c9';if(c)ok++;});$('#tfb',root).textContent=ok===6?'🎉 All 6 correct!':ok+' of 6 correct. Fix the red ones.';$('#tfb',root).className='fb '+(ok===6?'ok':'bad');if(ok===6&&!root.dataset.d){root.dataset.d=1;earn(300,$('#tck',root));}};}};
+
+P[3].more={h:()=>`<span class="timebadge">⏱ 5 min · Independent practice (You do)</span><div class="pop"><h3>🩺 Ad Doctor: fix the ad!</h3>
+${MC(1,'Which <b>headline</b> is stronger?',['Dog walking service available','Tired dog? I can help!','A person who walks dogs'],1,'Short, a question, and exciting.')}
+${MC(2,'Where should the <b>price</b> go?',['Tiny at the bottom','Big and easy to see','Hidden in a paragraph'],1,'Customers must see the price fast.')}
+${MC(3,'Best <b>call to action</b>?',['Maybe contact me if you want','Message me today!','Contact is possible'],1,'One short command with urgency.')}
+${MC(4,'Which is a <b>fact</b>?',['My cookies are the yummiest.','I bake 20 cookies every Saturday.','Everyone loves cookies.'],1,'A fact can be checked. The others are opinions or superlatives.')}
+${MC(5,'This is ____ shirt in the building.',['the cheaper','the cheapest','the most cheap'],1,'Short adjective + -est: the cheapest.')}
+${MC(6,'Which layout is best?',['Crowded text everywhere','Big headline, price, contact, white space','Tiny text in the corner'],1,'Good ads are clean and easy to read in 2 seconds.')}</div>`};
+
+P[3].pers={h:()=>`<span class="timebadge">⏱ 5 min · Make it yours</span>
+<div class="maker"><div class="pop"><h3>🛠️ Ad Maker</h3>
+<label class="l">1 Headline (BIG)</label><input type="text" id="ah" class="wide" data-k="L3ah" placeholder="Tired dog? I can help!">
+<label class="l">2 Hook line</label><input type="text" id="ak" class="wide" data-k="L3ak" placeholder="Your dog deserves a walk every day.">
+<label class="l">3 What I offer</label><input type="text" id="ao" class="wide" data-k="L3ao" placeholder="30-minute walks. Monday to Saturday.">
+<label class="l">4 Price</label><input type="text" id="ap" class="wide" data-k="L3ap" placeholder="5,000 won per walk">
+<label class="l">5 Contact</label><input type="text" id="ac" class="wide" data-k="L3ac" placeholder="KakaoTalk: minjun804 · Unit 804">
+<label class="l">6 Call to action</label><input type="text" id="aa" class="wide" data-k="L3aa" placeholder="Message me today!">
+<label class="l">Picture idea</label><input type="text" id="ar" class="wide" data-k="L3ar" placeholder="a happy dog">
+<div class="row" style="margin-top:12px"><label><input type="checkbox" id="acol"> color preview</label></div></div>
+<div><div class="paper" id="paper"></div><div class="wc" id="wc" style="margin-top:12px"></div><div class="checks" id="ack"></div><div class="row" style="margin-top:10px"><button class="btn y" id="apr">🖨️ Print A4 preview</button></div></div></div>`,
+ i:root=>{const f=()=>{const v=id=>$(id,root).value.trim(),[h,k,o,p,c,a,r]=['#ah','#ak','#ao','#ap','#ac','#aa','#ar'].map(v);
+  const paper=$('#paper',root);paper.className='paper'+($('#acol',root).checked?' color':'');
+  paper.innerHTML=`<div class="hl">${h||'Your headline'}</div><div class="hk">${k||'Your hook line'}</div><div class="of">${o||'What you offer'}</div><div class="pic">${r?'✏️ Draw: '+r:'✏️ Draw a simple picture'}</div><div class="pr">${p||'Price'}</div><div class="ct">${c||'Contact'}</div><div class="cta">${a||'Call to action!'}</div>`;
+  const wc=[h,k,o,p,c,a].join(' ').split(/\s+/).filter(Boolean).length;$('#wc',root).textContent=wc+' / 50 words';$('#wc',root).className='wc'+(wc>50?' over':'');
+  const all=[h,k,o].join(' ');const ck=[['Headline',!!h],['Hook',!!k],['Offer',!!o],['Price',!!p],['Contact',!!c],['Call to action',!!a],['Under 50 words',wc>0&&wc<=50],['A question (?)',/\?/.test(all)],['An exclamation (!)',/!/.test([h,k,o,a].join(' '))],['A superlative (est / most / best)',/(est\b|\bmost\b|\bbest\b)/i.test(all)]];
+  $('#ack',root).innerHTML=ck.map(x=>`<div class="${x[1]?'yes':'no'}">${x[1]?'✅':'⬜'} ${x[0]}</div>`).join('');};
+  $$('input',root).forEach(x=>x.addEventListener('input',f));$('#acol',root).onchange=f;
+  $('#apr',root).onclick=()=>printEl($('#paper',root));f();}};
+
+P[3].proj={h:()=>`<span class="timebadge">⏱ Finish in class · Pencil only</span>
+<div class="banner" style="background:var(--pink)">✏️ Your A4 pencil advert</div>
+<div class="cols"><div class="pop y"><h3>Layout guide</h3><svg class="chart" viewBox="0 0 300 420" style="max-width:300px;margin:auto"><rect x="5" y="5" width="290" height="410" fill="#fff" stroke="#20124d" stroke-width="4"/><rect x="20" y="20" width="260" height="60" fill="#ffd426" stroke="#20124d" stroke-width="3"/><text x="150" y="58" text-anchor="middle" font-size="24" font-weight="900" fill="#20124d">1 HEADLINE</text><rect x="20" y="90" width="260" height="32" fill="#dff3ff" stroke="#20124d" stroke-width="3"/><text x="150" y="112" text-anchor="middle" font-size="16" font-weight="800" fill="#20124d">2 HOOK</text><rect x="20" y="132" width="260" height="48" fill="#d9fff1" stroke="#20124d" stroke-width="3"/><text x="150" y="162" text-anchor="middle" font-size="16" font-weight="800" fill="#20124d">3 WHAT I OFFER</text><rect x="20" y="190" width="260" height="110" fill="#fff" stroke="#20124d" stroke-width="3" stroke-dasharray="8 6"/><text x="150" y="252" text-anchor="middle" font-size="18" font-weight="800" fill="#20124d">✏️ PICTURE</text><rect x="20" y="310" width="260" height="38" fill="#ff8f9c" stroke="#20124d" stroke-width="3"/><text x="150" y="336" text-anchor="middle" font-size="20" font-weight="900" fill="#20124d">4 PRICE (BIG)</text><rect x="20" y="358" width="170" height="40" fill="#ece3ff" stroke="#20124d" stroke-width="3"/><text x="105" y="384" text-anchor="middle" font-size="15" font-weight="800" fill="#20124d">5 CONTACT</text><rect x="196" y="358" width="84" height="40" fill="#ffd9e8" stroke="#20124d" stroke-width="3"/><text x="238" y="384" text-anchor="middle" font-size="13" font-weight="800" fill="#20124d">6 ACTION</text></svg></div>
+<div class="pop"><h3>✅ Final checklist</h3><div class="checks"><div>☐ Big, catchy headline</div><div>☐ Hook line</div><div>☐ What I offer (1 to 2 sentences)</div><div>☐ Price, clearly shown</div><div>☐ KakaoTalk ID or unit</div><div>☐ Call to action</div><div>☐ A simple picture</div><div>☐ Under 50 words</div><div>☐ At least 3 persuasion tools</div><div>☐ Pencil only</div></div>
+<div class="note">✏️ On the BACK: Where will you post it? How many copies will you print?</div></div></div>
+<div class="pop m"><h3>🌟🌟 Peer feedback: 2 stars and 1 wish</h3><p style="font-size:22px">⭐ "I like your ______."<br>⭐ "Your ______ is strong."<br>🌠 "I wish you would ______."</p></div>`};
+
+P[3].plan={h:()=>plan({title:'Period 3: Make the Advert',bq:'What makes people say "I want that!"?',fw:'SIOP, Rosenshine, CEFR Companion Volume (production and interaction descriptors for short persuasive texts).',
+ co:['Identify the 6 persuasion tools in a short advertisement.','Plan and write a pencil-only A4 advertisement with headline, hook, offer, price, contact and call to action in under 50 words.'],
+ lo:['Use questions, adjectives, superlatives, facts, opinions and exclamations in writing.','Describe the product with the future simple: "I will walk your dog."'],
+ gl:'Superlatives (the cheapest, the most creative), imperatives ("Message me today!"), and the future simple connect directly to Periods 1, 2 and 4.',
+ vocab:['advertisement','headline','hook','price','contact','call to action','superlative','persuade'],mat:['TV with this hub','A4 paper and pencils (no color)','Erasers and rulers','Students\' Product Cards from Period 2'],
+ time:[['0 to 5','Admin','Attendance, Dojo'],['5 to 10','Warm Up','Partner share of the bring-in idea, adjective vs superlative, quick math retrieval'],['10 to 20','Presentation','6 tools, 6 elements, good vs bad, pencil rules'],['20 to 28','Practice','Tool Spotter, say it out loud in pairs'],['28 to 33','More Practice','Ad Doctor (whole class by hands or whiteboards)'],['33 to 38','Personalize','Ad Maker: plan the headline and price, then begin the A4 on paper'],['38 to 40','Exit Ticket','Headline and 2 tools on whiteboard or ticket']],
+ fa:['During partner share, listen for price and cost in the same sentence.','Ask "Which tool is this?" for 3 sample lines on whiteboards.','Check the word count before students draw: no more than 50.','Walk during the A4 build with the checklist. Do not fix, only point to the missing element.','Peer 2 stars and 1 wish at the end.'],
+ sup:['Give the six frames from the Ad Maker as a worksheet.','Allow 40 words instead of 50 if needed.','Offer a word bank of 6 adjectives.'],chal:['Use all 6 tools and mark them in the margin.','Write an ad in 30 words or fewer.','Add a second ad for a different customer group.'],
+ exit:'My product or service: ______ My headline: ______ Circle the persuasion tools I used: question · adjective · superlative · fact · opinion · exclamation. Finish: "My ______ is the ______ in our building."',exitWB:'write the headline and circle 2 tools.',key:'Open response. Look for a headline in 6 words or fewer, a price in the ad, and at least 2 correctly identified tools.'})};
+
+/* ---------- LESSON 4 ---------- */
+P[4].warm={h:()=>`<span class="timebadge">⏱ 5 min · Retrieval + Hook</span>
+<div class="banner" style="background:var(--sky);color:var(--ink)">🎤 Your parents are the INVESTORS. How do you say money?</div>
+<div class="cols"><div class="pop y"><h3>🗣️ Say the number!</h3><p class="hint">Say it, then press Reveal. Press 🔊 to hear it.</p><div style="font-size:56px;font-weight:900;text-align:center" id="nn">?</div><div style="font-size:30px;text-align:center;min-height:40px" id="nw"></div><div class="row" style="justify-content:center"><button class="btn m" id="nx">New number</button><button class="btn y" id="nr">Reveal</button><button class="btn g" id="ns">🔊 Hear it</button></div></div>
+<div class="pop m"><h3>🔁 Retrieval: ads and money</h3>${MC(1,'The BIGGEST text on an ad is the...',['hook','headline','price'],1,'Headline = biggest.')}${MC(2,'"Message me today!" is a...',['question','call to action','fact'],1,'A short command that tells the reader what to do.')}${Q(3,'Profit: revenue 24,000, expenses 13,000.',11000)}</div></div>`,
+ i:root=>{let cur=0;const L=[3000,5000,12000,15000,30000,45000,60000,119000,148500,250000];const nx=()=>{cur=pick(L);$('#nn',root).textContent=fmt(cur)+' won';$('#nw',root).textContent='';};$('#nx',root).onclick=nx;$('#nr',root).onclick=()=>{$('#nw',root).textContent=words(cur)+' won';};$('#ns',root).onclick=()=>speak(words(cur)+' won');nx();}};
+
+P[4].pres={h:()=>{
+ const sl=[
+ `<h3>🤔 Big Question</h3><p class="big">Why would a parent say YES?</p><ul><li>Because the plan is <b>clear</b>.</li><li>Because the <b>numbers</b> are real.</li><li>Because the child is <b>responsible</b>.</li></ul>`,
+ `<h3>📋 The 6-Part Pitch</h3><ol style="font-size:25px;margin-left:30px"><li><b>Hook</b>: "Mom, Dad, I have a business idea."</li><li><b>Idea</b>: what you sell</li><li><b>Ask</b>: how much money you need</li><li><b>Numbers</b>: price, customers, profit</li><li><b>Payback and Future</b>: when and how it grows</li><li><b>Close</b>: "Will you invest ___ won?"</li></ol>`,
+ `<h3>💬 Grammar: will and If + will</h3><div class="cols"><div style="background:#dff3ff;border:4px solid var(--ink);border-radius:16px;padding:14px;font-size:23px"><b>I will...</b><br>I will charge 3,000 won.<br>I will pay you back.</div><div style="background:#fff3b0;border:4px solid var(--ink);border-radius:16px;padding:14px;font-size:23px"><b>If I..., I will...</b><br>If I sell 8 bags, I will earn 24,000 won.<br>If you invest, I will pay you back.</div></div>`,
+ `<h3>💪 Weak vs Strong</h3><table class="table"><tr><td>❌ "I want some money."</td><td>✅ "I need exactly 15,000 won: 10,000 for ingredients, 3,000 for bags, 2,000 for flyers."</td></tr><tr><td>❌ "I think I can earn money."</td><td>✅ "If I sell 8 bags, I will earn 24,000 won."</td></tr><tr><td>❌ "Please give me money."</td><td>✅ "Will you invest 15,000 won? I will pay it back in week one."</td></tr></table>`,
+ `<h3>🎯 Use 3 or more persuasive techniques</h3><div class="three"><div class="c" style="background:#fff3b0"><b>Specific numbers</b>"exactly 15,000"</div><div class="c" style="background:#dff3ff"><b>Low-risk</b>"you only risk 15,000"</div><div class="c" style="background:#d9fff1"><b>Future vision</b>"If I invest my profit, it will grow."</div><div class="c" style="background:#ffe0f0"><b>Rhetorical question</b>"Don't you want me to learn about money?"</div><div class="c" style="background:#ece3ff"><b>Proof</b>my budget and graph</div><div class="c" style="background:#ffd9d9"><b>Confidence</b>voice, eyes, posture</div></div>`,
+ `<h3>🎤 Model pitch: Mina's cookies</h3><div style="background:#fffbe0;border:4px solid var(--ink);border-radius:16px;padding:18px;font-size:22px;line-height:1.7"><b>1</b> "Mom, Dad, I have a business idea and a careful plan."<br><b>2</b> "I will sell homemade cookies to neighbors in our building."<br><b>3</b> "I need 15,000 won: 10,000 for ingredients, 3,000 for bags, 2,000 for flyers."<br><b>4</b> "I will charge 3,000 won per bag. If I sell 8 bags a week, I will earn 24,000 won."<br><b>5</b> "I will pay you back in week one. Then I will invest my profit. If I wait 30 years, it will grow a lot."<br><b>6</b> "This is a low-risk investment. Will you invest 15,000 won in my business?"</div><div class="row" style="margin-top:12px"><button class="btn m" id="rd">🔊 Read it aloud</button></div>`,
+ `<h3>🏆 The Mo Rule</h3><p>Moziah "Mo" Bridges started selling handmade bow ties at age 9 and pitched on TV at age 12. His secret: he knew his <b>numbers</b>.</p><p class="big">Know your numbers before you pitch.</p>`,
+ `<h3>🎬 Delivery tips</h3><div class="three"><div class="c" style="background:#dff3ff"><span class="em">👀</span>Eye contact</div><div class="c" style="background:#fff3b0"><span class="em">🔊</span>Clear, strong voice</div><div class="c" style="background:#d9fff1"><span class="em">🧍</span>Stand tall</div><div class="c" style="background:#ffe0f0"><span class="em">🐢</span>Slow down on the numbers</div></div>`];
+ return `<span class="timebadge">⏱ 10 min · Model (I do) · use ← → keys</span>`+Slides(sl);},
+ i:root=>{const b=$('#rd',root);if(b)b.onclick=()=>speak("Mom, Dad, I have a business idea and a careful plan. I will sell homemade cookies to neighbors in our building. I need fifteen thousand won: ten thousand for ingredients, three thousand for bags, two thousand for flyers. I will charge three thousand won per bag. If I sell eight bags a week, I will earn twenty-four thousand won. I will pay you back in week one. Then I will invest my profit. If I wait thirty years, it will grow a lot. This is a low-risk investment. Will you invest fifteen thousand won in my business?");}};
+
+P[4].prac={h:()=>`<span class="timebadge">⏱ 8 min · Guided practice (We do)</span>
+<div class="pop y cloze"><h3>✏️ Fill the pitch: choose the right word</h3><div id="cz"></div><div class="row"><button class="btn" id="cck">Check ✔</button></div><div class="fb" id="cfb"></div></div>
+<div class="pop m reorder"><h3>🔢 Put the pitch in order</h3><p class="hint">Use ▲ ▼ to move each part. Hook, Idea, Ask, Numbers, Payback, Close.</p><div id="ro"></div><div class="row"><button class="btn" id="rck">Check order ✔</button></div><div class="fb" id="rfb"></div></div>`,
+ i:root=>{const C=[['Mom, Dad, I have a business idea. I ',['will','am','do'],0,' sell cookies in our building.'],['I ',['will','did','am'],0,' charge 3,000 won per bag.'],['',['If','Because','When'],0,' I sell 8 bags, I will earn 24,000 won.'],['If you invest, I ',['will','am','was'],0,' pay you back in week one.'],['This is a ',['low-risk','high-price','sad'],0,' investment.'],['',['Will','Do','Are'],0,' you invest 15,000 won in my business?']];
+  $('#cz',root).innerHTML=C.map(c=>`<p>${c[0]}<select><option value="" selected>...</option>${c[1].map(o=>({o,k:o===c[1][0]})).sort(()=>Math.random()-.5).map(x=>`<option value="${x.k?'ok':'x'}">${x.o}</option>`).join('')}</select>${c[3]}</p>`).join('');
+  $('#cck',root).onclick=()=>{let ok=0;$$('#cz select',root).forEach(s=>{const c=s.value==='ok';s.className=c?'ok':'bad';if(c)ok++;});$('#cfb',root).textContent=ok===6?'🎉 Perfect!':ok+' of 6 correct.';$('#cfb',root).className='fb '+(ok===6?'ok':'bad');if(ok===6&&!root.dataset.c){root.dataset.c=1;earn(300,$('#cck',root));}};
+  const R=['Mom, Dad, I have a business idea.','I will sell homemade cookies.','I need 15,000 won to start.','I will charge 3,000 won per bag.','I will pay you back in week one.','Will you invest 15,000 won in my business?'];let ord=R.map((_,i)=>i).sort(()=>Math.random()-.5);if(ord.every((v,i)=>v===i))ord.reverse();
+  const dr=()=>{$('#ro',root).innerHTML=ord.map((v,i)=>`<div class="it"><button data-i="${i}" data-d="-1">▲</button><button data-i="${i}" data-d="1">▼</button><span class="tx">${R[v]}</span></div>`).join('');$$('#ro button',root).forEach(b=>b.onclick=()=>{const i=+b.dataset.i,j=i+ +b.dataset.d;if(j<0||j>=ord.length)return;[ord[i],ord[j]]=[ord[j],ord[i]];dr();});};dr();
+  $('#rck',root).onclick=()=>{const ok=ord.every((v,i)=>v===i);$('#rfb',root).textContent=ok?'🎉 Correct order!':'Not yet. Hook first, close last.';$('#rfb',root).className='fb '+(ok?'ok':'bad');if(ok&&!root.dataset.r){root.dataset.r=1;earn(300,$('#rck',root));}};}};
+
+P[4].more={h:()=>`<span class="timebadge">⏱ 5 min · Independent practice (You do)</span><div class="pop"><h3>💪 Which sentence is STRONGER?</h3>
+${MC(1,'Asking for money',['I want some money.','I need exactly 15,000 won for supplies.'],1,'Specific numbers are believable.')}
+${MC(2,'Showing earnings',['I think I can earn money.','If I sell 8 bags, I will earn 24,000 won.'],1,'If + will with real numbers.')}
+${MC(3,'Closing',['Please give me money.','Will you invest 15,000 won? I will pay it back in week one.'],1,'A clear question plus a payback promise.')}
+${MC(4,'Risk',['It is a low-risk investment. You only risk 15,000 won.','It is probably fine.'],0,'Low-risk appeal with a number.')}
+${MC(5,'Grammar: "If I ___ 5 bags, I will earn 15,000 won."',['sell','will sell','sold'],0,'If + present simple, will + verb.')}
+${MC(6,'Parent asks: "How will you pay me back?"',['Maybe later.','I will pay you back 15,000 won in week one.'],1,'Answer with a clear time and number.')}</div>`};
+
+P[4].pers={h:()=>`<span class="timebadge">⏱ 5 min · Make it yours</span>
+<div class="pop v"><h3>🎤 Build My Pitch</h3><div class="cols"><div>
+<label class="l">My name</label><input type="text" id="pn" class="wide" data-k="L4n"><label class="l">Business name</label><input type="text" id="pb" class="wide" data-k="L4b">
+<label class="l">What I will do or sell</label><input type="text" id="pw" class="wide" data-k="L4w" placeholder="sell homemade cookies">
+<label class="l">Startup cost (won)</label><input type="number" id="ps" class="wide" data-k="L4s"><label class="l">What the money buys</label><input type="text" id="pbuy" class="wide" data-k="L4buy" placeholder="ingredients, bags, flyers">
+<label class="l">Price (won)</label><input type="number" id="pp" class="wide" data-k="L4p"><label class="l">Customers per week</label><input type="number" id="pcu" class="wide" data-k="L4c">
+<label class="l">Expenses per week after startup (won)</label><input type="number" id="pe" class="wide" data-k="L4e" value="0"><label class="l">One fact</label><input type="text" id="pf" class="wide" data-k="L4f" placeholder="2 neighbors said yes">
+<label class="l">One superlative</label><input type="text" id="psu" class="wide" data-k="L4su" placeholder="the most careful">
+<label class="l">My age now</label><input type="number" id="pa" class="wide" data-k="L4a" value="10"></div>
+<div><div class="script pop y" id="sc" style="font-size:21px;line-height:1.75"></div><div class="row"><button class="btn m" id="sp">🔊 Hear it</button><button class="btn pk" id="tm">⏱ 60 sec rehearsal</button></div><div class="timer" id="tt">60</div></div></div></div>
+<div class="pop"><h3>📈 My 8-week profit graph</h3><svg class="chart" id="ch" viewBox="0 0 760 340"></svg><div class="stats" id="st"></div></div>`,
+ i:root=>{let txt='';const f=()=>{const v=id=>$(id,root).value.trim(),n=v('#pn')||'I',bz=v('#pb')||'my business',w=v('#pw')||'start a business',buy=v('#pbuy')||'supplies',fact=v('#pf')||'I made a careful plan',su=v('#psu')||'the best',S0=+$('#ps',root).value||0,Pr=+$('#pp',root).value||0,C=+$('#pcu',root).value||0,E=+$('#pe',root).value||0,age=+$('#pa',root).value||10;
+  if(!Pr||!C){$('#sc',root).innerHTML='<p>Type a price and customers per week. Your pitch appears here.</p>';return;}
+  const wr=Pr*C,wp=wr-E,mo=wp*4,pay=wp>0?(S0>0?Math.ceil(S0/wp):0):'?',fut=g(Math.max(wp*4,1000),40);
+  txt=`Mom, Dad, I have a business idea and a careful plan. I will ${w}. My business is called ${bz}. It is ${su}. Here is a fact: ${fact}. I need ${fmt(S0)} won to start. I will use it to buy ${buy}. I will charge ${fmt(Pr)} won. If I get ${C} customers a week, my revenue will be ${fmt(wr)} won. My profit will be ${fmt(wp)} won a week. I will pay you back by week ${pay}. If I invest one month of profit, ${fmt(mo)} won, at age ${age}, it will grow to about ${fmt(fut)} won when I am ${age+40}. This is a low-risk investment. Will you invest ${fmt(S0)} won in ${bz}?`;
+  $('#sc',root).innerHTML=`<p><b>1 Hook:</b> Mom, Dad, I have a business idea and a careful plan.</p><p><b>2 Idea:</b> I will ${w}. My business is called <i>${bz}</i>. It is <i>${su}</i>. Here is a fact: ${fact}.</p><p><b>3 Ask:</b> I need <i>${fmt(S0)} won</i> to start. I will buy ${buy}.</p><p><b>4 Numbers:</b> I will charge <i>${fmt(Pr)} won</i>. If I get <i>${C} customers</i> a week, my revenue will be ${fmt(wr)} won and my profit will be <i>${fmt(wp)} won</i>.</p><p><b>5 Payback and Future:</b> I will pay you back by week <i>${pay}</i>. If I invest <i>${fmt(mo)} won</i> at age ${age}, it will grow to about <i>${fmt(fut)} won</i> when I am ${age+40}.</p><p><b>6 Close:</b> This is a low-risk investment. Will you invest <i>${fmt(S0)} won</i> in ${bz}?</p>`;
+  const lab=Array.from({length:8},(_,i)=>'Wk '+(i+1));lineChart($('#ch',root),lab,[{data:lab.map(()=>S0),color:'#e23b4e',dash:true},{data:lab.map((_,i)=>wp*(i+1)),color:'#12a36f',fill:true,marks:[7],ml:true}],{h:340,max:8});
+  $('#st',root).innerHTML=`<div class="stat"><div class="v">${fmt(wr)}</div><div class="k">revenue / week</div></div><div class="stat"><div class="v">${fmt(wp)}</div><div class="k">profit / week</div></div><div class="stat"><div class="v">${fmt(mo)}</div><div class="k">profit / month</div></div><div class="stat"><div class="v">${pay}</div><div class="k">week to pay back</div></div>`;};
+  $$('input',root).forEach(x=>x.addEventListener('input',f));$('#sp',root).onclick=()=>txt&&speak(txt);
+  let tid=null;$('#tm',root).onclick=()=>{clearInterval(tid);let t=60;const el=$('#tt',root);el.textContent=t;el.className='timer';tid=setInterval(()=>{t--;if(!document.body.contains(el)){clearInterval(tid);return;}el.textContent=t;if(t<=10)el.className='timer low';if(t<=0){clearInterval(tid);el.textContent='⏰ Time!';}},1000);};f();}};
+
+P[4].proj={h:()=>`<span class="timebadge">⏱ Performance · Pitch to your "parents" (partners)</span>
+<div class="pop"><h3>📊 Pitch rubric (criterion-referenced, 4 levels)</h3><table class="table rubric"><tr><th>Criterion</th><th>1 Beginning</th><th>2 Developing</th><th>3 Secure</th><th>4 Strong</th></tr>
+<tr><td><b>Numbers</b></td><td>No exact numbers</td><td>1 number</td><td>Startup cost, price, profit</td><td>All numbers correct and used to persuade</td></tr>
+<tr><td><b>Persuasion</b></td><td>No technique</td><td>1 technique</td><td>3 techniques</td><td>3+ techniques, including low-risk and future</td></tr>
+<tr><td><b>Grammar</b></td><td>No "will"</td><td>"will" with errors</td><td>will and If + will</td><td>will and If + will, no errors</td></tr>
+<tr><td><b>Delivery</b></td><td>Reads, no eye contact</td><td>Some eye contact</td><td>Clear voice, eyes up</td><td>Confident, paced, ends with a question</td></tr></table>
+<p class="hint">Keep scores per criterion. Do not add them into one grade here.</p></div>
+<div class="pop m"><h3>👨‍👩‍👧 Parent Q&amp;A: be ready! (click to flip)</h3><div class="flipgrid">
+${Flip('How will you pay me back?','Give a week and an amount.','"I will pay you back 15,000 won in week one."','var(--yellow)')}${Flip('What if nobody buys?','Show low risk.','"I only risk 15,000 won. I will lower my price."','var(--sky)')}${Flip('Where will you buy supplies?','Be specific.','"I will buy ingredients at the market on Saturday."','var(--mint)')}${Flip('Why should I invest?','Use numbers and time.','"If I sell 8 bags, I will earn 24,000 won."','var(--pink)')}</div></div>
+<div class="note">Peer feedback frame: "Your best number was ___. I wish you would say ___."</div>`};
+
+P[4].plan={h:()=>plan({title:'Period 4: Make the Pitch',bq:'Why would a parent say YES?',fw:'SIOP, Rosenshine, CEFR Companion Volume (sustained monologue: addressing an audience; reports and presentations). Rubric is analytic and criterion-referenced so per-skill growth can be tracked later.',
+ co:['Organize a 6-part pitch: hook, idea, ask, numbers, payback and future, close.','Use at least 3 persuasive techniques and exact numbers from the student\'s own business.'],
+ lo:['Use "will" and "If + present, will + verb" accurately in a spoken pitch.','Read and say money numbers in English (for example 15,000 = fifteen thousand).'],
+ gl:'will and If + will, the same grammar as Periods 1 and 2. This is the "grammar link" payoff.',
+ vocab:['invest','startup cost','profit','payback','low risk','demand','persuade','projection'],mat:['TV with this hub','Student adverts from Period 3 (display on the wall)','Timers','Printed rubric (optional)'],
+ time:[['0 to 5','Admin','Attendance, Dojo'],['5 to 10','Warm Up','Say the number, ad and money retrieval'],['10 to 20','Presentation','6 parts, will and If + will, weak vs strong, 3+ techniques, model pitch with read aloud'],['20 to 28','Practice','Cloze, reorder the pitch'],['28 to 33','More Practice','Stronger sentence, parent questions'],['33 to 38','Personalize','Build my pitch, 60 second rehearsal in pairs'],['38 to 40','Exit Ticket','Strong sentence with a number']],
+ fa:['Number-reading warm up is also a pronunciation check. Note who stalls at "nineteen thousand".','Cloze check: ask the class "will or if + will?" for 3 gaps.','During rehearsal, listen for "If I sell ... I will earn ..." and stop to model any errors.','Peer feedback with the rubric. Teacher notes only 1 criterion per student to keep it quick.','Parent Q&A flip cards: ask one question to each pair randomly.'],
+ sup:['Give a printed script frame to fill in.','Reduce to the 4 key parts: hook, ask, numbers, close.','Pair with a stronger reader for rehearsal.'],chal:['Add a rhetorical question and a proof statement.','Answer a surprise parent question without notes.','Revise the pitch after peer feedback.'],
+ exit:'(1) Write one STRONG sentence with a number: "If I get ___ customers, I will earn ___ won." (2) Weak or strong? "Please give me money." ______ (3) Write your closing question: "Will you invest ___ won in ___?"',exitWB:'write (1) and say (3) to a partner.',key:'(1) Any sentence with If + present, will + verb and two numbers. (2) Weak. (3) A closing question with an amount and business name.'})};
+
+/* ===== OVERVIEW + TICKETS ===== */
+const EXIT=[
+ {n:'Period 1: Business Money',b:'<p>Bryan buys 20 glue sticks for 100 won each. He sells them all for 400 won each.</p><p>1. Expenses: <span class="ln"></span> won</p><p>2. Revenue: <span class="ln"></span> won</p><p>3. Profit: <span class="ln"></span> won</p><p>4. If Bryan sells all 20, his profit will be <span class="ln"></span>.</p>'},
+ {n:'Period 2: Invest',b:'<p>You invest 20,000 won at 10% a year.</p><p>1. After 1 year: 20,000 × 1.1 = <span class="ln"></span> won</p><p>2. Friend A starts at age 10. Friend B starts at age 20. Who has more at age 50? <span class="ln"></span></p><p>3. Why? <span class="ln" style="min-width:220px"></span></p>'},
+ {n:'Period 3: Make the Advert',b:'<p>My product or service: <span class="ln"></span></p><p>My headline:</p><div class="box"></div><p>Circle the tools I used:<br>question · adjective · superlative · fact · opinion · exclamation</p><p>My ______ is the <span class="ln" style="min-width:60px"></span> in our building.</p>'},
+ {n:'Period 4: Make the Pitch',b:'<p>1. A STRONG sentence with numbers:<br>If I get <span class="ln" style="min-width:50px"></span> customers, I will earn <span class="ln" style="min-width:60px"></span> won.</p><p>2. Weak or strong? "Please give me money."  <span class="ln"></span></p><p>3. My closing question:<br>Will you invest <span class="ln" style="min-width:60px"></span> won in <span class="ln"></span>?</p>'}];
+function ticketsHTML(){return `<div class="tgrid" id="tg">${EXIT.map(e=>`<div class="tick"><h4>🎟️ ${e.n}</h4><div class="nm">Name: <span class="ln" style="min-width:150px"></span> Class: <span class="ln" style="min-width:50px"></span></div>${e.b}</div>`).join('')}</div>`;}
+const KEY=['2,000 · 8,000 · 6,000 · "...his profit will be 6,000 won."','22,000 · Friend A · more time to grow','Open response: a headline, 2 or more correct tools, a superlative in the sentence','Open response: If + present, will + verb with two numbers · Weak · a closing question with amount and business name'];
+
+function overviewHTML(){return `<div class="wrap"><h2>🗺️ Project Map</h2>
+<div class="pop y"><h3>Big goal</h3><p style="font-size:26px">Create a business to sell an item or a service, then convince your parents to invest.</p></div>
+<div class="cols"><div class="pop m"><h3>🧭 Why → What → How → Advert</h3><ul style="margin-left:24px"><li><b>Why</b> (Periods 1 and 2): profit math and compound growth. Why bother? Money can grow.</li><li><b>What</b> (end of Period 2): students choose a product or service and bring it with prices.</li><li><b>How</b> (Period 4): write and say a pitch for parents.</li><li><b>Advert</b> (Period 3): design an A4 pencil advert.</li></ul></div>
+<div class="pop s"><h3>🎓 I can...</h3><ul style="margin-left:24px"><li>calculate revenue, expenses and profit.</li><li>explain why starting to invest early matters.</li><li>choose a business and show its price and cost.</li><li>use <b>will</b> and <b>if + will</b> in a pitch.</li><li>design an ad with all 6 key elements.</li></ul></div></div>
+<div class="pop"><h3>📅 Four 40-minute periods</h3><table class="table"><tr><th>Period</th><th>Focus</th><th>Key output</th></tr><tr><td>1 Business Money</td><td>Revenue, expenses, profit, loss, break-even</td><td>Profit calculations and "If..., will..." sentences</td></tr><tr><td>2 Invest</td><td>×1.1 growth, time, start early</td><td>Growth table, profit plan, Product Card (bring in)</td></tr><tr><td>3 Make the Advert</td><td>6 tools, 6 elements, superlatives</td><td>A4 pencil advert</td></tr><tr><td>4 Make the Pitch</td><td>6-part pitch, will, If + will</td><td>Spoken pitch with numbers</td></tr></table></div>
+<div class="pop v"><h3>🧱 How each lesson is built (PPP + retrieval)</h3><p><b>Warm Up</b> (retrieval, 5) → <b>Presentation</b> (model, 10) → <b>Practice</b> (guided, 8) → <b>More Practice</b> (independent, 5) → <b>Personalize</b> (5) → <b>Exit ticket</b> (2). <b>More Practice</b> is a 2-page problem list for the TV (students write on paper). <b>Project</b> tabs hold optional extensions and the performance tasks. The <b>Lesson Plan</b> tab has objectives, formative assessment tips and the exit ticket with key.</p></div>
+
+<p style="text-align:center"><a class="btn y" href="#" data-nav="home">🏠 Back to the hub</a></p></div>`;}
+function ticketsView(){return `<div class="wrap"><h2>🎟️ Exit Ticket Sheet</h2><p class="hint" style="margin-bottom:14px">One A4 page, 4 tickets (2 × 2). Cut along the dashed lines. One ticket per period.</p><div class="row" style="margin-bottom:16px"><button class="btn y" id="ptk">🖨️ Print the sheet</button><a class="btn g" href="#" data-nav="home">🏠 Hub</a></div><div id="tkw">${ticketsHTML()}</div><div class="pop m" style="margin-top:28px"><h3>Teacher key</h3><ol style="margin-left:28px">${KEY.map(k=>`<li>${k}</li>`).join('')}</ol></div></div>`;}
+
+
+function openFlip(fl){let m=$('#fm');if(!m){m=document.createElement('div');m.id='fm';document.body.appendChild(m);}
+  m.innerHTML=`<div class="flip" style="${fl.getAttribute('style')||''}">${fl.innerHTML}</div><div class="fmh">${L('Tap the card to flip it back. Tap outside to close.','카드를 누르면 다시 뒤집혀요. 바깥을 누르면 닫혀요.')}</div>`;m.className='on';setTimeout(()=>{const c=$('.flip',m);if(c)c.classList.add('on');},60);}
+/* ===== router ===== */
+let cur='home';try{cur=(location.hash||'').replace('#/','')||'home';}catch(e){}
+function nav(p){cur=p;try{history.replaceState(null,'','#/'+p);}catch(e){}render();}
+function topbar(title){return `<div class="top dyn"><div class="ttl">${title}</div></div>`;}
+function render(){
+  const h=cur.split('/'),v=h[0]||'home';
+  $$('.view').forEach(x=>x.classList.remove('on'));$$('.top.dyn').forEach(x=>x.remove());$('#sn').innerHTML='';$('#bucks').textContent=fmt(bucks);
+  if(v==='home'){$('#v-home').classList.add('on');document.body.insertAdjacentHTML('afterbegin',topbar(K("Let's Make Money!",'돈을 벌자!')));}
+  else if(v==='overview'){const e=$('#v-overview');e.innerHTML=overviewHTML();e.classList.add('on');e.insertAdjacentHTML('afterbegin',topbar(K('Project Map 🗺️','프로젝트 지도 🗺️')));}
+  else if(v==='tickets'){const e=$('#v-tickets');e.innerHTML=ticketsView();e.classList.add('on');e.insertAdjacentHTML('afterbegin',topbar(K('Exit Tickets 🎟️','퇴실 티켓 🎟️')));$('#ptk').onclick=()=>printEl($('#tg'));}
+  
+  else if(P[v]){const t=h[1]||'warm';$('#v-lesson').classList.add('on');$('#lttl').innerHTML=LES[v].t;
+    $('#tabs').innerHTML=TABS.map(x=>`<button class="tab${x[0]===t?' on':''}" style="--c:${LES[v].c==='var(--yellow)'?'var(--orange)':LES[v].c==='var(--mint)'?'#0ea57a':LES[v].c==='var(--pink)'?'var(--pink)':'#1a8fd6'}" data-t="${x[0]}">${x[1]} ${K(x[2],x[3])}</button>`).join('');
+    const pn=P[v][t]||P[v].warm,root=$('#panel');root.innerHTML=pn.h();root.dataset.d='';if(pn.i)pn.i(root);
+    $$('[data-k]',root).forEach(el=>{const k=el.dataset.k;if(S[k]!==undefined)el.value=S[k];el.addEventListener('input',()=>S[k]=el.value);});
+    $$('[data-k]',root).forEach(el=>el.dispatchEvent(new Event('input')));
+    $$('.tab',$('#tabs')).forEach(b=>b.dataset.nav=`${v}/${b.dataset.t}`);
+    const tb=root.firstElementChild;if(tb&&tb.classList.contains('timebadge')){tb.style.marginTop='26px';root.appendChild(tb);}
+    const sl=$('.slides',root);if(sl){const n=$$('.slide',sl).length;$('#sn').innerHTML=`<button class="btn y next" title="Next">▶</button><div id="scount">1 / ${n}</div><button class="btn g prev" title="Back">◀</button>`;}}
+  else{cur='home';render();return;}
+  try{window.scrollTo(0,0);}catch(e){}
+}
+window.addEventListener('hashchange',()=>{try{const x=(location.hash||'').replace('#/','');if(x&&x!==cur){cur=x;render();}}catch(e){}});
+
+/* ===== global delegation ===== */
+document.addEventListener('click',e=>{
+  const t=e.target;
+  const nv=t.closest('[data-nav]');if(nv){e.preventDefault();nav(nv.dataset.nav);return;}
+  if(t.closest('#krbtn')){document.body.classList.toggle('kr');try{localStorage.setItem('g4kr',isKR()?'1':'0');}catch(_){}return;}
+  if(t.closest('#bkbtn')||t.closest('.bkhelp')){e.preventDefault();$('#bkm').classList.add('on');return;}
+  if(t.closest('#bkclose')||t.id==='bkm'){$('#bkm').classList.remove('on');return;}
+  if(t.closest('#bkreset')){bucks=0;try{localStorage.setItem('g4bucks',0);}catch(_){}$$('#bucks').forEach(x=>x.textContent='0');toast(L('Bryan Bucks reset to 0 🔄','브라이언 벅스를 0으로 되돌렸어요 🔄'));return;}
+  const cc=t.closest('.cchk');if(cc){const c=cc.closest('.calc'),inp=$('.cin',c),fb=$('.fb',c),v=parseFloat(inp.value);
+    if(isNaN(v)){fb.textContent=L('Type a number.','숫자를 입력하세요.');fb.className='fb bad';return;}
+    if(Math.abs(v-+c.dataset.ans)<=(+c.dataset.tol||0))calcDone(c,true);else{fb.textContent=L('❌ Not yet. ','❌ 아직이에요. ')+(c.dataset.hint?L('Hint: ','힌트: ')+c.dataset.hint:'');fb.className='fb bad';}return;}
+  const cr=t.closest('.crev');if(cr){calcDone(cr.closest('.calc'),false);return;}
+  const chk=t.closest('.chk');if(chk){const ex=chk.closest('.ex'),inp=$('.ans',ex),fb=$('.fb',ex),v=parseFloat(inp.value);
+    if(isNaN(v)){fb.textContent=L('Type a number.','숫자를 입력하세요.');fb.className='fb bad';return;}
+    if(Math.abs(v-+ex.dataset.ans)<=(+ex.dataset.tol||0)){ex.classList.remove('bad');ex.classList.add('ok');fb.textContent=L('✅ Correct! ','✅ 정답! ')+(ex.dataset.why||'');fb.className='fb ok';if(!ex.dataset.done){ex.dataset.done=1;earn(100,chk);}}
+    else{ex.classList.remove('ok');ex.classList.add('bad');fb.textContent=L('❌ Not yet. Hint: ','❌ 아직이에요. 힌트: ')+ex.dataset.hint;fb.className='fb bad';}return;}
+  const opt=t.closest('.opt');if(opt){const mc=opt.closest('.mc'),fb=$('.fb',mc);if(opt.dataset.ok==='1'){$$('.opt',mc).forEach(x=>x.disabled=true);opt.classList.add('right');mc.classList.add('ok');fb.textContent='✅ '+mc.dataset.why;fb.className='fb ok';if(!mc.dataset.done){mc.dataset.done=1;earn(100,opt);}}else{opt.classList.add('wrong');fb.textContent=L('❌ Try another one.','❌ 다른 보기를 골라 보세요.');fb.className='fb bad';}return;}
+  const ta=t.closest('.tally');if(ta){const c=$('.cnt',ta);c.textContent=+c.textContent+1;return;}
+  const pa=t.closest('.path');if(pa){const r=$('.res',pa.parentElement);r.hidden=!r.hidden;return;}
+  const qm=t.closest('.qm');if(qm){const bx=$('.brk',qm.parentElement);if(bx)bx.hidden=!bx.hidden;return;}
+  if(t.closest('#fm')){const c=t.closest('#fm .flip');if(c)c.classList.toggle('on');else $('#fm').className='';return;}
+  const fl=t.closest('.flip');if(fl){openFlip(fl);return;}
+  const nx=t.closest('.next,.prev');if(nx){const sl=$('.slides');if(!sl)return;const all=$$('.slide',sl),i=all.findIndex(s=>s.classList.contains('on')),j=Math.max(0,Math.min(all.length-1,i+(nx.classList.contains('next')?1:-1)));all[i].classList.remove('on');all[j].classList.add('on');const sc=$('#scount');if(sc)sc.textContent=(j+1)+' / '+all.length;if(j===all.length-1&&!sl.dataset.done){sl.dataset.done=1;earn(100,nx);}}
+});
+document.addEventListener('keydown',e=>{if(e.target.matches('input,select,textarea')){if(e.key==='Enter'&&e.target.classList.contains('ans')){$('.chk',e.target.closest('.ex')).click();}if(e.key==='Enter'&&e.target.classList.contains('cin')){$('.cchk',e.target.closest('.calc')).click();}return;}
+  if(e.key==='Escape'){const m=$('#fm');if(m)m.className='';return;}
+  const sl=$('.slides');if(sl&&(e.key==='ArrowRight'||e.key==='ArrowLeft')){const bt=$(e.key==='ArrowRight'?'#sn .next':'#sn .prev');if(bt)bt.click();}});
+render();
+</script>
+</body>
+</html>
